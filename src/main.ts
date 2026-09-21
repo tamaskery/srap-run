@@ -1,6 +1,10 @@
 import {Color3,Color4} from '@babylonjs/core/Maths/math.color';
 import {Vector3,Matrix} from '@babylonjs/core/Maths/math.vector';
 import {Engine} from '@babylonjs/core/Engines/engine';
+import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
+import {ShadowGenerator} from '@babylonjs/core/Lights/Shadows/shadowGenerator';
+import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
+import {WorldArt} from './art';
 import {HemisphericLight} from '@babylonjs/core/Lights/hemisphericLight';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -14,6 +18,7 @@ import {NavigationService} from './navigation';
 import {InputAdapter,type InputAction} from './input';
 import {PresentationCamera} from './camera';
 import {FixedClock,Diagnostics} from './timing';
+import {MissionHUD} from './presentation';
 import './style.css';
 const canvas=document.querySelector<HTMLCanvasElement>('#world')!;
 const hud=document.querySelector<HTMLDivElement>('#hud')!;
@@ -36,6 +41,7 @@ class SceneRuntime {
  readonly walls:Mesh[]=[];
  readonly renderGroups=new Map<string,Mesh[]>();
  readonly hiddenGroups=new Set<string>();
+ art!:WorldArt;
  readonly ambient:{walker:AmbientWalker;mesh:Mesh;previous:Vec}[]=[];
  readonly itemMeshes=new Map<string,Mesh>();
  readonly owned=new AbortController();
@@ -51,6 +57,7 @@ class SceneRuntime {
  cone!:Mesh;
  previousPlayer!:Vec;
  previousThreat!:Vec;
+ presentation?:MissionHUD;
  paused=false;
  hidden=false;
  message='Collect the bottle, recycle in SRAP, then leave.';
@@ -64,10 +71,12 @@ class SceneRuntime {
  async init(){
   validateDefinition(this.definition);
   if(engine.webGLVersion!==2)throw new Error('WebGL2 is required. Enable hardware acceleration in a supported browser.');
-  this.scene.useRightHandedSystem=true;this.scene.clearColor=Color4.FromHexString('#14232dff');
-  const light=new HemisphericLight('sky',new Vector3(.3,1,.2),this.scene);light.intensity=.95;
-  const groundMat=this.material('visual ground','#283c46');
-  const floorMat=this.material('playable floor','#71878a');
+  this.scene.useRightHandedSystem=true;this.art=new WorldArt(this.scene,this.renderGroups);this.scene.clearColor=Color4.FromHexString('#a5afa0ff');
+  const light=new HemisphericLight('sky',new Vector3(.3,1,.2),this.scene);light.intensity=.65;light.diffuse=Color3.FromHexString('#dce8e3');light.groundColor=Color3.FromHexString('#8b826b');
+  const sun=new DirectionalLight('afternoon sun',new Vector3(-.6,-1,.45),this.scene);sun.position.set(25,50,-30);sun.intensity=.7;sun.diffuse=Color3.FromHexString('#fff0cf');
+  const shadows=new ShadowGenerator(1024,sun);shadows.usePoissonSampling=true;shadows.bias=.002;shadows.normalBias=.03;shadows.setDarkness(.22);
+  const groundMat=this.art.tiled('surrounding ground','#7e8975','#78836f',100);
+  const floorMat=this.art.tiled('square stone','#b5ae96','#a49f8c',28);
   const wallMat=this.material('walls','#d4c6a4');
   const roofMat=this.material('roof','#456578');
   const palette=new Map<string,StandardMaterial>();
@@ -76,15 +85,15 @@ class SceneRuntime {
    if(w.shape==='ellipse'){const m=MeshBuilder.CreateCylinder(name,{height,diameter:1,tessellation:32},this.scene);m.scaling.x=w.width;m.scaling.z=w.depth;return m;}
    return MeshBuilder.CreateBox(name,{width:w.width,depth:w.depth,height},this.scene);
   };
-  const ground=MeshBuilder.CreateGround('visual-ground',{width:240,height:220},this.scene);ground.position.y=-.05;ground.material=groundMat;
+  const ground=MeshBuilder.CreateGround('visual-ground',{width:240,height:220},this.scene);ground.position.y=-.05;ground.material=groundMat;ground.receiveShadows=true;
   const proxies:Mesh[]=[];
   for(const floor of this.definition.floors){
-   const m=MeshBuilder.CreateGround(floor.id,{width:floor.width,height:floor.depth},this.scene);m.position.set(floor.x,0,floor.z);m.material=colored(floor.color,floorMat);proxies.push(m);
+   const m=MeshBuilder.CreateGround(floor.id,{width:floor.width,height:floor.depth},this.scene);m.position.set(floor.x,0,floor.z);m.material=this.definition.id==='square'?floorMat:colored(floor.color,floorMat);m.receiveShadows=true;proxies.push(m);
   }
   for(const w of this.definition.walls){
    const proxy=shape(`${w.id}:proxy`,w);
    proxy.position.set(w.x,w.height/2,w.z);proxy.isVisible=false;proxy.isPickable=false;proxies.push(proxy);this.walls.push(proxy);
-   const render=proxy.clone(w.id)!;render.isVisible=true;render.isPickable=true;render.material=colored(w.color,wallMat);
+   const render=proxy.clone(w.id)!;render.isVisible=true;render.isPickable=true;render.material=colored(w.color,wallMat);render.receiveShadows=true;shadows.addShadowCaster(render);
    if(w.cutaway){const list=this.renderGroups.get(w.cutaway)??[];list.push(render);this.renderGroups.set(w.cutaway,list);
     const baseHeight=w.cutawayBaseHeight??.2;const base=shape(`${w.id}:base`,w,baseHeight);base.position.set(w.x,baseHeight/2,w.z);base.material=render.material;
    }
@@ -94,9 +103,11 @@ class SceneRuntime {
    if(r.cutaway){const list=this.renderGroups.get(r.cutaway)??[];list.push(m);this.renderGroups.set(r.cutaway,list);}
   }
   for(const d of this.definition.details??[]){const m=shape(d.id,d);m.position.set(d.x,(d.elevation??0)+d.height/2,d.z);m.material=colored(d.color,wallMat);m.isPickable=false;}
+  this.art.dress(this.definition);
+  for(const mesh of this.scene.meshes)if(mesh.name.startsWith('dressing:'))mesh.receiveShadows=true;
   for(const zone of this.definition.zones){
    if(zone.kind==='cutaway')continue;
-   const color=zone.kind==='hiding'?'#527c51':zone.kind==='recycler'?'#39bca6':'#d3a646';
+   const color=zone.kind==='hiding'?'#82916b':zone.kind==='recycler'?'#729e8c':'#bcaa6b';
    const m=MeshBuilder.CreateGround(zone.id,{width:zone.width,height:zone.depth},this.scene);m.position.set(zone.x,.02,zone.z);m.material=this.material(zone.id,color);m.metadata={target:zone.kind==='recycler'?zone.id:undefined};
    const pts=[[-1,-1],[1,-1],[1,1],[-1,1],[-1,-1]].map(([x,z])=>new Vector3(zone.x+x*zone.width/2,.045,zone.z+z*zone.depth/2));
    MeshBuilder.CreateLines(`${zone.id}:outline`,{points:pts},this.scene).color=Color3.FromHexString(color);
@@ -107,15 +118,13 @@ class SceneRuntime {
   this.threat=new ThreatController(this.nav,this.definition.threatStart,this.definition.patrol,this.run);
   for(const point of [...this.definition.patrol,...this.definition.items.map(i=>i.point),...this.definition.zones.filter(z=>z.kind!=='cutaway').map(z=>({x:z.x,y:0,z:z.z}))])this.nav.path(this.player.agent,point);
   this.interactions=new InteractionSystem(this.run,[...this.definition.items.map(i=>({...i,kind:'item' as const})),...this.definition.zones.filter(z=>z.kind==='recycler').map(z=>({id:z.id,kind:'recycler' as const,point:{x:z.x,y:0,z:z.z}}))],this.los);
-  for(const item of this.definition.items){
-   const m=MeshBuilder.CreateCylinder(item.id,{height:.9,diameter:.45},this.scene);m.position.copyFrom(vector(item.point));m.position.y+=.45;m.material=colored('#8ef2db',floorMat);m.metadata={target:item.id};this.itemMeshes.set(item.id,m);
-   const marker=MeshBuilder.CreateTorus(`${item.id}:marker`,{diameter:1.4,thickness:.09,tessellation:24},this.scene);marker.parent=m;marker.position.y=-.4;marker.material=m.material;marker.metadata={target:item.id};
-  }
-  this.playerMesh=MeshBuilder.CreateCapsule('player',{height:1.8,radius:.3},this.scene);this.playerMesh.material=this.material('player','#4dd9fa');this.playerMesh.isPickable=false;
-  this.threatMesh=MeshBuilder.CreateCapsule('threat',{height:1.8,radius:.3},this.scene);this.threatMesh.material=this.material('threat','#ef7063');this.threatMesh.isPickable=false;
+  for(const item of this.definition.items)this.itemMeshes.set(item.id,this.art.bottle(item.id,item.point));
+  this.playerMesh=this.art.character('player','player');
+  this.threatMesh=this.art.character('threat','hostile');
+  shadows.addShadowCaster(this.playerMesh,true);shadows.addShadowCaster(this.threatMesh,true);
   for(const actor of this.definition.ambient??[]){
    const walker=new AmbientWalker(this.nav,actor.path,actor.speed);
-   const mesh=this.playerMesh.clone(actor.id)!;mesh.material=colored(actor.color,wallMat);mesh.isPickable=false;
+   const mesh=this.art.character(actor.id,'civilian',actor.color);shadows.addShadowCaster(mesh,true);
    this.ambient.push({walker,mesh,previous:{...walker.position}});
   }
   const conePoints=[Vector3.Zero(),...Array.from({length:17},(_,i)=>{const a=-Math.PI/4+i*Math.PI/32;return new Vector3(Math.sin(a)*8,0,Math.cos(a)*8);}),Vector3.Zero()];
@@ -183,8 +192,12 @@ class SceneRuntime {
   const interpolate=(mesh:Mesh,before:Vec,after:Vec)=>{mesh.position.set(before.x+(after.x-before.x)*alpha,after.y+.9,before.z+(after.z-before.z)*alpha);};
   interpolate(this.playerMesh,this.previousPlayer,this.player.position);interpolate(this.threatMesh,this.previousThreat,this.threat.position);
   for(const actor of this.ambient)interpolate(actor.mesh,actor.previous,actor.walker.position);
+  const animate=(mesh:Mesh,before:Vec,after:Vec)=>this.art.animate(mesh,before,after,this.run.activeTime,!this.paused&&this.run.active);
+  animate(this.playerMesh,this.previousPlayer,this.player.position);animate(this.threatMesh,this.previousThreat,this.threat.position);
+  for(const actor of this.ambient)animate(actor.mesh,actor.previous,actor.walker.position);
   this.cone.position.set(this.threat.position.x,.06,this.threat.position.z);this.cone.rotation.y=Math.atan2(this.threat.facing.x,this.threat.facing.z);
-  for(const [id,m] of this.itemMeshes)m.setEnabled(this.run.items.get(id)==='available');
+  for(const [id,m] of this.itemMeshes){m.setEnabled(this.run.items.get(id)==='available');m.rotation.y=Math.sin(this.run.activeTime*1.5)*.12;}
+  (this.cone as any).color=Color3.FromHexString(this.threat.state==='chase'?'#c85b40':this.threat.suspicion>0?'#dfa94e':'#ad9870');
     this.updateHUD();this.scene.render();
   for(const zone of this.definition.zones.filter(z=>z.kind!=='cutaway')){
    const label=hud.querySelector<HTMLElement>(`[data-zone="${zone.id}"]`);if(!label)continue;
@@ -215,18 +228,17 @@ class SceneRuntime {
   hud.querySelector('#pause')!.addEventListener('click',()=>this.setPaused(!this.paused),{signal:this.owned.signal});
   hud.querySelector('#replay')!.addEventListener('click',()=>void boot(this.definition),{signal:this.owned.signal});
   hud.querySelector('#scene-select')?.addEventListener('change',e=>void boot(SCENES[Number((e.target as HTMLSelectElement).value)]),{signal:this.owned.signal});
+  this.presentation=new MissionHUD(hud);
  }
  updateHUD(){
   const stats=hud.querySelector('#stats');if(!stats||!this.run)return;
   const near=this.interactions.nearest(this.player.position);this.nearest=near?.id??'';
   const mission=this.definition.mission;
-  hud.querySelector('#objective')!.textContent=this.run.phase==='collecting'?(this.run.bagCount<this.run.requiredBottles?`Collect bottles: ${this.run.bagCount}/${this.run.requiredBottles} · ${this.definition.items.length} bottles in the square`:(mission?.recycleObjective??'Recycle your bottles')):this.run.phase==='exiting'?(mission?.exitObjective??'Reach the exit'):(this.run.phase==='success'?'MISSION COMPLETE':'CAUGHT · RUN FAILED');
-  stats.textContent=`${this.paused?'PAUSED':this.run.phase.toUpperCase()}  |  Health ${this.run.health}  |  Stamina ${Math.ceil(this.run.stamina)}  |  Bag ${this.run.bagCount}  |  Recycled ${this.run.recycledCount}  |  ${this.run.activeTime.toFixed(1)}s  |  ${this.hidden?'CONCEALED':'EXPOSED'}  |  Threat ${this.threat.state} ${Math.round(this.threat.suspicion*100)}%${near?'  |  E: '+near.id:''}`;
-  hud.querySelector('#message')!.textContent=this.run.active?this.message:`${this.run.phase==='success'?'Run complete':'Run failed'} — recycled ${this.run.recycledCount}, health ${this.run.health}, active time ${this.run.activeTime.toFixed(1)}s. Replay starts fresh.`;
-  hud.querySelector('#pause')!.textContent=this.paused?'Resume':'Pause';
+  const objective=this.run.phase==='collecting'?(this.run.bagCount<this.run.requiredBottles?`Collect bottles: ${this.run.bagCount}/${this.run.requiredBottles} · ${this.definition.items.length} bottles in the square`:(mission?.recycleObjective??'Recycle your bottles')):this.run.phase==='exiting'?(mission?.exitObjective??'Reach the exit'):(this.run.phase==='success'?'MISSION COMPLETE':'CAUGHT · RUN FAILED');
+  this.presentation?.update({run:this.run,threat:this.threat.state,suspicion:this.threat.suspicion,paused:this.paused,hidden:this.hidden,objective,message:this.message,near:near?.id,moving:this.player.moving});
  }
  snapshot(){return {ambient:this.ambient.map(a=>({id:a.mesh.name,position:{...a.walker.position}})),scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
- dispose(){this.disposed=true;this.owned.abort();this.input?.dispose();this.nav?.dispose();this.scene.dispose();}
+ dispose(){this.disposed=true;this.presentation?.dispose();this.owned.abort();this.input?.dispose();this.nav?.dispose();this.scene.dispose();}
 }
 // Keep the historical debug fixture available; ordinary launch opens the mission.
 async function boot(definition:SceneDefinition=SCENES.find(s=>s.id===params.get('scene'))??(debug?MAIN_SCENE:SQUARE_SCENE)){

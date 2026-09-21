@@ -18,9 +18,9 @@ Click ground to move or a bottle/recycler to approach and interact. **WASD/arrow
 
 ## Scope and architecture
 
-The authored 76 × 40 m pedestrian greybox follows the major relationships in `references/proposed-square-map.png` and the research corrections: elongated square, southern SRAP frontage, western rounded pavilions, central Fókák fountain, eastern gardens, and adjoining road/building masses. Dimensions and heights are gameplay approximations, not a survey. The SRAP interior is deferred.
+The authored 76 × 44 m pedestrian square follows the major relationships in `references/proposed-square-map.png` and the research corrections: elongated square, southern SRAP frontage, western rounded pavilions, central Fókák fountain, eastern gardens, and adjoining road/building masses. Dimensions and heights are gameplay approximations, not a survey. SRAP has a playable cutaway interior, recycling bay and west side exit. M3 adds shared stylized environment art, animated humanoids, a compact HUD and synthesized feedback audio.
 
-`src/square.ts` owns geometry, materials, landmarks, bottles, patrol, shelters, cutaway regions, camera framing and mission text. Shared input, movement, navigation, AI, interactions, health/stamina and replay consume that data. Cutaways retain physical proxies and authored building bases.
+`src/square.ts` owns gameplay geometry, landmarks, bottles, patrol, shelters, cutaway regions, camera framing and mission text. `src/art.ts` adds non-colliding visual dressing; `src/presentation.ts` owns HUD/audio feedback. Shared input, movement, navigation, AI, interactions, health/stamina and replay consume that data. Cutaways retain physical proxies and authored building bases.
 
 Node 24.19.0 / npm 11.17.0 were used. Dependencies are exact-pinned. WebGL2 is required; the Recast WASM is bundled locally. No backend, runtime CDN or external art download is required.
 
@@ -42,4 +42,4 @@ The square test is one coherent mission and replay scenario using real browser i
 
 Normal launch opens the square. `?debug&scene=square` enables diagnostic hooks; `?debug` preserves the original M0 fixture and scene selector. `&deterministic` freezes automatic ticking only in debug mode for the acceptance driver. These URLs are developer tools, not extra player missions.
 
-M0 CLOSED — FUNCTIONAL TECHNICAL PROOF COMPLETE. REPRESENTATIVE PERFORMANCE DEFERRED TO V1 STABILIZATION (M4). Historical performance scripts are retained but are not an M1 gate. Current scope and results: [project state](PROJECT_STATE.md), [M1 results](docs/M1_RESULTS.md).
+M0 CLOSED — FUNCTIONAL TECHNICAL PROOF COMPLETE. REPRESENTATIVE PERFORMANCE DEFERRED TO V1 STABILIZATION (M4). Historical performance scripts are retained but are not an M1 gate. Current scope and results: [project state](PROJECT_STATE.md), [M3 results](docs/M3_RESULTS.md).
