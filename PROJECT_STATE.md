@@ -4,29 +4,30 @@ Repository: https://github.com/tamaskery/srap-run
 
 ## Current milestone
 
-M3 PASS — visual and game-feel production on the verified clean main baseline fd506a2668b81a5a082e07d558540c47810bb8e5. See docs/M3_RESULTS.md. M0, M1 and M2 remain closed.
+M4 PASS — navigation, laptop performance and bounded production Chrome release QA on M3 baseline 88ea788. See docs/M4_RESULTS.md. M0–M3 remain closed. M4 changes only tests and documentation; production gameplay and visuals are frozen.
 
 ## Frozen decisions and boundaries
 
 - Standalone single-player WebGL2; Babylon.js + TypeScript + Recast V2, pinned dependencies and local WASM.
 - One Mester Árpád tér mission: five of eight bottles, one recycling trip, separate Ecseri exit; lethal damage takes priority and replay starts fresh.
-- Existing layout, both SRAP openings, collision/nav/LOS proxies, hostile AI, two civilian loops, hiding rules and movement are unchanged.
-- Fixed orthographic heading with pan/zoom/recenter. Rendering-only cutaways retain solid proxies; SRAP approach coverage includes north/east space to prevent roof interception of valid floor clicks.
-- Grounded stone/olive/terracotta art, low-poly humanoids, compact brass/olive HUD and synthesized audio. No downloaded media or new dependencies.
+- Authored layout, both SRAP openings, collision/nav/LOS proxies, hostile AI, civilian loops and hiding rules remain intact. Roads are background scenery.
+- Fixed orthographic heading with pan/zoom/recenter; rendering cutaways retain solid proxies. Use visible approaches before SRAP's cutaway opens.
+- M3 stone/olive/terracotta materials, humanoids, compact HUD and synthesized audio are unchanged. No downloaded assets or new dependencies.
 
 ## Architecture
 
-square.ts remains authored gameplay data. WorldArt (art.ts) adds presentation-only geometry, shared materials, generated textures, simple character rigs and bottles. Static dressing is merged by material AND cutaway group; it never enters navigation/LOS or intercepts clicks. Create WorldArt after setting right-handed scene mode. Tiled textures explicitly use wrap addressing.
+square.ts owns authored gameplay data. WorldArt adds presentation-only geometry, shared materials/textures, character rigs and bottles. Dressing merges by material and cutaway group and never enters navigation/LOS or intercepts clicks. Create WorldArt after right-handed scene setup; tiled textures use wrap addressing.
 
-MissionHUD/RunAudio (presentation.ts) observe authoritative state. HUD mounts once; audio unlocks on input, supports mute, and disposes with the scene. SceneRuntime retains gameplay/cutaway/reset ownership. One directional sun/1024 shadow map and hemispheric fill; original solid structures and characters cast shadows.
+MissionHUD/RunAudio observe authoritative state. HUD mounts once; audio unlocks on input, supports mute and disposes with the scene. SceneRuntime owns gameplay/cutaway/reset. Existing Diagnostics measures render intervals and simulation cost; M4_REALTIME=1 runs the mission test with the normal clock and attaches timings.
 
 ## Verified baseline
 
-- npm run build: TypeScript and production bundle pass.
-- npx vitest run src/art.test.ts: 2 focused tests pass (character picking/facing/pause and bottle interaction ownership/hiding).
-- Production Chrome, tests/square.spec.ts: one integrated M3 mission scenario passes at 1920 × 1080 with physical input, real Recast/live patrol and a deterministic clock. Collection, sprint escape/search/return, cover, indoor recycling, side exit, success, lethal failure and fresh replay work. Civilian movement, mute/focus, HUD feedback, all SRAP cutaway meshes/restoration and resource reset checked; no runtime/console errors.
-- Exterior, interior and results visually reviewed; ordinary non-debug launch inspected live. No historical full suites or formal benchmark rerun.
+- npm run build and final npx tsc --noEmit PASS; npm test 28/28 PASS.
+- Production Chrome: 9 focused boot/input/navigation checks, 2 M4 square/startup checks, complete mission with deterministic and real-time clocks PASS.
+- 1920 × 1080 mission and 1366 × 768 layout checked. Collection, chase/escape, damage, SRAP recycling, both openings, success/failure and fresh replay work; no runtime errors or warnings in the real-time mission.
+- i5-13450HX laptop, actual Intel UHD/ANGLE renderer, headed Chrome 153: typical 52–54 FPS from median frame intervals. One 42.1 FPS five-second fountain segment did not recur in three 12-second checks (46.5–47.0 FPS minima). No measured >100 ms travel stalls or dropped steps; no progressive degradation. Not a locked-60 or all-hardware claim.
+- Reproduce with production preview port 4175, TEST_URL=http://127.0.0.1:4175 and BROWSER_CHANNEL=chrome; commands and measurement limits in docs/M4_RESULTS.md.
 
 ## Limits and next bounded task
 
-M3 complete; stop. M4 requires its own request: known usable-but-odd navigation feel, representative laptop performance, final tuning, browser/release QA and packaging. Full ambient sound assets/bed and traffic remain deferred. Audio is synthesized feedback, not a sourced soundscape. No formal performance or broad browser certification is claimed.
+M4 complete; stop. Current functional/visual baseline is frozen for a separately requested art-direction comparison. Pixel-art/Commandos hybrid exploration, ambient soundscape and traffic remain deferred. No known release blocker remains in the audited V1 routes.

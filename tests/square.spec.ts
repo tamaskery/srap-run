@@ -1,12 +1,16 @@
 import { expect, test } from '@playwright/test';
 
-test('M3 production: one authored mission, escape, recycling, success, failure and fresh replay', async ({ page }) => {
-  test.setTimeout(180000);
+const realtime = process.env.M4_REALTIME === '1';
+test('production mission: escape, recycling, success, failure and fresh replay', async ({ page }, testInfo) => {
+  test.setTimeout(realtime ? 600000 : 180000);
   await page.setViewportSize({ width: 1920, height: 1080 });
   const errors: string[] = [];
+  const warnings: string[] = [];
+  const measurements: unknown[] = [];
+  page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); });
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  // Debug only supplies telemetry, projection and a deterministic clock. No actor
+  // Debug supplies telemetry, projection and optional deterministic timing. No actor
   // placement, inventory injection, damage injection or navigation mocking.
   await page.goto('/?debug&scene=square&deterministic');
   await page.waitForFunction(() => !!(window as any).__m0);
@@ -25,7 +29,8 @@ test('M3 production: one authored mission, escape, recycling, success, failure a
   const states = new Set<string>();
   const snapshot = () => page.evaluate(() => (window as any).__m0.snapshot());
   const advance = async (frames = 30) => {
-    const s = await page.evaluate(n => (window as any).__m0.advance(n), frames);
+    if (realtime) await page.waitForTimeout(Math.max(20, frames * 1000 / 60));
+    const s = realtime ? await snapshot() : await page.evaluate(n => (window as any).__m0.advance(n), frames);
     states.add(s.state); return s;
   };
   const click = async (x: number, z: number, y = .05) => {
@@ -35,6 +40,7 @@ test('M3 production: one authored mission, escape, recycling, success, failure a
     await page.mouse.click(p.x, p.y);
   };
   const travel = async (x: number, z: number, item = false) => {
+    if (realtime) await page.evaluate(() => (window as any).__m0.capture(true));
     await click(x, z, item ? .45 : .05);
     let s = await snapshot();
     const approach = s.pending !== null;
@@ -46,8 +52,11 @@ test('M3 production: one authored mission, escape, recycling, success, failure a
       expect(Math.abs(s.player.x - exit.x)).toBeLessThanOrEqual(exit.width / 2);
       expect(Math.abs(s.player.z - exit.z)).toBeLessThanOrEqual(exit.depth / 2);
     } else expect(Math.hypot(s.player.x - x, s.player.z - z), JSON.stringify({target:{x,z},player:s.player,path:s.path})).toBeLessThan(approach ? 1.25 : .3);
+    if (realtime) measurements.push({ target: [x, z], phase: s.phase, state: s.state,
+      timing: await page.evaluate(() => (window as any).__m0.capture(false)) });
     return s;
   };
+  if (realtime) await page.evaluate(() => (window as any).__m0.deterministic(false));
   // Physical keyboard, release, then mouse all feed the same controller.
   await page.keyboard.down('KeyD'); await advance(30); await page.keyboard.up('KeyD');
   expect((await snapshot()).player).not.toEqual(baseline.player);
@@ -121,6 +130,7 @@ test('M3 production: one authored mission, escape, recycling, success, failure a
   await page.waitForFunction(() => !!(window as any).__m0);
   const replay = await prepare();
   for (const key of ['phase', 'health', 'stamina', 'bag', 'recycled', 'player', 'threat', 'state', 'hidden', 'cutaways', 'camera', 'resources', 'ambient']) expect(replay[key], key).toEqual(baseline[key]);
+  if (realtime) await page.evaluate(() => (window as any).__m0.deterministic(false));
   // A second attempt deliberately walks into the same live patrol and stays.
   await travel(-30, 4);
   await travel(-15, 2);
@@ -136,4 +146,8 @@ test('M3 production: one authored mission, escape, recycling, success, failure a
   expect(fresh.health).toBe(100); expect(fresh.bag).toBe(0); expect(fresh.phase).toBe('collecting');
   expect(fresh.camera).toEqual(baseline.camera); expect(fresh.resources).toEqual(baseline.resources);
   expect(errors).toEqual([]);
+  if (realtime) await testInfo.attach('performance', { body: JSON.stringify({
+    browser: await page.evaluate(() => navigator.userAgent), viewport: page.viewportSize(),
+    renderer: baseline.renderer, drawingBuffer: baseline.drawingBuffer, measurements, warnings, errors,
+  }, null, 2), contentType: 'application/json' });
 });
