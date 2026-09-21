@@ -25,3 +25,16 @@ test('every bottle component keeps the same interaction target and hides with it
   bottle.setEnabled(false);
   expect(bottle.getChildMeshes().every(m => !m.isEnabled())).toBe(true);
 });
+
+test('pixel bottle emphasis preserves baseline pick geometry and target ownership', () => {
+  scene = new Scene(engine);
+  const baseline = new WorldArt(scene, new Map()).bottle('baseline', {x:0,y:0,z:0});
+  const pixel = new WorldArt(scene, new Map(), true).bottle('pixel', {x:0,y:0,z:0});
+  const geometry = (root: typeof baseline) => [root, ...root.getChildMeshes()].filter(m => m.isPickable).map(m => ({
+    position:m.position.asArray(), vertices:Array.from(m.getVerticesData('position')!), indices:Array.from(m.getIndices()!),
+  }));
+  expect(geometry(pixel)).toEqual(geometry(baseline));
+  expect(pixel.getChildMeshes().every(m => m.metadata.target === 'pixel')).toBe(true);
+  pixel.setEnabled(false);
+  expect(pixel.getChildMeshes().every(m => !m.isEnabled())).toBe(true);
+});

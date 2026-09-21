@@ -4,7 +4,7 @@ Repository: https://github.com/tamaskery/srap-run
 
 ## Current milestone
 
-M4 PASS — navigation, laptop performance and bounded production Chrome release QA on M3 baseline 88ea788. See docs/M4_RESULTS.md. M0–M3 remain closed. M4 changes only tests and documentation; production gameplay and visuals are frozen.
+M4 PASS at 9e07cfc remains the frozen baseline (docs/M4_RESULTS.md); M0–M4 are closed. On experiment/pixel-art only: bounded visual experiment READY FOR REVIEW, technical PASS, provisional visual assessment WEAK. See docs/PIXEL_ART_EXPERIMENT.md. No M5 or baseline replacement.
 
 ## Frozen decisions and boundaries
 
@@ -12,7 +12,7 @@ M4 PASS — navigation, laptop performance and bounded production Chrome release
 - One Mester Árpád tér mission: five of eight bottles, one recycling trip, separate Ecseri exit; lethal damage takes priority and replay starts fresh.
 - Authored layout, both SRAP openings, collision/nav/LOS proxies, hostile AI, civilian loops and hiding rules remain intact. Roads are background scenery.
 - Fixed orthographic heading with pan/zoom/recenter; rendering cutaways retain solid proxies. Use visible approaches before SRAP's cutaway opens.
-- M3 stone/olive/terracotta materials, humanoids, compact HUD and synthesized audio are unchanged. No downloaded assets or new dependencies.
+- Baseline mode retains M4 materials, humanoids, HUD and audio. Opt-in ?visual=pixel uses a 640×360 world at 1080p, selective palette/paving/lighting and decorative readability changes. Gameplay and hit geometry remain unchanged; no new dependencies/assets.
 
 ## Architecture
 
@@ -30,4 +30,4 @@ MissionHUD/RunAudio observe authoritative state. HUD mounts once; audio unlocks 
 
 ## Limits and next bounded task
 
-M4 complete; stop. Current functional/visual baseline is frozen for a separately requested art-direction comparison. Pixel-art/Commandos hybrid exploration, ambient soundscape and traffic remain deferred. No known release blocker remains in the audited V1 routes.
+Pixel experiment complete; stop for user review. Local ignored captures: evidence/pixel-art/index.html (three matched pairs and motion clips). Final production build, existing 28 unit tests, focused art 3/3, M4 pixel resize/startup 2/2, 125% scaling/edge input and both live missions passed. Same Chrome 153 / Intel UHD: representative baseline 52.9 FPS versus pixel 83.3 FPS, pixel zero >100 ms frames/drops. Current baseline low rolling rates reproduced (36.4 FPS isolated repeat), unlike historical M4; see experiment report without changing M4 evidence. Pixel art remains limited by simple assets, distant detail and crawling fine edges. Next action is user visual review only; no full conversion, merge or M5.

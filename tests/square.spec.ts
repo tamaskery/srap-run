@@ -12,13 +12,14 @@ test('production mission: escape, recycling, success, failure and fresh replay',
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   // Debug supplies telemetry, projection and optional deterministic timing. No actor
   // placement, inventory injection, damage injection or navigation mocking.
-  await page.goto('/?debug&scene=square&deterministic');
+  await page.goto('/?debug&scene=square&deterministic&visual=' + (process.env.VISUAL_MODE || 'baseline'));
   await page.waitForFunction(() => !!(window as any).__m0);
   const prepare = async () => page.evaluate(() => {
     const m = (window as any).__m0; m.deterministic(true); m.pause(false); return m.snapshot();
   });
   await page.screenshot({ path: 'test-results/m3-start.png' });
   const baseline = await prepare();
+  if (realtime) await page.waitForTimeout(3000); // Equal render warm-up for A/B measurements.
   await expect(page.locator('#health-value')).toHaveText('100');
   await expect(page.locator('#bag-value')).toHaveText('0 / 5');
   await page.getByRole('button', { name: 'Mute sound', exact: true }).click();

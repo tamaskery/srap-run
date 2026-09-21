@@ -5,6 +5,7 @@ import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
 import {ShadowGenerator} from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import {WorldArt} from './art';
+import {pixelColor} from './pixel';
 import {HemisphericLight} from '@babylonjs/core/Lights/hemisphericLight';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -22,14 +23,23 @@ import {MissionHUD} from './presentation';
 import './style.css';
 const canvas=document.querySelector<HTMLCanvasElement>('#world')!;
 const hud=document.querySelector<HTMLDivElement>('#hud')!;
-const engine=new Engine(canvas,true,{stencil:true,preserveDrawingBuffer:true},false);
-engine.setHardwareScalingLevel(window.devicePixelRatio || 1);
+const params=new URLSearchParams(location.search);
+const pixel=params.get('visual')==='pixel';
+const engine=new Engine(canvas,!pixel,{stencil:true,preserveDrawingBuffer:true},false);
+engine.setHardwareScalingLevel(pixel?1:(window.devicePixelRatio || 1));
+// Keep Babylon's picking scale at one in pixel mode: the existing click adapter
+// already converts CSS coordinates to drawing-buffer coordinates.
+const resizeWorld=()=>{
+ if(pixel){const r=canvas.getBoundingClientRect();engine.setSize(Math.max(1,Math.round(r.width/3)),Math.max(1,Math.round(r.height/3)));}
+ else engine.resize();
+};
+if(pixel)canvas.style.imageRendering='pixelated';
+resizeWorld();
 let runtime:SceneRuntime|undefined;
 let generation=0;
 let measurement:Diagnostics|undefined;
 let measurementDropped=0;
 let measurementLast=0;
-const params=new URLSearchParams(location.search);
 const debug=params.has('debug');
 const SCENES=[...PROOF_SCENES,SQUARE_SCENE];
 const vector=(v:Vec)=>new Vector3(v.x,v.y,v.z);
@@ -66,15 +76,20 @@ class SceneRuntime {
  disposed=false;
  deterministic=debug&&params.has('deterministic');
  lastSimulation=0;
- private material(name:string,color:string){const m=new StandardMaterial(name,this.scene);m.diffuseColor=Color3.FromHexString(color);m.specularColor=Color3.Black();return m;}
+ private material(name:string,color:string){const m=new StandardMaterial(name,this.scene);m.diffuseColor=Color3.FromHexString(pixel?pixelColor(color):color);m.specularColor=Color3.Black();return m;}
  constructor(readonly definition:SceneDefinition){this.message=definition.mission?.briefing??this.message;}
  async init(){
   validateDefinition(this.definition);
   if(engine.webGLVersion!==2)throw new Error('WebGL2 is required. Enable hardware acceleration in a supported browser.');
-  this.scene.useRightHandedSystem=true;this.art=new WorldArt(this.scene,this.renderGroups);this.scene.clearColor=Color4.FromHexString('#a5afa0ff');
+  this.scene.useRightHandedSystem=true;this.art=new WorldArt(this.scene,this.renderGroups,pixel);this.scene.clearColor=Color4.FromHexString('#a5afa0ff');
   const light=new HemisphericLight('sky',new Vector3(.3,1,.2),this.scene);light.intensity=.65;light.diffuse=Color3.FromHexString('#dce8e3');light.groundColor=Color3.FromHexString('#8b826b');
   const sun=new DirectionalLight('afternoon sun',new Vector3(-.6,-1,.45),this.scene);sun.position.set(25,50,-30);sun.intensity=.7;sun.diffuse=Color3.FromHexString('#fff0cf');
   const shadows=new ShadowGenerator(1024,sun);shadows.usePoissonSampling=true;shadows.bias=.002;shadows.normalBias=.03;shadows.setDarkness(.22);
+  if(pixel){
+   light.intensity=.58;light.diffuse=Color3.FromHexString('#c5d6ce');light.groundColor=Color3.FromHexString('#59675f');
+   sun.intensity=.8;sun.diffuse=Color3.FromHexString('#ffe1a5');
+   shadows.usePoissonSampling=false;shadows.setDarkness(.3);
+  }
   const groundMat=this.art.tiled('surrounding ground','#7e8975','#78836f',100);
   const floorMat=this.art.tiled('square stone','#b5ae96','#a49f8c',28);
   const wallMat=this.material('walls','#d4c6a4');
@@ -132,7 +147,7 @@ class SceneRuntime {
   this.previousPlayer={...this.player.position};this.previousThreat={...this.threat.position};
   this.camera=new PresentationCamera(this.scene,engine,this.definition.cameraBounds,this.player.position,this.definition.camera);
   this.input=new InputAdapter(canvas,a=>this.action(a));
-  window.addEventListener('resize',()=>{engine.resize();this.camera.update();},{signal:this.owned.signal});
+  window.addEventListener('resize',()=>{resizeWorld();this.camera.update();},{signal:this.owned.signal});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)this.pause();this.last=0;},{signal:this.owned.signal});
   this.mountHUD();this.render(1);await this.scene.whenReadyAsync();this.render(1);
  }
@@ -154,7 +169,7 @@ class SceneRuntime {
    case 'move':{const axes=this.camera.axes(a.x,a.z);this.player.setInput({...axes,sprint:a.sprint});break;}
    case 'interact':{const target=this.interactions.nearest(this.player.position);if(target)this.interactions.interact(target.id,this.player.position);break;}
    case 'recenter':this.camera.recenter(this.player.position);break;
-   case 'pan':this.camera.pan(a.dx,a.dy);break;
+   case 'pan':{const scale=pixel?engine.getRenderHeight()/canvas.getBoundingClientRect().height:1;this.camera.pan(a.dx*scale,a.dy*scale);break;}
    case 'zoom':this.camera.zoom(a.delta);break;
    case 'click':{
     const rect=canvas.getBoundingClientRect();const x=(a.clientX-rect.left)*engine.getRenderWidth()/rect.width,y=(a.clientY-rect.top)*engine.getRenderHeight()/rect.height;

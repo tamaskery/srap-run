@@ -4,7 +4,7 @@ test('M4 square: doorway keys, obstacle routes, stop/cancel, recenter and smalle
   await page.setViewportSize({ width: 1366, height: 768 });
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
-  await page.goto('/?debug&scene=square&deterministic');
+  await page.goto('/?debug&scene=square&deterministic&visual=' + (process.env.VISUAL_MODE || 'baseline'));
   await page.waitForFunction(() => !!(window as any).__m0);
   await page.evaluate(() => { const m = (window as any).__m0; m.pause(false); });
   const snap = () => page.evaluate(() => (window as any).__m0.snapshot());
@@ -70,7 +70,7 @@ test('M4 ordinary launch: small viewport, local assets and usable controls', asy
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('response', r => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
-  await page.goto('/');
+  await page.goto('/?visual=' + (process.env.VISUAL_MODE || 'baseline'));
   await expect(page.locator('#health-value')).toHaveText('100');
   expect(await page.evaluate(() => !!(window as any).__m0)).toBe(false);
   await page.getByRole('button', { name: 'Pause', exact: true }).click();

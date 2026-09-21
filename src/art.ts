@@ -7,6 +7,7 @@ import { Texture } from '@babylonjs/core/Materials/Textures/texture';
 import type { Scene } from '@babylonjs/core/scene';
 import type { SceneDefinition } from './definition';
 import type { Vec } from './gameplay';
+import { pixelColor } from './pixel';
 
 // Presentation only. Decorations never enter the navigation or LOS proxy lists.
 // Static details are merged by shared material AND cutaway ownership.
@@ -16,7 +17,7 @@ export class WorldArt {
   private boxTemplate: Mesh;
   private ballTemplate: Mesh;
   private cylinderTemplate: Mesh;
-  constructor(private scene: Scene, private groups: Map<string, Mesh[]>) {
+  constructor(private scene: Scene, private groups: Map<string, Mesh[]>, private pixel = false) {
     this.boxTemplate = MeshBuilder.CreateBox('art-box', {}, scene);
     this.ballTemplate = MeshBuilder.CreateSphere('art-crown', { segments: 2, diameter: 1 }, scene);
     this.cylinderTemplate = MeshBuilder.CreateCylinder('art-cylinder', { tessellation: 16, diameter: 1, height: 1 }, scene);
@@ -26,7 +27,7 @@ export class WorldArt {
     let m = this.materials.get(color);
     if (!m) {
       m = new StandardMaterial(`art:${color}`, this.scene);
-      m.diffuseColor = Color3.FromHexString(color); m.specularColor = Color3.Black();
+      m.diffuseColor = Color3.FromHexString(this.pixel ? pixelColor(color) : color); m.specularColor = Color3.Black();
       this.materials.set(color, m);
     }
     return m;
@@ -35,13 +36,25 @@ export class WorldArt {
     const m = new StandardMaterial(name, this.scene);
     m.specularColor = Color3.Black();
     m.diffuseColor = Color3.White();
+    if (this.pixel) {
+      base = name === 'square stone' ? '#b7ac8c' : '#7c8570';
+      joint = name === 'square stone' ? '#9f997e' : '#7c8570';
+      // Broad slab clusters, without subpixel aggregate. Mipmaps keep receding
+      // paving stable; nearest presentation happens only at the world canvas.
+      repeat = name === 'square stone' ? 14 : repeat;
+    }
     const texture = new DynamicTexture(name, 128, this.scene, true);
     const c = texture.getContext(); c.fillStyle = base; c.fillRect(0, 0, 128, 128);
     c.strokeStyle = joint; c.lineWidth = 2;
     c.beginPath(); c.moveTo(0, 0); c.lineTo(128, 0); c.moveTo(0, 64); c.lineTo(128, 64);
     c.moveTo(0, 0); c.lineTo(0, 64); c.moveTo(64, 64); c.lineTo(64, 128); c.stroke();
     // Deterministic aggregate, deliberately low contrast at gameplay distance.
-    for (let i = 0; i < 120; i++) { c.fillStyle = i % 2 ? '#ffffff0a' : '#00000008'; c.fillRect((i * 47) % 128, (i * 71) % 128, 2, 2); }
+    if (this.pixel) {
+      if (name === 'square stone') {
+        c.fillStyle = '#c0b596'; c.fillRect(3, 3, 122, 8);
+        c.fillStyle = '#afa587'; c.fillRect(67, 68, 57, 55);
+      }
+    } else for (let i = 0; i < 120; i++) { c.fillStyle = i % 2 ? '#ffffff0a' : '#00000008'; c.fillRect((i * 47) % 128, (i * 71) % 128, 2, 2); }
     texture.update(); texture.wrapU = texture.wrapV = Texture.WRAP_ADDRESSMODE;
     texture.uScale = repeat; texture.vScale = repeat; m.diffuseTexture = texture;
     return m;
@@ -87,6 +100,11 @@ export class WorldArt {
     }
     p('entrance-lintel', [19, 4.5, -12], [4, 1.1, .8], '#934c3e', 'srap');
     p('entrance-canopy', [19, 3.85, -11.1], [4.8, .18, 2.2], '#b7aa8c', 'srap');
+    if (this.pixel) {
+      // Paint and stone accents only: no collision, nav, or pick surfaces.
+      p('entrance-step-inlay', [19, .035, -10.8], [3.7, .025, .7], '#ead5a3');
+      for (const x of [17.15, 20.85]) p('entrance-jamb-accent', [x, 1.7, -11.55], [.16, 3.3, .08], '#ead5a3', 'srap');
+    }
     this.sign('S R A P', 9, 4.43, -11.48, 10, .9, 'srap').rotation.y = 0;
     this.sign('RECYCLING', 25, 4.43, -11.48, 5.5, .8, 'srap').rotation.y = 0;
     // The fixed camera looks across the service elevation and roof first.
@@ -132,7 +150,7 @@ export class WorldArt {
       p('seal-flipper', [x - .4 * scale, y - .32, z + .1], [.65 * scale, .16, .42], '#4f6359', undefined, 'ball');
     }
     for (let i = 0; i < 3; i++) {
-      const ring = MeshBuilder.CreateTorus('water-ripple', { diameter: 2.8 + i * .8, thickness: .026, tessellation: 40 }, this.scene);
+      const ring = MeshBuilder.CreateTorus('water-ripple', { diameter: 2.8 + i * .8, thickness: this.pixel ? .1 : .026, tessellation: 40 }, this.scene);
       ring.position.set(-5, .61, 4); ring.material = this.material('#a3bbb0'); ring.isPickable = false;
     }
     // All foliage sits inside existing solid garden/hedge footprints.
@@ -200,7 +218,7 @@ export class WorldArt {
     for (const side of [-1, 1]) piece('boot', [side * .17, -.82, .07], [.26, .18, .43], '#343d38');
     if (role === 'player') { piece('rucksack', [0, .25, -.3], [.5, .58, .22], '#667b70'); piece('scarf', [0, .48, .23], [.52, .15, .1], '#eee0b5'); }
     if (role === 'hostile') { piece('cap', [0, 1, .04], [.53, .16, .55], '#383f3a'); piece('armband', [-.44, .15, .01], [.22, .17, .27], '#ba6046'); piece('belt', [0, -.11, .04], [.67, .11, .4], '#282f2c'); }
-    const marker = MeshBuilder.CreateTorus(`${name}:foot-ring`, { diameter: role === 'player' ? 1.3 : 1.05, thickness: .055, tessellation: 24 }, this.scene);
+    const marker = MeshBuilder.CreateTorus(`${name}:foot-ring`, { diameter: role === 'player' ? 1.3 : 1.05, thickness: this.pixel ? .12 : .055, tessellation: 24 }, this.scene);
     marker.parent = root; marker.position.y = -.86; marker.isPickable = false; marker.material = this.material(role === 'player' ? '#f3df98' : role === 'hostile' ? '#ba6046' : '#899380');
     root.metadata = { legs, arms, phase: 0, moving: false };
     return root;
@@ -222,6 +240,12 @@ export class WorldArt {
     }
     const ring = MeshBuilder.CreateTorus(`${id}:marker`, { diameter: 1.4, thickness: .075, tessellation: 24 }, this.scene);
     ring.parent = m; ring.position.y = -.4; ring.material = this.material('#e5ca84'); ring.metadata = { target: id };
+    if (this.pixel) {
+      // A separate non-pickable highlight leaves the M4 bottle hit geometry intact.
+      const highlight = MeshBuilder.CreateTorus(`${id}:highlight`, { diameter: 1.4, thickness: .16, tessellation: 24 }, this.scene);
+      highlight.parent = m; highlight.position.y = -.4; highlight.material = ring.material;
+      highlight.isPickable = false; highlight.metadata = { target: id };
+    }
     return m;
   }
 }

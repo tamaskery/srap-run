@@ -1,0 +1,30 @@
+import { chromium } from 'playwright';
+import { mkdir, writeFile } from 'node:fs/promises';
+const root='evidence/pixel-art';
+await mkdir(`${root}/motion`,{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:false,args:['--enable-webgl','--ignore-gpu-blocklist']});
+const captures=[];
+for(const mode of ['baseline','pixel']) {
+  const context=await browser.newContext({viewport:{width:1920,height:1080},deviceScaleFactor:1,recordVideo:{dir:`${root}/motion`,size:{width:1920,height:1080}}});
+  const page=await context.newPage();
+  await page.goto(`http://127.0.0.1:4176/?debug&scene=square&deterministic&visual=${mode}`);
+  await page.waitForFunction(()=>window.__m0);
+  await page.evaluate(()=>{const m=window.__m0;m.pause(false);m.place('player',{x:-12,y:0,z:9});m.action({type:'recenter'});m.action({type:'zoom',delta:-1600});m.advance(0);});
+  await page.waitForTimeout(1500);
+  const start=await page.evaluate(()=>window.__m0.snapshot());
+  await page.evaluate(()=>{const m=window.__m0;m.deterministic(false);m.command({x:2,y:0,z:9});});
+  await page.waitForTimeout(3000);
+  await page.mouse.move(850,500);await page.mouse.down({button:'middle'});
+  await page.mouse.move(1030,570,{steps:90});await page.mouse.up({button:'middle'});
+  await page.waitForTimeout(2500);
+  await page.mouse.wheel(0,-200);await page.waitForTimeout(2000);
+  await page.mouse.wheel(0,200);await page.waitForTimeout(2000);
+  const end=await page.evaluate(()=>window.__m0.snapshot());
+  const video=page.video();
+  await context.close();
+  await video.saveAs(`${root}/motion/${mode}.webm`);
+  captures.push({mode,start,end,video:`motion/${mode}.webm`});
+}
+await browser.close();
+await writeFile(`${root}/motion.json`,JSON.stringify(captures,null,2));
+console.log('Matched movement recordings saved; not performance samples.');
