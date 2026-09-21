@@ -1,84 +1,46 @@
 # SRAP Run Project State
 
-## Project
-
-Standalone single-player browser stealth/collection game based on Mester Árpád tér, Budapest.
 Repository: https://github.com/tamaskery/srap-run
 
 ## Current milestone
 
-Research and architecture baseline complete. Documentation only; no application, dependencies, or runtime proof exists.
-Rationale/sources: [Research baseline](docs/RESEARCH_BASELINE.md).
-Next executable specification: [M0 technical proof](docs/M0_TECHNICAL_PROOF.md).
+M1 PASS — real square playable vertical slice complete. One authored square mission is playable. See [M1 results](docs/M1_RESULTS.md).
 
-## Frozen product decisions
+M0 CLOSED — FUNCTIONAL TECHNICAL PROOF COMPLETE.
+REPRESENTATIVE PERFORMANCE DEFERRED TO V1 STABILIZATION.
 
-- One controllable character; elevated 3D camera; Chrome/Edge first; keyboard and mouse.
-- Explore, collect equal-value bottles/cans, evade threats, recycle in SRAP, exit, result, replay.
-- Unlimited bag; one final recycling transaction with any positive count; no further collection after recycling.
-- Score prioritises recycled count, then health/time; no rarity/deposit tiers.
-- One enterable building, fictional SRAP; all others are exterior shells.
-- Playable square, immediate pedestrian circulation and SRAP; neighbours are visual context.
-- One hostile pedestrian archetype in v1; ambient pedestrians separate from threat AI.
+## Active roadmap (supersedes older granular plans)
 
-## Technical decisions
+- M1 — Real square playable vertical slice.
+- M2 — World depth: route/risk depth, SRAP interior, ambient life and interactions.
+- M3 — Visual and game-feel production: art, lighting, UI, sound and ambience.
+- M4 — V1 stabilization: representative performance, browser QA and release.
+- M5+ — More locations, missions and systems.
 
-- Babylon.js + TypeScript + Vite for M0; WebGL2 baseline; no physics/UI framework.
-- Verified Babylon 9.27.1 Navigation V2 source; matching Babylon packages and Recast 0.43.0 for M0, locked locally.
-- Explicitly initialise/inject local Recast modules/WASM; no runtime CDN dependency.
-- One static navmesh from gameplay proxies, including SRAP; shared constrained kinematic motor for keyboard/path movement.
-- Orthographic camera, fixed scene-specific heading/pitch, pan/zoom; no rotation control.
-- Typed TS scene definitions plus stable GLB node IDs; gameplay data separate from visuals.
-- Plain HTML/CSS HUD; explicit run state and NPC state machine; no ECS framework/editor/backend.
-- Blender -> GLB; restrained PBR, one sun/selective shadows, environment fill; profile before expanding art.
-- OSM/municipal geometry plus gameplay-tuned manual modelling; proposed map is a hybrid reference.
-- Authored roof/façade render groups, independent navigation and sight-blocking proxies.
-- Background traffic follows paths outside playable carriageways; no vehicle physics/simulation.
+## Frozen decisions and boundaries
 
-## Architecture boundaries
+- Standalone single-player WebGL2 browser game; Babylon.js + TypeScript + Recast V2, pinned dependencies and local WASM.
+- The default scene is the authored Mester Árpád tér greybox. Reference: `references/proposed-square-map.png`, corrected major relationships from the research baseline. Gameplay-adjusted dimensions; no survey/as-built claim.
+- Five of eight equal-value bottles required; unlimited bag; one final recycling trip; no collection after recycling; a separate exit leg. Lethal damage takes priority. Fresh replay after either result.
+- One existing hostile AI controller, authored patrol and two visible shelter regions. No combat, civilian/traffic systems, interior production or new framework.
+- One static radius-aware navmesh and shared constrained movement. Cutaways affect rendering only; permanent building mass, collision and LOS remain.
+- Fixed authored camera heading, orthographic pan/zoom/recenter. No free rotation.
 
-- Device input -> actions/movement intent -> PlayerController -> NavigationService; controller owns player position.
-- Core systems never import the Budapest scene or embed its coordinates.
-- Scene content provides starts, routes, zones, assets, camera bounds and spawns.
-- Run state owns collectible IDs/counts, health, stamina, phase and active elapsed time.
-- Render visibility never changes navigation or NPC line of sight.
-- No Scenario Builder, SCORM, Moodle or previous Three.js project dependency.
+## Architecture and retained integration findings
 
-## Visual target
+`square.ts` is content data. `definition.ts` validates geometry, scene presentation and mission configuration. Existing InputAdapter, PlayerController, ThreatController, InteractionSystem, RunState, NavigationService and disposable SceneRuntime remain the engine.
 
-- `references/proposed-square-map.png`: conceptual map; correct material geographic discrepancies.
-- `references/v1-aspiration.png`: achievable v1 target, user-confirmed despite filename.
-- Both `references/v2-visual-target*.png` images: future aspirations only.
-- No supplied real-area photograph. Municipal map and OSM inspected; not every as-built detail established.
-- Readability/place identity take priority over density or photographic fidelity.
+Generic additions: mission quota/text, material colors, elliptical footprints, presentation-only details/labels, authored camera framing/heading and cutaway base heights. Rounded Recast contours exposed a valid step approximately 0.25 mm beyond its requested length; displacement guards now use the same 2 mm surface tolerance as agent validation. The 0.25 m input-step cap, visited-polygon/height checks and no-global-snap rule remain intact.
 
-## Assumptions requiring prototype validation
+## Verification and preservation
 
-- WASM packaging, continuous movement, doorway clearance, input switching: M0.
-- Fixed camera, cutaways, hiding/detection, complete run/reset: M0.
-- 1080p >=30 FPS: M0 functional baseline, then mandatory representative-art gate.
-- Character retargeting/population, shadows, compression and map readability: later art/map validation.
+- M0 retained evidence: 22 unit tests; 28 Chrome and 28 Edge functional tests. No M0 benchmark rerun.
+- M1: TypeScript and production build pass; 21 targeted unit tests pass; 8 production Chrome browser checks pass (7 affected navigation/input regressions plus one complete square mission scenario). Visual review at 1920 × 1080 passed. No benchmark was run.
+- Existing recovery: `C:\Users\tamas\Documents\ChatGPT\Srap-run-recovery-20260921-130125`. All 27 original implementation/test/tool files matched before M1 edits; no redundant copy was made.
+- Initial main/remote HEAD: `511fd967181e7d4ccbe090a3650128f666b2e352`. M0 source was uncommitted and is preserved alongside M1 for the authorized coherent baseline commit.
 
-## Out of scope
+## Limitations and next bounded action
 
-No multiplayer, accounts, save/resume, combat, gamepad requirement, editor, streaming, full supermarket or city simulation.
-No purchases or game implementation in the research milestone.
+Greybox only: approximate geometry, simple actor/landmark shapes, no SRAP interior, traffic, civilians, sound or production art. Representative performance is deferred to M4; no performance certification is claimed.
 
-## Known blockers / limitations
-
-No product decision blocks M0. Runtime performance/package integration remain untested.
-Reference laptop not yet recorded; M0 must identify hardware rather than claim universal laptop performance.
-Marketplace candidates are not purchased or individually cleared for browser redistribution.
-Detailed 2026 as-built geometry/map heights remain M1 checks, not M0 blockers.
-
-## Next milestone
-
-M0: primitive-only technical proof using the linked specification; do not start automatically from research.
-
-## Next milestone acceptance
-
-- All M0 functional acceptance rows pass in current Chrome and Edge.
-- No tunnelling, duplicate interactions, stale paths or incomplete replay reset.
-- Production preview loads local dependencies under root and subdirectory hosting.
-- Recorded 1080p performance gate passes on identified integrated-GPU laptop, or M0 remains unpassed.
-- No real map, purchased/polished assets, traffic, audio or combat added to M0.
+M1 acceptance is complete. Preserve the coherent playable baseline in Git and stop. M2 requires a new request.

@@ -1,0 +1,91 @@
+import type { SceneDefinition, Detail } from './definition';
+
+// Authored metres: x runs along the square; +z faces Üllői út.
+// Hybrid reconstruction from the supplied panorama and RESEARCH_BASELINE:
+// elongated pedestrian square, southern supermarket, western pavilions,
+// central Fókák landmark, eastern gardens; adjoining roads are background.
+const roadMarks: Detail[] = Array.from({ length: 13 }, (_, i) => ({
+  id: `ulloi-mark-${i}`, x: -42 + i * 7, z: 26, width: 3, depth: .15,
+  height: .015, elevation: -.025, color: '#c5c2aa',
+}));
+
+export const SQUARE_SCENE: SceneDefinition = {
+  id: 'square', name: 'Mester Árpád tér · The bottle run',
+  mission: {
+    requiredBottles: 5,
+    briefing: 'Find 5 bottles around Mester Árpád tér. The perimeter is safer; the fountain shortcut crosses a patrol. Click bottles to collect. Recycle at SRAP, then reach the Ecseri exit.',
+    recycleObjective: 'Take your bottles to the SRAP recycler',
+    exitObjective: 'Reach the Ecseri exit across the square',
+  },
+  floors: [{ id: 'square-pavement', x: 0, z: 0, width: 76, depth: 40, color: '#b2b0a1' }],
+  walls: [
+    { id: 'srap-shell', x: 17, z: -17, width: 34, depth: 10, height: 6, color: '#c6c4b8', cutaway: 'srap', cutawayBaseHeight: 1.2 },
+    { id: 'srap-east-wing', x: 31, z: -17, width: 6, depth: 10, height: 6, color: '#c6c4b8' },
+    { id: 'west-pavilion', x: -22, z: -3, width: 11, depth: 8, height: 3.2, shape: 'ellipse', color: '#958e7c', cutaway: 'pavilions', cutawayBaseHeight: .8 },
+    { id: 'north-pavilion', x: -23, z: 9, width: 9, depth: 7, height: 3.2, shape: 'ellipse', color: '#958e7c', cutaway: 'north-pavilion', cutawayBaseHeight: .8 },
+    { id: 'south-pavilion', x: -9, z: -9, width: 12, depth: 7, height: 3.2, shape: 'ellipse', color: '#958e7c', cutaway: 'south-pavilion', cutawayBaseHeight: .8 },
+    { id: 'fokak-basin', x: -5, z: 4, width: 6, depth: 6, height: .55, shape: 'ellipse', color: '#7b9391' },
+    { id: 'west-planter', x: -33, z: 4, width: 1.7, depth: 6, height: 1.7, color: '#65775a' },
+    { id: 'east-garden', x: 14, z: 5, width: 8, depth: 5, height: 1.8, shape: 'ellipse', color: '#687b57' },
+    { id: 'east-grove', x: 26, z: 6, width: 6, depth: 8, height: 2, shape: 'ellipse', color: '#687b57' },
+    { id: 'north-hedge', x: 16, z: 14, width: 20, depth: 1.2, height: 1.7, color: '#65775a' },
+    { id: 'south-garden-wall', x: 12, z: -7, width: 8, depth: 1.2, height: 1.6, color: '#92917e' },
+  ],
+  roofs: [
+    { id: 'srap-roof', x: 17, z: -17, width: 34.5, depth: 10.5, height: 6.15, color: '#717c7c', cutaway: 'srap' },
+    { id: 'srap-end-roof', x: 31, z: -17, width: 6, depth: 10, height: 6.15, color: '#717c7c' },
+    { id: 'west-canopy', x: -22, z: -3, width: 12, depth: 9, height: 3.4, shape: 'ellipse', color: '#dedbd0', cutaway: 'pavilions' },
+    { id: 'north-canopy', x: -23, z: 9, width: 10, depth: 8, height: 3.4, shape: 'ellipse', color: '#dedbd0', cutaway: 'north-pavilion' },
+    { id: 'south-canopy', x: -9, z: -9, width: 13, depth: 8, height: 3.4, shape: 'ellipse', color: '#dedbd0', cutaway: 'south-pavilion' },
+  ],
+  zones: [
+    { id: 'west-shelter', kind: 'hiding', x: -30, z: 4, width: 3, depth: 4, label: 'PLANTER SHELTER' },
+    { id: 'garden-shelter', kind: 'hiding', x: 20, z: 11.5, width: 4, depth: 3, label: 'HEDGE SHELTER' },
+    { id: 'srap-recycler', kind: 'recycler', x: 23, z: -10, width: 3, depth: 2, label: 'SRAP · RECYCLE 5+' },
+    { id: 'ecseri-exit', kind: 'exit', x: -33, z: 16, width: 5, depth: 3, label: 'ECSERI · FINAL EXIT' },
+    { id: 'srap-cutaway', kind: 'cutaway', x: 12, z: -5, width: 48, depth: 20, group: 'srap' },
+    { id: 'pavilion-cutaway', kind: 'cutaway', x: -23, z: 6, width: 30, depth: 27, group: 'pavilions' },
+    { id: 'north-pavilion-cutaway', kind: 'cutaway', x: -20, z: 16, width: 18, depth: 9, group: 'north-pavilion' },
+    { id: 'south-pavilion-cutaway', kind: 'cutaway', x: -4, z: 0, width: 22, depth: 18, group: 'south-pavilion' },
+  ],
+  items: [
+    { id: 'arrival-bottle', point: { x: -32, y: 0, z: -8 } },
+    { id: 'pavilion-back-bottle', point: { x: -31, y: 0, z: 11 } },
+    { id: 'pavilion-shortcut-bottle', point: { x: -15, y: 0, z: 2 } },
+    { id: 'fountain-bottle', point: { x: -5, y: 0, z: 9 } },
+    { id: 'crossing-bottle', point: { x: 3, y: 0, z: -3 } },
+    { id: 'east-walk-bottle', point: { x: 32, y: 0, z: 14 } },
+    { id: 'garden-corner-bottle', point: { x: 31, y: 0, z: -5 } },
+    { id: 'south-walk-bottle', point: { x: -1, y: 0, z: -15 } },
+  ],
+  playerStart: { x: -32, y: 0, z: -13 },
+  threatStart: { x: 1, y: 0, z: 10 },
+  patrol: [{ x: 8, y: 0, z: 10 }, { x: 8, y: 0, z: -4 }, { x: -1, y: 0, z: -4 }, { x: -1, y: 0, z: 10 }],
+  cameraBounds: { minX: -110, maxX: 110, minZ: -100, maxZ: 100 },
+  camera: { span: 64, maxSpan: 76, target: { x: 0, y: 0, z: 2 }, alpha: -3 * Math.PI / 4 },
+  details: [
+    { id: 'ulloi-road', x: 0, z: 27, width: 108, depth: 12, height: .02, elevation: -.04, color: '#535e60' },
+    { id: 'ecseri-approach', x: -44, z: 0, width: 10, depth: 66, height: .02, elevation: -.04, color: '#535e60' },
+    { id: 'service-street', x: 0, z: -27, width: 86, depth: 7, height: .02, elevation: -.04, color: '#606869' },
+    ...roadMarks,
+    { id: 'bif-tower', x: 33, z: 40, width: 8, depth: 9, height: 24, color: '#b8b9b1' },
+    { id: 'posta-shell', x: 43, z: 39, width: 12, depth: 8, height: 4.5, color: '#aaa797' },
+    { id: 'north-housing', x: -8, z: 41, width: 43, depth: 10, height: 9, color: '#ae9b87' },
+    { id: 'lidl-background', x: -43, z: 43, width: 14, depth: 12, height: 5, color: '#a9afb0' },
+    { id: 'south-housing', x: -12, z: -39, width: 52, depth: 9, height: 8, color: '#a49482' },
+    { id: 'srap-sign-band', x: 17, z: -11.95, width: 31, depth: .15, height: .7, elevation: .25, color: '#b34c48' },
+    { id: 'recycle-machine', x: 23, z: -11.6, width: 1.5, depth: .55, height: 1.8, color: '#398b79' },
+    { id: 'srap-door', x: 19, z: -11.9, width: 2.5, depth: .12, height: 2.6, color: '#41676d' },
+    { id: 'fokak-plinth', x: -5, z: 4, width: 1.7, depth: 1.7, height: .5, elevation: .55, shape: 'ellipse', color: '#a6afa5' },
+    { id: 'seal-one', x: -5.3, z: 4, width: .65, depth: 1.6, height: 1.2, elevation: 1, shape: 'ellipse', color: '#566b65' },
+    { id: 'seal-two', x: -4.6, z: 4.1, width: .55, depth: 1.2, height: .8, elevation: 1, shape: 'ellipse', color: '#566b65' },
+  ],
+  labels: [
+    { text: 'MESTER ÁRPÁD TÉR', point: { x: 0, y: 0, z: 17 } },
+    { text: 'FÓKÁK FOUNTAIN', point: { x: -5, y: .6, z: 4 } },
+    { text: 'PAVILIONS', point: { x: -22, y: 3.5, z: -3 } },
+    { text: 'ÜLLŐI ÚT', point: { x: 12, y: 0, z: 27 } },
+    { text: 'BIF TOWER', point: { x: 33, y: 24, z: 40 } },
+    { text: 'START · ECSERI APPROACH', point: { x: -32, y: 0, z: -15 } },
+  ],
+};

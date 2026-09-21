@@ -1,0 +1,12 @@
+import {chromium} from 'playwright';
+const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']});
+const page=await browser.newPage({viewport:{width:1280,height:720}});
+page.on('pageerror',e=>console.log('ERROR',String(e)));
+page.on('console',m=>{if(m.type()==='error')console.log('CONSOLE',m.text())});
+await page.goto('http://127.0.0.1:4173/?debug');
+await page.waitForTimeout(3000);
+console.log(await page.locator('#hud').innerText());
+console.log(await page.evaluate(()=>window.__m0?.snapshot()));
+await page.screenshot({path:'evidence/boot.png'});
+console.log('Browser',browser.version());
+await browser.close();

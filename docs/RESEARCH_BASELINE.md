@@ -1,5 +1,7 @@
 # SRAP Run Research Baseline
 
+This is the historical research snapshot. The current accelerated roadmap and acceptance status are in [PROJECT_STATE.md](../PROJECT_STATE.md). M0 is closed on functional evidence; representative performance is deferred to M4. Older milestone sequencing and performance prerequisites below are superseded by that roadmap.
+
 Research date: 2026-09-21. Documentation only; no working-game or performance evidence exists. Recommendations are engineering/design judgments grounded in the sources below. **DECISION** freezes direction; **PROTOTYPE VALIDATION** requires an empirical check; **DEFER** excludes immediate work.
 
 ## Executive decisions

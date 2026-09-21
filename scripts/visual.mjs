@@ -1,0 +1,11 @@
+import {chromium} from 'playwright';
+const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1920,height:1080}});
+await page.goto('http://127.0.0.1:4173/?debug');await page.waitForFunction(()=>window.__m0);
+await page.evaluate(()=>{const m=window.__m0;m.deterministic(true);m.pause(false);m.place('player',{x:12,y:0,z:7});m.action({type:'recenter'});m.advance(1);});
+await page.waitForTimeout(1000);
+await page.screenshot({path:'evidence/cutaway-'+(process.env.BROWSER_CHANNEL||'chrome')+'.png'});
+await page.evaluate(()=>{const m=window.__m0;m.place('player',{x:12,y:0,z:0});m.advance(1);});
+await page.waitForTimeout(1000);
+await page.screenshot({path:'evidence/restored-'+(process.env.BROWSER_CHANNEL||'chrome')+'.png'});
+await browser.close();

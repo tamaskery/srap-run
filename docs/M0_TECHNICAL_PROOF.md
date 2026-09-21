@@ -1,6 +1,6 @@
 # M0 Technical Proof
 
-Status: specification only. No M0 code or performance tests exist. Rationale: [Research baseline](RESEARCH_BASELINE.md).
+Status: M0 CLOSED — FUNCTIONAL TECHNICAL PROOF COMPLETE. REPRESENTATIVE PERFORMANCE DEFERRED TO V1 STABILIZATION (M4). The original proof specification below is historical; its former performance/commit gate no longer blocks M1. Functional and historical measured evidence: [M0 results](M0_RESULTS.md). Current roadmap: [project state](../PROJECT_STATE.md).
 
 ## Objective and boundaries
 
