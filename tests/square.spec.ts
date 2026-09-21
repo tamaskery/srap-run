@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('M1 square: one authored mission, escape, recycling, success, failure and fresh replay', async ({ page }) => {
+test('M2 square: one authored mission, escape, recycling, success, failure and fresh replay', async ({ page }) => {
   test.setTimeout(180000);
   await page.setViewportSize({ width: 1920, height: 1080 });
   const errors: string[] = [];
@@ -13,7 +13,7 @@ test('M1 square: one authored mission, escape, recycling, success, failure and f
   const prepare = async () => page.evaluate(() => {
     const m = (window as any).__m0; m.deterministic(true); m.pause(false); return m.snapshot();
   });
-  await page.screenshot({ path: 'test-results/m1-start.png' });
+  await page.screenshot({ path: 'test-results/m2-start.png' });
   const baseline = await prepare();
   expect(baseline.scene).toBe('square');
   const states = new Set<string>();
@@ -80,27 +80,35 @@ test('M1 square: one authored mission, escape, recycling, success, failure and f
   expect(states.has('return')).toBe(true);
   expect((await snapshot()).state).toBe('patrol');
   expect((await snapshot()).hidden).toBe(true);
-  await page.screenshot({ path: 'test-results/m1-escaped.png' });
+  await page.screenshot({ path: 'test-results/m2-escaped.png' });
   await travel(32, 11);
   await travel(31, -5, true);
   expect((await snapshot()).bag).toBe(5);
   await expect(page.locator('#objective')).toContainText('SRAP recycler');
-  await travel(23, -10);
+  await travel(19, -10);
+  expect((await snapshot()).cutaways).toContain('srap');
+  await travel(19, -15);
+  await travel(21, -19);
+  await travel(26, -19);
   expect((await snapshot()).cutaways).toContain('srap');
   await page.keyboard.press('KeyE'); await advance(1);
   expect((await snapshot()).recycled).toBe(5);
   expect((await snapshot()).phase).toBe('exiting');
   await expect(page.locator('#objective')).toContainText('Ecseri exit');
-  await page.screenshot({ path: 'test-results/m1-recycled.png' });
-  await travel(-1, -15);
+  await page.screenshot({ path: 'test-results/m2-recycled.png' });
+  await travel(19, -19);
+  await travel(2, -16.5);
+  await travel(-2, -16.5);
+  await travel(-5, -16.5);
+  expect((await snapshot()).cutaways).not.toContain('srap');
   await travel(-30, -10);
   await travel(-33, 16);
   expect((await snapshot()).phase).toBe('success');
-  await page.screenshot({ path: 'test-results/m1-success.png' });
+  await page.screenshot({ path: 'test-results/m2-success.png' });
   await page.getByRole('button', { name: 'Replay' }).click();
   await page.waitForFunction(() => !!(window as any).__m0);
   const replay = await prepare();
-  for (const key of ['phase', 'health', 'stamina', 'bag', 'recycled', 'player', 'threat', 'state', 'hidden', 'cutaways', 'camera', 'resources']) expect(replay[key], key).toEqual(baseline[key]);
+  for (const key of ['phase', 'health', 'stamina', 'bag', 'recycled', 'player', 'threat', 'state', 'hidden', 'cutaways', 'camera', 'resources', 'ambient']) expect(replay[key], key).toEqual(baseline[key]);
   // A second attempt deliberately walks into the same live patrol and stays.
   await travel(-30, 4);
   await travel(-15, 2);
@@ -108,7 +116,7 @@ test('M1 square: one authored mission, escape, recycling, success, failure and f
   for (let i = 0; i < 180 && (await snapshot()).phase !== 'failure'; i++) await advance(30);
   expect((await snapshot()).phase).toBe('failure');
   expect((await snapshot()).health).toBe(0);
-  await page.screenshot({ path: 'test-results/m1-failure.png' });
+  await page.screenshot({ path: 'test-results/m2-failure.png' });
   await page.getByRole('button', { name: 'Replay' }).click();
   await page.waitForFunction(() => !!(window as any).__m0);
   const fresh = await prepare();

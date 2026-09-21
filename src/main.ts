@@ -9,7 +9,7 @@ import {Scene} from '@babylonjs/core/scene';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {MAIN_SCENE,SCENES as PROOF_SCENES,validateDefinition,type SceneDefinition,type Wall} from './definition';
 import {SQUARE_SCENE} from './square';
-import {RunState,PlayerController,ThreatController,InteractionSystem,type Vec} from './gameplay';
+import {RunState,PlayerController,ThreatController,InteractionSystem,AmbientWalker,type Vec} from './gameplay';
 import {NavigationService} from './navigation';
 import {InputAdapter,type InputAction} from './input';
 import {PresentationCamera} from './camera';
@@ -36,6 +36,7 @@ class SceneRuntime {
  readonly walls:Mesh[]=[];
  readonly renderGroups=new Map<string,Mesh[]>();
  readonly hiddenGroups=new Set<string>();
+ readonly ambient:{walker:AmbientWalker;mesh:Mesh;previous:Vec}[]=[];
  readonly itemMeshes=new Map<string,Mesh>();
  readonly owned=new AbortController();
  nav!:NavigationService;
@@ -112,6 +113,11 @@ class SceneRuntime {
   }
   this.playerMesh=MeshBuilder.CreateCapsule('player',{height:1.8,radius:.3},this.scene);this.playerMesh.material=this.material('player','#4dd9fa');this.playerMesh.isPickable=false;
   this.threatMesh=MeshBuilder.CreateCapsule('threat',{height:1.8,radius:.3},this.scene);this.threatMesh.material=this.material('threat','#ef7063');this.threatMesh.isPickable=false;
+  for(const actor of this.definition.ambient??[]){
+   const walker=new AmbientWalker(this.nav,actor.path,actor.speed);
+   const mesh=this.playerMesh.clone(actor.id)!;mesh.material=colored(actor.color,wallMat);mesh.isPickable=false;
+   this.ambient.push({walker,mesh,previous:{...walker.position}});
+  }
   const conePoints=[Vector3.Zero(),...Array.from({length:17},(_,i)=>{const a=-Math.PI/4+i*Math.PI/32;return new Vector3(Math.sin(a)*8,0,Math.cos(a)*8);}),Vector3.Zero()];
   this.cone=MeshBuilder.CreateLines('detection cone',{points:conePoints},this.scene);(this.cone as any).color=Color3.FromHexString('#efb564');this.cone.isPickable=false;
   this.previousPlayer={...this.player.position};this.previousThreat={...this.threat.position};
@@ -156,6 +162,7 @@ class SceneRuntime {
   if(this.paused||!this.run.active)return;
   this.previousPlayer={...this.player.position};this.previousThreat={...this.threat.position};
   this.run.tick(dt);this.player.step(dt);
+  for(const actor of this.ambient){actor.previous={...actor.walker.position};actor.walker.step(dt);}
   this.hidden=!this.player.moving&&!this.player.sprinting&&this.definition.zones.some(z=>z.kind==='hiding'&&inside(this.player.position,z));
   this.threat.step(dt,this.player.position,this.hidden,this.los);
   const pending=this.player.pendingInteraction;
@@ -175,6 +182,7 @@ class SceneRuntime {
  render(alpha:number){
   const interpolate=(mesh:Mesh,before:Vec,after:Vec)=>{mesh.position.set(before.x+(after.x-before.x)*alpha,after.y+.9,before.z+(after.z-before.z)*alpha);};
   interpolate(this.playerMesh,this.previousPlayer,this.player.position);interpolate(this.threatMesh,this.previousThreat,this.threat.position);
+  for(const actor of this.ambient)interpolate(actor.mesh,actor.previous,actor.walker.position);
   this.cone.position.set(this.threat.position.x,.06,this.threat.position.z);this.cone.rotation.y=Math.atan2(this.threat.facing.x,this.threat.facing.z);
   for(const [id,m] of this.itemMeshes)m.setEnabled(this.run.items.get(id)==='available');
     this.updateHUD();this.scene.render();
@@ -217,7 +225,7 @@ class SceneRuntime {
   hud.querySelector('#message')!.textContent=this.run.active?this.message:`${this.run.phase==='success'?'Run complete':'Run failed'} — recycled ${this.run.recycledCount}, health ${this.run.health}, active time ${this.run.activeTime.toFixed(1)}s. Replay starts fresh.`;
   hud.querySelector('#pause')!.textContent=this.paused?'Resume':'Pause';
  }
- snapshot(){return {scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
+ snapshot(){return {ambient:this.ambient.map(a=>({id:a.mesh.name,position:{...a.walker.position}})),scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
  dispose(){this.disposed=true;this.owned.abort();this.input?.dispose();this.nav?.dispose();this.scene.dispose();}
 }
 // Keep the historical debug fixture available; ordinary launch opens the mission.

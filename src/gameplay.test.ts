@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { InteractionSystem, PlayerController, RunState, ThreatController, type Navigation, type Vec } from './gameplay';
+import { AmbientWalker, InteractionSystem, PlayerController, RunState, ThreatController, type Navigation, type Vec } from './gameplay';
 
 const point = (x = 0, z = 0): Vec => ({ x, y: 0, z });
 // Unit tests isolate controller policy; actual collision/path integration uses bundled Recast.
@@ -166,5 +166,20 @@ describe('threat perception and contact', () => {
     expect(run.health).toBe(100);
     steps(120, dt => { run.tick(dt); threat.step(dt, point(0.5), false, () => true); });
     expect(run.health).toBe(60);
+  });
+});
+
+
+describe('ambient walkers', () => {
+  it('waits, traverses an authored loop, and starts fresh when recreated', () => {
+    const nav = freeNavigation(), points = [point(0, 0), point(1, 0)];
+    const walker = new AmbientWalker(nav, points, 1);
+    steps(60, dt => walker.step(dt));
+    expect(walker.position).toEqual(point());
+    steps(90, dt => walker.step(dt));
+    expect(walker.position.x).toBeGreaterThan(.9);
+    steps(155, dt => walker.step(dt));
+    expect(walker.position.x).toBeCloseTo(0);
+    expect(new AmbientWalker(nav, points, 1).position).toEqual(point());
   });
 });

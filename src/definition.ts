@@ -20,6 +20,7 @@ export interface SceneDefinition {
   readonly camera?: { readonly span: number; readonly maxSpan: number; readonly target: Vec; readonly alpha?: number };
   readonly mission?: { readonly requiredBottles: number; readonly briefing: string; readonly recycleObjective: string; readonly exitObjective: string };
   readonly details?: readonly Detail[];
+  readonly ambient?: readonly { readonly id: string; readonly color: string; readonly speed: number; readonly path: readonly Vec[] }[];
   readonly labels?: readonly { readonly text: string; readonly point: Vec }[];
 }
 
@@ -108,6 +109,12 @@ export function validateDefinition(scene: SceneDefinition): void {
     if (scene.camera.alpha !== undefined && !finite(scene.camera.alpha)) fail('invalid camera heading');
   }
   scene.labels?.forEach(label => { point(label.point, 'label'); if (!label.text.trim()) fail('empty label'); });
+  scene.ambient?.forEach(actor => {
+    if (!actor.id.trim() || ids.has(actor.id)) fail('invalid or duplicate ambient id');
+    ids.add(actor.id);
+    if (!/^#[0-9a-f]{6}$/i.test(actor.color) || !finite(actor.speed) || actor.speed <= 0 || actor.speed > 2.5 || actor.path.length < 2) fail('invalid ambient actor');
+    actor.path.forEach(p => point(p, actor.id));
+  });
   for (const kind of ['recycler', 'exit', 'hiding'] as const) {
     if (!scene.zones.some(zone => zone.kind === kind)) fail(`missing ${kind} zone`);
   }

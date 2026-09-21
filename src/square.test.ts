@@ -9,6 +9,12 @@ describe('square mission contract', () => {
     expect(() => validateDefinition({ ...SQUARE_SCENE, mission: { ...SQUARE_SCENE.mission!, requiredBottles: 9 } })).toThrow(/bottle count/);
     expect(() => validateDefinition({ ...SQUARE_SCENE, walls: [{ ...SQUARE_SCENE.walls[0], shape: 'triangle' as 'box' }] })).toThrow(/shape/);
   });
+  it('rejects malformed ambient paths, speeds and duplicate IDs', () => {
+    const actor = SQUARE_SCENE.ambient![0];
+    for (const invalid of [{ ...actor, path: [] }, { ...actor, speed: 0 }, { ...actor, id: SQUARE_SCENE.items[0].id }]) {
+      expect(() => validateDefinition({ ...SQUARE_SCENE, ambient: [invalid] })).toThrow(/ambient/);
+    }
+  });
   it('blocks an under-quota final trip, then transfers once and gates exit', () => {
     const run = new RunState(SQUARE_SCENE.items.map(i => i.id), 5);
     const p = { x: 0, y: 0, z: 0 };

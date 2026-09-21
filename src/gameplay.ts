@@ -92,6 +92,28 @@ function follow(nav: Navigation, agent: NavAgent, path: Vec[], step: number): bo
   return moved;
 }
 
+/** Authored civilian loop. No perception or mission effects. */
+export class AmbientWalker {
+  readonly agent: NavAgent;
+  private leg = 0;
+  private path: Vec[] = [];
+  private waiting = 1.5;
+  constructor(private nav: Navigation, private points: readonly Vec[], private speed: number) {
+    this.agent = nav.spawn(points[0]);
+    points.forEach((p, i) => nav.path(nav.spawn(p), points[(i + 1) % points.length]));
+  }
+  get position() { return this.agent.position; }
+  step(dt: number) {
+    if (this.waiting > 0) { this.waiting = Math.max(0, this.waiting - dt); return; }
+    if (!this.path.length) {
+      this.leg = (this.leg + 1) % this.points.length;
+      this.path = this.nav.path(this.agent, this.points[this.leg]).map(copy);
+    }
+    follow(this.nav, this.agent, this.path, this.speed * dt);
+    if (!this.path.length) this.waiting = 1.5;
+  }
+}
+
 export interface MovementIntent { x: number; z: number; sprint: boolean }
 export class PlayerController {
   readonly agent: NavAgent;
