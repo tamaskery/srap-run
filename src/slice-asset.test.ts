@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs';
 import {expect,test} from 'vitest';
 
 function glb(name:string){
- const bytes=readFileSync(`public/assets/g2/${name}.glb`),length=bytes.readUInt32LE(12);
+ const bytes=readFileSync(`public/assets/${name==='court'?'g3':'g2'}/${name}.glb`),length=bytes.readUInt32LE(12);
  return {json:JSON.parse(bytes.subarray(20,20+length).toString()),binary:bytes.subarray(28+length)};
 }
 test('G2 hostile keeps one in-place rig and the proven idle/walk/run contract',()=>{
@@ -23,4 +23,7 @@ test('court exports embedded surfaces and explicit fixed/SRAP cutaway ownership'
  expect(g.images).toHaveLength(4);expect(g.images.every((i:any)=>i.bufferView!==undefined&&!i.uri)).toBe(true);
  expect(g.nodes.filter((n:any)=>n.mesh!==undefined).every((n:any)=>/^(srap|fixed):/.test(n.name))).toBe(true);
  expect(g.nodes.some((n:any)=>n.name.startsWith('srap:'))).toBe(true);
+ const triangles=g.meshes.flatMap((m:any)=>m.primitives).reduce((n:number,p:any)=>n+g.accessors[p.indices].count/3,0);
+ expect(triangles).toBeLessThan(24000);
+ expect(g.materials.every((m:any)=>!m.alphaMode||m.alphaMode==='OPAQUE')).toBe(true);
 });

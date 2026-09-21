@@ -5,9 +5,10 @@ import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
 import {ShadowGenerator} from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import {WorldArt} from './art';
+import {addGroundContact} from './contact';
 import {Hero} from './hero';
 import {Hostile} from './hostile';
-import {loadCourt} from './slice';
+import {loadCourt,courtProbe} from './slice';
 import {HemisphericLight} from '@babylonjs/core/Lights/hemisphericLight';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -77,8 +78,8 @@ class SceneRuntime {
   validateDefinition(this.definition);
   if(engine.webGLVersion!==2)throw new Error('WebGL2 is required. Enable hardware acceleration in a supported browser.');
   this.scene.useRightHandedSystem=true;this.art=new WorldArt(this.scene,this.renderGroups);this.scene.clearColor=Color4.FromHexString('#a5afa0ff');
-  const light=new HemisphericLight('sky',new Vector3(.3,1,.2),this.scene);light.intensity=.65;light.diffuse=Color3.FromHexString('#dce8e3');light.groundColor=Color3.FromHexString('#8b826b');
-  const sun=new DirectionalLight('afternoon sun',new Vector3(-.6,-1,.45),this.scene);sun.position.set(25,50,-30);sun.intensity=.7;sun.diffuse=Color3.FromHexString('#fff0cf');
+  const light=new HemisphericLight('sky',new Vector3(.3,1,.2),this.scene);light.intensity=this.definition.id==='square'?.46:.65;light.diffuse=Color3.FromHexString(this.definition.id==='square'?'#dbe5f0':'#dce8e3');light.groundColor=Color3.FromHexString(this.definition.id==='square'?'#737975':'#8b826b');
+  const sun=new DirectionalLight('afternoon sun',new Vector3(-.6,-1,.45),this.scene);sun.position.set(25,50,-30);sun.intensity=this.definition.id==='square'?.92:.7;sun.diffuse=Color3.FromHexString(this.definition.id==='square'?'#fff2df':'#fff0cf');
   const shadows=new ShadowGenerator(1024,sun);shadows.usePoissonSampling=true;shadows.bias=.002;shadows.normalBias=.03;shadows.setDarkness(.22);
   const groundMat=this.art.tiled('surrounding ground','#7e8975','#78836f',100);
   const floorMat=this.art.tiled('square stone','#b5ae96','#a49f8c',28);
@@ -109,7 +110,7 @@ class SceneRuntime {
   }
   for(const d of this.definition.details??[]){const m=shape(d.id,d);m.position.set(d.x,(d.elevation??0)+d.height/2,d.z);m.material=colored(d.color,wallMat);m.isPickable=false;}
   this.art.dress(this.definition);
-  if(this.definition.id==='square')await loadCourt(this.scene,this.renderGroups,shadows);
+  if(this.definition.id==='square'){await loadCourt(this.scene,this.renderGroups,shadows);addGroundContact(this.scene,this.definition);}
   for(const mesh of this.scene.meshes)if(mesh.name.startsWith('dressing:'))mesh.receiveShadows=true;
   for(const zone of this.definition.zones){
    if(zone.kind==='cutaway')continue;
@@ -256,7 +257,7 @@ async function boot(definition:SceneDefinition=SCENES.find(s=>s.id===params.get(
  try{
   if(params.has('failNav'))throw new Error('Injected navigation load failure');
   await candidate.init();if(own!==generation){candidate.dispose();return;}runtime=candidate;
-  if(debug)(window as any).__m0={screen:(p:Vec)=>{const v=Vector3.Project(vector(p),Matrix.Identity(),candidate.scene.getTransformMatrix(),candidate.camera.camera.viewport.toGlobal(engine.getRenderWidth(),engine.getRenderHeight()));const r=canvas.getBoundingClientRect();return {x:r.left+v.x*r.width/engine.getRenderWidth(),y:r.top+v.y*r.height/engine.getRenderHeight()};},capture:(start:boolean)=>{if(start){measurement=new Diagnostics();measurementDropped=0;measurementLast=0;}return measurement?.report(measurementDropped);},schedule:(hz:number,seconds:number)=>{candidate.clock.reset();for(let i=0;i<hz*seconds;i++)candidate.clock.advance(1/hz,dt=>candidate.tick(dt));candidate.render(1);return candidate.snapshot();},deterministic:(value:boolean)=>{candidate.deterministic=value;candidate.clock.reset();},snapshot:()=>candidate.snapshot(),artProbe:(family:'court'|'hostile',enabled:boolean)=>{if(family==='hostile')candidate.hostile?.root.setEnabled(enabled);else for(const m of candidate.scene.meshes)if(/^(fixed|srap):/.test(m.name))m.setEnabled(enabled);},command:(p:Vec,id?:string)=>candidate.player.command(p,id),advance:(steps:number)=>{for(let i=0;i<steps;i++)candidate.tick(1/60);candidate.render(1);return candidate.snapshot();},pause:(p:boolean)=>candidate.setPaused(p),action:(a:InputAction)=>candidate.action(a),reset:()=>boot(definition),scene:(index:number)=>boot(SCENES[index]),definition:()=>definition,los:candidate.los,probe:(start:Vec,target:Vec)=>{const a=candidate.nav.spawn(start);return candidate.nav.path(a,target);},place:(who:'player'|'threat',p:Vec)=>{const a=candidate.nav.spawn(p);const actor=who==='player'?candidate.player:candidate.threat;actor.agent.position=a.position;actor.agent.ref=a.ref;candidate.previousPlayer={...candidate.player.position};candidate.previousThreat={...candidate.threat.position};candidate.player.clearInput();},damage:(amount:number)=>candidate.run.damage(amount),collect:()=>candidate.run.collect(definition.items[0].id),recycle:()=>candidate.run.recycle(),diagnosticsReset:()=>{candidate.diagnostics.reset();candidate.clock.dropped=0;}};
+  if(debug)(window as any).__m0={screen:(p:Vec)=>{const v=Vector3.Project(vector(p),Matrix.Identity(),candidate.scene.getTransformMatrix(),candidate.camera.camera.viewport.toGlobal(engine.getRenderWidth(),engine.getRenderHeight()));const r=canvas.getBoundingClientRect();return {x:r.left+v.x*r.width/engine.getRenderWidth(),y:r.top+v.y*r.height/engine.getRenderHeight()};},capture:(start:boolean)=>{if(start){measurement=new Diagnostics();measurementDropped=0;measurementLast=0;}return measurement?.report(measurementDropped);},schedule:(hz:number,seconds:number)=>{candidate.clock.reset();for(let i=0;i<hz*seconds;i++)candidate.clock.advance(1/hz,dt=>candidate.tick(dt));candidate.render(1);return candidate.snapshot();},deterministic:(value:boolean)=>{candidate.deterministic=value;candidate.clock.reset();},snapshot:()=>candidate.snapshot(),courtProbe:(mode:string)=>courtProbe(candidate.scene,mode),artProbe:(family:'court'|'hostile',enabled:boolean)=>{if(family==='hostile')candidate.hostile?.root.setEnabled(enabled);else for(const m of candidate.scene.meshes)if(/^(fixed|srap):/.test(m.name))m.setEnabled(enabled);},command:(p:Vec,id?:string)=>candidate.player.command(p,id),advance:(steps:number)=>{for(let i=0;i<steps;i++)candidate.tick(1/60);candidate.render(1);return candidate.snapshot();},pause:(p:boolean)=>candidate.setPaused(p),action:(a:InputAction)=>candidate.action(a),reset:()=>boot(definition),scene:(index:number)=>boot(SCENES[index]),definition:()=>definition,los:candidate.los,probe:(start:Vec,target:Vec)=>{const a=candidate.nav.spawn(start);return candidate.nav.path(a,target);},place:(who:'player'|'threat',p:Vec)=>{const a=candidate.nav.spawn(p);const actor=who==='player'?candidate.player:candidate.threat;actor.agent.position=a.position;actor.agent.ref=a.ref;candidate.previousPlayer={...candidate.player.position};candidate.previousThreat={...candidate.threat.position};candidate.player.clearInput();},damage:(amount:number)=>candidate.run.damage(amount),collect:()=>candidate.run.collect(definition.items[0].id),recycle:()=>candidate.run.recycle(),diagnosticsReset:()=>{candidate.diagnostics.reset();candidate.clock.dropped=0;}};
  }catch(error){candidate.dispose();hud.innerHTML='<section role="alert"><strong>Navigation / scene unavailable</strong><p></p><button id="retry">Retry</button></section>';hud.querySelector('p')!.textContent=error instanceof Error?error.message:String(error);hud.querySelector('#retry')!.addEventListener('click',()=>{params.delete('failNav');void boot(definition);},{once:true});console.error(error);}
 }
 engine.runRenderLoop(()=>{const now=performance.now();runtime?.frame(now);if(measurement){if(measurementLast)measurement.record(now-measurementLast,runtime?.lastSimulation??0);measurementLast=now;}});

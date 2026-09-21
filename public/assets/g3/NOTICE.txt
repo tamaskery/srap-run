@@ -1,0 +1,7 @@
+Concrete Tiles 02 diffuse texture: Charlotte Baglioni / Poly Haven, CC0 1.0 Universal.
+https://polyhaven.com/a/concrete_tiles_02
+https://polyhaven.com/license
+https://creativecommons.org/publicdomain/zero/1.0/
+Ground repeat and runtime brightness adapted for SRAP Run. No endorsement implied.
+Other court geometry and textures: original SRAP Run artwork.
+Source, hash, dimensions and reproduction: assets-source/g3/README.md.
