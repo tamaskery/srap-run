@@ -1,4 +1,5 @@
 import { Color3 } from '@babylonjs/core/Maths/math.color';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
@@ -72,39 +73,13 @@ export class WorldArt {
     for (const z of [-10, 18.5]) p('paving-band', [0, .018, z], [75, .025, .32], '#8b8877');
     for (const x of [-28.5, 6]) p('paving-band', [x, .018, -1], [.28, .025, 43], '#8b8877');
     for (let i = 0; i < 7; i++) p('crosswalk', [-35 + i * 1.1, -.011, 27], [.65, .018, 7], '#c9c5b0');
-    // SRAP's terracotta fascia, repeated window bays, stone base and clerestory.
-    for (const [x, width] of [[8.5, 17], [24.5, 7]]) {
-      p('srap-plinth', [x, .36, -11.7], [width, .7, .14], '#847d6b', 'srap');
-      p('srap-fascia', [x, 4.4, -11.66], [width, .95, .2], '#934c3e', 'srap');
-      p('srap-cornice', [x, 5.7, -11.62], [width, .18, .3], '#e1d4b5', 'srap');
-    }
-    for (const x of [2, 5, 8, 11, 14, 23, 26, 30, 33]) {
-      const group = x < 28 ? 'srap' : undefined;
-      p('shop-window-frame', [x, 2.4, -11.67], [2.5, 2.7, .12], '#ddd1b1', group);
-      p('shop-window', [x, 2.4, -11.57], [2.25, 2.45, .08], '#405957', group);
-      p('window-mullion', [x, 2.4, -11.5], [.09, 2.45, .09], '#b9b19a', group);
-      p('window-reflection', [x, 3.24, -11.51], [2.2, .18, .02], '#708682', group);
-    }
+    // G2 SRAP shell is authored in court.glb; signs and the clear entry remain.
     p('entrance-lintel', [19, 4.5, -12], [4, 1.1, .8], '#934c3e', 'srap');
     p('entrance-canopy', [19, 3.85, -11.1], [4.8, .18, 2.2], '#b7aa8c', 'srap');
-    this.sign('S R A P', 9, 4.43, -11.48, 10, .9, 'srap').rotation.y = 0;
-    this.sign('RECYCLING', 25, 4.43, -11.48, 5.5, .8, 'srap').rotation.y = 0;
-    // The fixed camera looks across the service elevation and roof first.
-    // Carry the shop identity around that visible side rather than rotating play.
-    p('service-plinth', [14, .4, -22.31], [28, .8, .14], '#847d6b', 'srap');
-    p('service-fascia', [14, 4.5, -22.31], [28, .95, .14], '#934c3e', 'srap');
-    p('service-cornice', [14, 5.7, -22.31], [28, .18, .25], '#e1d4b5', 'srap');
-    for (let x = 2; x < 28; x += 3) {
-      p('service-window-frame', [x, 3.15, -22.3], [2.4, 1.1, .12], '#ddd1b1', 'srap');
-      p('service-window', [x, 3.15, -22.39], [2.16, .86, .06], '#405957', 'srap');
-      p('service-pier', [x - 1.4, 2.2, -22.32], [.18, 4, .15], '#b0a68c', 'srap');
-    }
-    this.sign('S R A P', 14, 4.5, -22.42, 9, .85, 'srap');
-    const roofSign = this.sign('S R A P', 17, 6.3, -17, 10, 2.5, 'srap');
-    roofSign.rotation.set(-Math.PI / 2, 0, 0);
+    this.sign('S R A P', 9, 4.6, -11.48, 10, .8, 'srap').rotation.y = 0;
+    this.sign('RECYCLING', 25, 4.6, -11.48, 5.5, .7, 'srap').rotation.y = 0;
+    this.sign('S R A P', 14, 4.6, -22.46, 9, .8, 'srap');
     this.sign('SRAP', -.32, 4.5, -19.5, 3.1, .8, 'srap').rotation.y = -Math.PI / 2;
-    for (let x = 2; x < 33; x += 4) p('roof-seam', [x, 6.26, -17], [.07, .05, 10], '#525c55', 'srap');
-    p('roof-vent', [10, 6.7, -18], [4, .9, 2], '#969d90', 'srap');
     // Interior stays dressed when the entire outside shell cuts away.
     for (let x = 2; x < 28; x += 2) p('floor-grout', [x, .022, -17], [.035, .015, 9.3], '#a49c89');
     for (const z of [-20, -18, -16, -14]) p('floor-grout', [14, .022, z], [27.3, .015, .035], '#a49c89');
@@ -136,7 +111,7 @@ export class WorldArt {
       ring.position.set(-5, .61, 4); ring.material = this.material('#a3bbb0'); ring.isPickable = false;
     }
     // All foliage sits inside existing solid garden/hedge footprints.
-    for (const w of definition.walls.filter(w => /garden|grove|hedge|planter/.test(w.id) && !w.id.includes('wall'))) {
+    for (const w of definition.walls.filter(w => /garden|grove|hedge|planter/.test(w.id) && !w.id.includes('wall') && w.x < 0)) {
       const count = Math.max(2, Math.floor(w.width / 2));
       for (let i = 0; i < count; i++) {
         const x = w.x + (i / Math.max(1, count - 1) - .5) * Math.max(0, w.width - 2);
@@ -150,15 +125,10 @@ export class WorldArt {
         }
       }
     }
-    for (const [x, z, scale] of [[13, 5, 1], [26, 6, 1.1], [-33, 4, .7]]) {
+    for (const [x, z, scale] of [[-33, 4, .7]]) {
       p('tree-trunk', [x, 2, z], [.33, 4, .33], '#76634b', undefined, 'cylinder');
       p('tree-crown', [x, 4.7, z], [3.9 * scale, 3.3 * scale, 3.5 * scale], '#5b7046', undefined, 'ball');
       p('tree-crown-light', [x - .6, 5.65, z - .3], [2.9 * scale, 2 * scale, 2.7 * scale], '#7c8c50', undefined, 'ball');
-    }
-    // Benches sit on solid low wall/planter edges, never across a walkable route.
-    for (const [x, z] of [[11, -7], [3, 0]]) {
-      p('bench-seat', [x, 1.66, z], [2.6, .12, .58], '#9b784e');
-      p('bench-back', [x, 1.95, z + .25], [2.6, .5, .12], '#9b784e');
     }
     for (const [x, z] of [[-38, -16], [-38, 17], [38, 17], [38, -15]]) {
       p('lamp-post', [x, 2.2, z], [.12, 4.4, .12], '#485b50');
@@ -215,13 +185,22 @@ export class WorldArt {
     arms.forEach((arm, i) => arm.rotation.x = stride * (i ? -1 : 1));
   }
   bottle(id: string, point: Vec) {
-    const m = MeshBuilder.CreateCylinder(id, { height: .66, diameter: .38, tessellation: 12 }, this.scene);
-    m.position.set(point.x, .45, point.z); m.material = this.material('#497e63'); m.metadata = { target: id };
-    for (const [label, y, height, diameter, color] of [['neck', .42, .3, .18, '#497e63'], ['cap', .6, .08, .2, '#cfb982'], ['label', 0, .24, .391, '#e0d5ac']] as const) {
+    const variants:Record<string,number>={'arrival-bottle':0,'pavilion-back-bottle':1,'pavilion-shortcut-bottle':2,'fountain-bottle':0,'crossing-bottle':1,'east-walk-bottle':2,'garden-corner-bottle':0,'south-walk-bottle':2};
+    const variant=variants[id]??0;
+    // Three authored turned profiles: green PET, amber long-neck, silver can.
+    // Shared ~2x presentation scale, smaller than the former metre-high bottle.
+    const profiles=[[[.12,0],[.18,.04],[.18,.38],[.16,.46],[.07,.54],[.07,.64]],[[.11,0],[.13,.04],[.13,.35],[.065,.44],[.055,.68],[.055,.71]],[[.14,0],[.17,.025],[.17,.39],[.145,.43],[.14,.45]]];
+    const profile=profiles[variant];
+    const m = MeshBuilder.CreateLathe(id, {shape:profile.map(([x,y])=>new Vector3(x,y,0)),tessellation:12,cap:Mesh.CAP_ALL},this.scene);
+    m.position.set(point.x,.05,point.z); m.material=this.material(['#497557','#795436','#a4aba5'][variant]);m.metadata={target:id,variant};
+    const parts:readonly (readonly [string,number,number,number,string])[]=variant===2
+      ? [['label',.23,.23,.344,'#9d513f'],['rim',.435,.025,.30,'#d2d4c7']]
+      : [['cap',variant===0?.65:.72,.045,variant===0?.15:.13,variant===0?'#617e94':'#b7a37a'],['label',.25,.17,variant===0?.365:.265,'#e0d5b9']];
+    for (const [label, y, height, diameter, color] of parts) {
       const part = MeshBuilder.CreateCylinder(`${id}:${label}`, { height, diameter, tessellation: 12 }, this.scene); part.parent = m; part.position.y = y; part.material = this.material(color); part.metadata = { target: id };
     }
     const ring = MeshBuilder.CreateTorus(`${id}:marker`, { diameter: 1.4, thickness: .075, tessellation: 24 }, this.scene);
-    ring.parent = m; ring.position.y = -.4; ring.material = this.material('#e5ca84'); ring.metadata = { target: id };
+    ring.parent = m; ring.position.y = 0; ring.material = this.material('#e5ca84'); ring.metadata = { target: id };
     return m;
   }
 }

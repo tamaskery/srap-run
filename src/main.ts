@@ -5,6 +5,9 @@ import {DirectionalLight} from '@babylonjs/core/Lights/directionalLight';
 import {ShadowGenerator} from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import {WorldArt} from './art';
+import {Hero} from './hero';
+import {Hostile} from './hostile';
+import {loadCourt} from './slice';
 import {HemisphericLight} from '@babylonjs/core/Lights/hemisphericLight';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
@@ -42,6 +45,8 @@ class SceneRuntime {
  readonly renderGroups=new Map<string,Mesh[]>();
  readonly hiddenGroups=new Set<string>();
  art!:WorldArt;
+ hero!:Hero;
+ hostile?:Hostile;
  readonly ambient:{walker:AmbientWalker;mesh:Mesh;previous:Vec}[]=[];
  readonly itemMeshes=new Map<string,Mesh>();
  readonly owned=new AbortController();
@@ -104,6 +109,7 @@ class SceneRuntime {
   }
   for(const d of this.definition.details??[]){const m=shape(d.id,d);m.position.set(d.x,(d.elevation??0)+d.height/2,d.z);m.material=colored(d.color,wallMat);m.isPickable=false;}
   this.art.dress(this.definition);
+  if(this.definition.id==='square')await loadCourt(this.scene,this.renderGroups,shadows);
   for(const mesh of this.scene.meshes)if(mesh.name.startsWith('dressing:'))mesh.receiveShadows=true;
   for(const zone of this.definition.zones){
    if(zone.kind==='cutaway')continue;
@@ -119,8 +125,9 @@ class SceneRuntime {
   for(const point of [...this.definition.patrol,...this.definition.items.map(i=>i.point),...this.definition.zones.filter(z=>z.kind!=='cutaway').map(z=>({x:z.x,y:0,z:z.z}))])this.nav.path(this.player.agent,point);
   this.interactions=new InteractionSystem(this.run,[...this.definition.items.map(i=>({...i,kind:'item' as const})),...this.definition.zones.filter(z=>z.kind==='recycler').map(z=>({id:z.id,kind:'recycler' as const,point:{x:z.x,y:0,z:z.z}}))],this.los);
   for(const item of this.definition.items)this.itemMeshes.set(item.id,this.art.bottle(item.id,item.point));
-  this.playerMesh=this.art.character('player','player');
-  this.threatMesh=this.art.character('threat','hostile');
+  this.hero=await Hero.create(this.scene);this.playerMesh=this.hero.root;
+  if(this.definition.id==='square'){this.hostile=await Hostile.create(this.scene);this.threatMesh=this.hostile.root;}
+  else this.threatMesh=this.art.character('threat','hostile');
   shadows.addShadowCaster(this.playerMesh,true);shadows.addShadowCaster(this.threatMesh,true);
   for(const actor of this.definition.ambient??[]){
    const walker=new AmbientWalker(this.nav,actor.path,actor.speed);
@@ -179,6 +186,8 @@ class SceneRuntime {
   if(this.definition.zones.some(z=>z.kind==='exit'&&inside(this.player.position,z)))this.run.exit();
   this.updateCutaways();
   if(!this.run.active){this.player.clearInput();this.input.clear();this.clock.reset();}
+  this.hostile?.update(this.previousThreat,this.threat.position,this.run.activeTime,this.run.active,this.threat.state==='chase');
+  this.hero.update(this.previousPlayer,this.player.position,this.run.activeTime,this.run.active,this.player.sprinting);
  }
  updateCutaways(){
   for(const [id,meshes] of this.renderGroups){
@@ -193,7 +202,7 @@ class SceneRuntime {
   interpolate(this.playerMesh,this.previousPlayer,this.player.position);interpolate(this.threatMesh,this.previousThreat,this.threat.position);
   for(const actor of this.ambient)interpolate(actor.mesh,actor.previous,actor.walker.position);
   const animate=(mesh:Mesh,before:Vec,after:Vec)=>this.art.animate(mesh,before,after,this.run.activeTime,!this.paused&&this.run.active);
-  animate(this.playerMesh,this.previousPlayer,this.player.position);animate(this.threatMesh,this.previousThreat,this.threat.position);
+  if(!this.hostile)animate(this.threatMesh,this.previousThreat,this.threat.position);
   for(const actor of this.ambient)animate(actor.mesh,actor.previous,actor.walker.position);
   this.cone.position.set(this.threat.position.x,.06,this.threat.position.z);this.cone.rotation.y=Math.atan2(this.threat.facing.x,this.threat.facing.z);
   for(const [id,m] of this.itemMeshes){m.setEnabled(this.run.items.get(id)==='available');m.rotation.y=Math.sin(this.run.activeTime*1.5)*.12;}
@@ -237,7 +246,7 @@ class SceneRuntime {
   const objective=this.run.phase==='collecting'?(this.run.bagCount<this.run.requiredBottles?`Collect bottles: ${this.run.bagCount}/${this.run.requiredBottles} · ${this.definition.items.length} bottles in the square`:(mission?.recycleObjective??'Recycle your bottles')):this.run.phase==='exiting'?(mission?.exitObjective??'Reach the exit'):(this.run.phase==='success'?'MISSION COMPLETE':'CAUGHT · RUN FAILED');
   this.presentation?.update({run:this.run,threat:this.threat.state,suspicion:this.threat.suspicion,paused:this.paused,hidden:this.hidden,objective,message:this.message,near:near?.id,moving:this.player.moving});
  }
- snapshot(){return {ambient:this.ambient.map(a=>({id:a.mesh.name,position:{...a.walker.position}})),scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
+ snapshot(){return {hostile:this.hostile?.snapshot(),hero:this.hero.snapshot(),ambient:this.ambient.map(a=>({id:a.mesh.name,position:{...a.walker.position}})),scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{skeletons:this.scene.skeletons.length,animationGroups:this.scene.animationGroups.length,meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
  dispose(){this.disposed=true;this.presentation?.dispose();this.owned.abort();this.input?.dispose();this.nav?.dispose();this.scene.dispose();}
 }
 // Keep the historical debug fixture available; ordinary launch opens the mission.
@@ -247,7 +256,7 @@ async function boot(definition:SceneDefinition=SCENES.find(s=>s.id===params.get(
  try{
   if(params.has('failNav'))throw new Error('Injected navigation load failure');
   await candidate.init();if(own!==generation){candidate.dispose();return;}runtime=candidate;
-  if(debug)(window as any).__m0={screen:(p:Vec)=>{const v=Vector3.Project(vector(p),Matrix.Identity(),candidate.scene.getTransformMatrix(),candidate.camera.camera.viewport.toGlobal(engine.getRenderWidth(),engine.getRenderHeight()));const r=canvas.getBoundingClientRect();return {x:r.left+v.x*r.width/engine.getRenderWidth(),y:r.top+v.y*r.height/engine.getRenderHeight()};},capture:(start:boolean)=>{if(start){measurement=new Diagnostics();measurementDropped=0;measurementLast=0;}return measurement?.report(measurementDropped);},schedule:(hz:number,seconds:number)=>{candidate.clock.reset();for(let i=0;i<hz*seconds;i++)candidate.clock.advance(1/hz,dt=>candidate.tick(dt));candidate.render(1);return candidate.snapshot();},deterministic:(value:boolean)=>{candidate.deterministic=value;candidate.clock.reset();},snapshot:()=>candidate.snapshot(),command:(p:Vec,id?:string)=>candidate.player.command(p,id),advance:(steps:number)=>{for(let i=0;i<steps;i++)candidate.tick(1/60);candidate.render(1);return candidate.snapshot();},pause:(p:boolean)=>candidate.setPaused(p),action:(a:InputAction)=>candidate.action(a),reset:()=>boot(definition),scene:(index:number)=>boot(SCENES[index]),definition:()=>definition,los:candidate.los,probe:(start:Vec,target:Vec)=>{const a=candidate.nav.spawn(start);return candidate.nav.path(a,target);},place:(who:'player'|'threat',p:Vec)=>{const a=candidate.nav.spawn(p);const actor=who==='player'?candidate.player:candidate.threat;actor.agent.position=a.position;actor.agent.ref=a.ref;candidate.previousPlayer={...candidate.player.position};candidate.previousThreat={...candidate.threat.position};candidate.player.clearInput();},damage:(amount:number)=>candidate.run.damage(amount),collect:()=>candidate.run.collect(definition.items[0].id),recycle:()=>candidate.run.recycle(),diagnosticsReset:()=>{candidate.diagnostics.reset();candidate.clock.dropped=0;}};
+  if(debug)(window as any).__m0={screen:(p:Vec)=>{const v=Vector3.Project(vector(p),Matrix.Identity(),candidate.scene.getTransformMatrix(),candidate.camera.camera.viewport.toGlobal(engine.getRenderWidth(),engine.getRenderHeight()));const r=canvas.getBoundingClientRect();return {x:r.left+v.x*r.width/engine.getRenderWidth(),y:r.top+v.y*r.height/engine.getRenderHeight()};},capture:(start:boolean)=>{if(start){measurement=new Diagnostics();measurementDropped=0;measurementLast=0;}return measurement?.report(measurementDropped);},schedule:(hz:number,seconds:number)=>{candidate.clock.reset();for(let i=0;i<hz*seconds;i++)candidate.clock.advance(1/hz,dt=>candidate.tick(dt));candidate.render(1);return candidate.snapshot();},deterministic:(value:boolean)=>{candidate.deterministic=value;candidate.clock.reset();},snapshot:()=>candidate.snapshot(),artProbe:(family:'court'|'hostile',enabled:boolean)=>{if(family==='hostile')candidate.hostile?.root.setEnabled(enabled);else for(const m of candidate.scene.meshes)if(/^(fixed|srap):/.test(m.name))m.setEnabled(enabled);},command:(p:Vec,id?:string)=>candidate.player.command(p,id),advance:(steps:number)=>{for(let i=0;i<steps;i++)candidate.tick(1/60);candidate.render(1);return candidate.snapshot();},pause:(p:boolean)=>candidate.setPaused(p),action:(a:InputAction)=>candidate.action(a),reset:()=>boot(definition),scene:(index:number)=>boot(SCENES[index]),definition:()=>definition,los:candidate.los,probe:(start:Vec,target:Vec)=>{const a=candidate.nav.spawn(start);return candidate.nav.path(a,target);},place:(who:'player'|'threat',p:Vec)=>{const a=candidate.nav.spawn(p);const actor=who==='player'?candidate.player:candidate.threat;actor.agent.position=a.position;actor.agent.ref=a.ref;candidate.previousPlayer={...candidate.player.position};candidate.previousThreat={...candidate.threat.position};candidate.player.clearInput();},damage:(amount:number)=>candidate.run.damage(amount),collect:()=>candidate.run.collect(definition.items[0].id),recycle:()=>candidate.run.recycle(),diagnosticsReset:()=>{candidate.diagnostics.reset();candidate.clock.dropped=0;}};
  }catch(error){candidate.dispose();hud.innerHTML='<section role="alert"><strong>Navigation / scene unavailable</strong><p></p><button id="retry">Retry</button></section>';hud.querySelector('p')!.textContent=error instanceof Error?error.message:String(error);hud.querySelector('#retry')!.addEventListener('click',()=>{params.delete('failNav');void boot(definition);},{once:true});console.error(error);}
 }
 engine.runRenderLoop(()=>{const now=performance.now();runtime?.frame(now);if(measurement){if(measurementLast)measurement.record(now-measurementLast,runtime?.lastSimulation??0);measurementLast=now;}});

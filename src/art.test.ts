@@ -25,3 +25,14 @@ test('every bottle component keeps the same interaction target and hides with it
   bottle.setEnabled(false);
   expect(bottle.getChildMeshes().every(m => !m.isEnabled())).toBe(true);
 });
+test('the eight stable pickup IDs reuse exactly three shapes without moving targets',()=>{
+  scene=new Scene(engine);const art=new WorldArt(scene,new Map());
+  const ids=['arrival-bottle','pavilion-back-bottle','pavilion-shortcut-bottle','fountain-bottle','crossing-bottle','east-walk-bottle','garden-corner-bottle','south-walk-bottle'];
+  const variants=new Set();
+  for(const id of ids){
+    const mesh=art.bottle(id,{x:2,y:0,z:3});variants.add(mesh.metadata.variant);
+    expect(mesh.position.x).toBe(2);expect(mesh.position.z).toBe(3);
+    expect([mesh,...mesh.getChildMeshes()].every(m=>m.metadata.target===id)).toBe(true);
+  }
+  expect(variants.size).toBe(3);
+});
