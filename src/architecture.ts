@@ -2,50 +2,21 @@ import {Color3} from '@babylonjs/core/Maths/math.color';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
-import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
+import {architecturalSurface} from './surface-atlas';
 import type {Scene} from '@babylonjs/core/scene';
 import type {ShadowGenerator} from '@babylonjs/core/Lights/Shadows/shadowGenerator';
 import type {SceneDefinition, Wall} from './definition';
 
 type Point = [number, number, number];
 type Region = [number, number, number, number];
-const WHITE:Region=[8,8,8,8], ROOF:Region=[8,72,496,496];
+const WHITE:Region=[8,8,8,8], ROOF:Region=[8,72,496,280], FELT:Region=[8,296,496,496];
 const GLASS:Region=[520,8,1016,496], PLASTER:Region=[8,520,496,1016];
 const WINDOW:Region=[520,520,1016,1016];
 
 /** One opaque atlas shared by the slice's architectural kit. Original artwork;
  * small joints and reflection/curtain information stay in texture space. */
 function atlas(scene:Scene){
- const t=new DynamicTexture('g4:architecture-atlas',1024,scene,true);
- const c=t.getContext();c.fillStyle='#ffffff';c.fillRect(0,0,1024,1024);
- c.fillStyle='#8a918e';c.fillRect(0,64,512,448);
- for(let x=24;x<512;x+=48){
-  c.fillStyle='#626e6f';c.fillRect(x,64,3,448);
-  c.fillStyle='#b0b7b0';c.fillRect(x+3,64,2,448);
- }
- c.fillStyle='#ddd8cc';c.fillRect(0,512,512,512);
- // Quiet plaster aggregate, fixed seed: no random state or replay drift.
- for(let i=0;i<9000;i++){
-  const x=(i*73)%512,y=512+(i*137+Math.floor(i/512)*31)%512;
-  c.fillStyle=i%3?'#ffffff08':'#625e5710';c.fillRect(x,y,2,2);
- }
- const glass=c.createLinearGradient(0,0,0,512);
- glass.addColorStop(0,'#a4b6b6');glass.addColorStop(.36,'#7c9294');
- glass.addColorStop(.38,'#51696c');glass.addColorStop(1,'#3c5457');
- c.fillStyle=glass;c.fillRect(512,0,512,512);
- // Broad, muted reflected buildings; deliberately no transparent interior.
- c.fillStyle='#bdc7bb22';c.beginPath();c.moveTo(530,36);c.lineTo(754,36);c.lineTo(1012,245);c.lineTo(1012,312);c.fill();
- c.fillStyle='#a9b2a51c';c.fillRect(560,140,58,158);c.fillRect(648,184,82,114);
- c.fillStyle='#1f2c2e';c.fillRect(512,474,512,38);
- c.fillStyle='#344547';c.fillRect(512,512,512,512);
- c.fillStyle='#bcbfb3';c.fillRect(528,528,480,480);
- c.fillStyle='#71858a';c.fillRect(542,542,452,452);
- c.fillStyle='#374d55';c.fillRect(548,720,440,268);
- c.fillStyle='#c8c5b7';c.fillRect(548,550,85,430);c.fillRect(915,550,67,430);
- for(let x=553;x<630;x+=13){c.fillStyle='#8f9995';c.fillRect(x,550,4,430);}
- c.fillStyle='#bac3bc';c.fillRect(756,540,15,452);c.fillRect(540,704,456,12);
- c.fillStyle='#e1dfcf';c.fillRect(528,528,480,7);
- t.update();
+ const t=architecturalSurface(scene);
  const m=new StandardMaterial('g4:architecture',scene);m.diffuseTexture=t;
  // Closed outward-facing architecture does not need a second back-face pass.
  m.specularColor=Color3.Black();m.backFaceCulling=true;
@@ -127,9 +98,9 @@ export function pavilionGeometry(w:Wall,roof:Wall){
 function facadeGeometry(b:Wall){
  const a=new ArchitectureBatch(),front=b.z-b.depth/2,commercial=b.height<6;
  // Only the housing and unbranded commercial shells visible in the slice.
- a.box(b.x,b.height/2,b.z,b.width+.035,b.height,b.depth+.035,'#eee7d8',PLASTER);
+ a.box(b.x,b.height/2,b.z,b.width+.035,b.height,b.depth+.035,b.id==='north-housing'?'#fff3d9':'#e7e8da',PLASTER);
  a.box(b.x,.43,b.z,b.width+.09,.86,b.depth+.09,'#777e78');
- a.box(b.x,b.height+.10,b.z,b.width,.18,b.depth,'#79847c',PLASTER);
+ a.box(b.x,b.height+.10,b.z,b.width,.18,b.depth,'#e1dfd2',FELT);
  for(let x=b.x-b.width/2+6;x<b.x+b.width/2;x+=6)
   a.box(x,b.height+.2,b.z,.045,.025,b.depth-.4,'#626e68');
  for(const z of [b.z-b.depth/2,b.z+b.depth/2]){
@@ -140,12 +111,14 @@ function facadeGeometry(b:Wall){
  const bays=Math.floor(b.width/3.2),step=b.width/bays;
  for(let bay=0;bay<bays;bay++){
   const x=b.x-b.width/2+step*(bay+.5),balcony=!commercial&&(bay%5===1||bay%5===2);
-  if(bay%5===4)a.box(x,b.height/2,front-.07,step-.06,b.height-.6,.10,'#b4b8ad',PLASTER);
+  if(bay%5===4)a.box(x,b.height/2,front-.07,step-.06,b.height-.6,.10,bay%2?'#c8c1ac':'#bbc3b9',PLASTER);
   for(let floor=0;floor<(commercial?1:3);floor++){
    const y=(commercial?1.7:1.45)+floor*2.55;
    if(y+1>b.height-.35)continue;
    a.box(x,y,front-.11,1.86,1.88,.12,'#636e6a');
-   a.quad([[x-.84,y-.82,front-.18],[x+.84,y-.82,front-.18],[x+.84,y+.82,front-.18],[x-.84,y+.82,front-.18]],bay%4===0?'#b9c1b9':'#ffffff',commercial?GLASS:WINDOW);
+   const tone=['#d1d4c7','#ffffff','#e6ded0','#b9c8c5'][(bay+floor*3)%4];
+   const window:Region=(bay+floor)%3===0?[WINDOW[2],WINDOW[1],WINDOW[0],WINDOW[3]]:WINDOW;
+   a.quad([[x-.84,y-.82,front-.18],[x+.84,y-.82,front-.18],[x+.84,y+.82,front-.18],[x-.84,y+.82,front-.18]],tone,commercial?GLASS:window);
    a.box(x,y-.94,front-.22,2.02,.12,.38,'#d4d3c3');
    if(balcony&&floor>0){
     a.box(x,y-.99,front-.52,2.38,.17,1.03,'#cdcbbb');

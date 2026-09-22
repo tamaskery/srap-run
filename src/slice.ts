@@ -6,6 +6,49 @@ import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {PBRMaterial} from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {VertexBuffer} from '@babylonjs/core/Buffers/buffer';
+import {Vector3} from '@babylonjs/core/Maths/math.vector';
+
+/** Reuse the architecture atlas on the existing SRAP buffers. UV authoring only;
+ * geometry, cutaway ownership and the source GLB remain unchanged. */
+function finishStoreSurfaces(scene:Scene){
+ const family=scene.getMaterialByName('g4:architecture') as StandardMaterial;
+ const glass=new StandardMaterial('g5:store-glazing',scene);
+ glass.diffuseTexture=family.diffuseTexture;
+ glass.specularColor=new Color3(.10,.12,.11);glass.specularPower=48;
+ for(const mesh of scene.meshes){
+  if(!(mesh instanceof Mesh)||!/^(fixed|srap):/.test(mesh.name))continue;
+  const roof=mesh.name.endsWith(':roof-felt'),plaster=mesh.name.endsWith(':plaster'),pane=mesh.name.endsWith(':smoked glazing');
+  if(!roof&&!plaster&&!pane)continue;
+  mesh.computeWorldMatrix(true);
+  const p=mesh.getVerticesData(VertexBuffer.PositionKind)!;const uv:number[]=[];
+  for(let i=0;i<p.length;i+=3){
+   const w=Vector3.TransformCoordinates(new Vector3(p[i],p[i+1],p[i+2]),mesh.getWorldMatrix());
+   if(roof)uv.push((8+Math.max(0,Math.min(1,w.x/34))*488)/1024,1-(296+Math.max(0,Math.min(1,(w.z+22)/10))*200)/1024);
+   else if(plaster)uv.push((8+((w.x%8+8)%8)/8*488)/1024,1-(520+(1-Math.max(0,Math.min(1,w.y/6)))*496)/1024);
+   else uv.push((520+((w.x%2.8+2.8)%2.8)/2.8*496)/1024,1-(8+(1-Math.max(0,Math.min(1,(w.y-1.2)/2.6)))*488)/1024);
+  }
+  mesh.setVerticesData(VertexBuffer.UVKind,uv);mesh.material=pane?glass:family;
+ }
+ const reflection=scene.getMaterialByName('court:soft reflected sky');
+ if(reflection instanceof StandardMaterial)reflection.diffuseColor=Color3.FromHexString('#718983');
+ // Existing visible shells receive cladding, never their shared hidden proxies.
+ // Top faces are muted stone/soil; local lower-wall tint integrates the bases.
+ for(const id of ['srap-west-front','srap-west-back','srap-east-wing','west-planter','south-garden-wall','crossing-cover']){
+  const mesh=scene.getMeshByName(id);if(!(mesh instanceof Mesh))continue;
+  mesh.makeGeometryUnique();mesh.computeWorldMatrix(true);
+  const p=mesh.getVerticesData(VertexBuffer.PositionKind)!,n=mesh.getVerticesData(VertexBuffer.NormalKind)!;
+  const uv:number[]=[],colors:number[]=[];
+  const box=mesh.getBoundingInfo().boundingBox,height=box.maximumWorld.y;
+  for(let i=0;i<p.length;i+=3){
+   const w=Vector3.TransformCoordinates(new Vector3(p[i],p[i+1],p[i+2]),mesh.getWorldMatrix());
+   const horizontal=Math.abs(n[i])>.5?w.z:w.x;
+   uv.push((8+((horizontal%6+6)%6)/6*488)/1024,1-(520+(1-Math.max(0,Math.min(1,w.y/height)))*496)/1024);
+   const top=n[i+1]>.5,gain=top?.70:(w.y<.1?.74:1);
+   colors.push(gain,gain,gain*.96,1);
+  }
+  mesh.setVerticesData(VertexBuffer.UVKind,uv);mesh.setVerticesData(VertexBuffer.ColorKind,colors);mesh.material=family;
+ }
+}
 
 /** The court uses opaque diffuse surfaces; no environment reflections or metals.
  * Load its colour textures without GPU sRGB decode: StandardMaterial expects
@@ -53,6 +96,16 @@ export async function loadCourt(scene:Scene,groups:Map<string,Mesh[]>,shadows:Sh
  const asset=await LoadAssetContainerAsync(`${import.meta.env.BASE_URL}assets/g3/court.glb`,scene,{pluginOptions:{gltf:{useSRGBBuffers:false}}});
  asset.addAllToScene();
  courtDiffuse(scene);
+ finishStoreSurfaces(scene);
+ // Extend the already licensed paving family through the existing square. UVs
+ // match the imported east court in world metres, eliminating its hard border.
+ const pavement=scene.getMeshByName('square-pavement');
+ if(pavement instanceof Mesh){
+  pavement.material=scene.getMaterialByName('court:limestone');
+  const p=pavement.getVerticesData(VertexBuffer.PositionKind)!;const uv:number[]=[];
+  for(let i=0;i<p.length;i+=3)uv.push((p[i]+pavement.position.x)/2.7,-(p[i+2]+pavement.position.z)/2.7);
+  pavement.setVerticesData(VertexBuffer.UVKind,uv);
+ }
  // Existing solid cover keeps its exact footprint/height; only its surface changes.
  for(const id of ['east-garden','east-grove']){
   const shell=scene.getMeshByName(id);

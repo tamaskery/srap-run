@@ -4,70 +4,63 @@ Repository: https://github.com/tamaskery/srap-run
 
 ## Current milestone
 
-G4 final slice convergence completed under stopping condition B on
-codex/g3-production-art, continuing committed G3 baseline 650aef9.
-TECHNICAL PASS; PERFORMANCE PASS relative to G3; VISUAL STILL WEAK.
-The representative slice is improved but is not approved as the map-production
-art template. No map-wide rollout. Report and committed comparisons:
-docs/G4_FINAL_SLICE.md and docs/art/g4/. Local gallery: evidence/g4/index.html.
+G5 surface pass, baseline b465c29, branch codex/g3-production-art.
+Three substantial visual iterations complete; stopped at the authorised budget
+checkpoint. TECHNICAL PASS; VISUAL WEAK against the semi-realistic target.
+PERFORMANCE PASS in the bounded G4 comparison. One initial stall sample did not
+reproduce in court-only confirmation; retained/disclosed in docs/G5_SURFACE_PASS.md.
+Committed matched images: docs/art/g5. Raw capture/timing/video: evidence/g5.
 
-Pre-existing AGENTS.md edits and untracked design-guide/reference files remain
-outside the G4 checkpoint, untouched. No push, deployment or asset purchase.
+Pre-existing AGENTS.md edits and supplied untracked design-guide/reference files
+remain untouched and outside the checkpoint. No push, deployment or purchase.
 
 ## Frozen decisions
 
-- Babylon.js/TypeScript/Recast V2 WebGL2; pinned dependencies and local WASM.
-- One Mester Árpád tér mission: five of eight, unlimited bag, one recycling trip,
-  separate Ecseri exit; lethal damage wins; fresh replay.
-- Same map, item positions, SRAP openings, collision/nav/LOS, player movement,
-  threat/civilian behaviour, hiding, damage, controls and fixed camera.
-- Budapest 2026; SRAP gameplay store; LIDR only on the specified red-roofed
-  background store, grey commercial shell unbranded. Preserve BIF, three pavilions
-  and Fókák as seals. Roads stay scenery. Hero/watcher binaries unchanged.
+- Babylon.js/TypeScript/Recast V2 WebGL2, pinned dependencies and local WASM.
+- Five of eight, unlimited bag, one recycling trip, separate Ecseri exit;
+  lethal damage wins and fresh replay. No gameplay or map expansion.
+- Same item positions, openings, collision/nav/LOS, movement/stamina, threats,
+  hiding/damage, input, fixed camera and replay semantics.
+- Budapest 2026; SRAP gameplay store; red-roofed LIDR; grey shell unbranded;
+  preserve BIF, three pavilions and Fokak seals. Actors/public assets unchanged.
 
-## Architecture and art boundary
+## Presentation boundary
 
-square.ts owns gameplay data. WorldArt/slice.ts/architecture.ts own presentation.
-G3 court.glb, paving, trees, SRAP, lighting and contact strips remain unchanged.
-G4 architecture.ts replaces only three pavilion render shells/canopies and the
-visible north/south housing and unbranded commercial shell. Original proxies and
-low cutaway bases remain; new art cannot pick and inherits existing cutaway IDs.
+square.ts owns gameplay data; art.ts/slice.ts/architecture.ts own presentation.
+G5 surface-atlas.ts paints one original opaque 1024-square mipmapped atlas,
+replacing G4's atlas at equal resolution. Shared zinc/felt/plaster/glass/window
+regions serve G4 architecture and existing SRAP geometry. One extra material
+shares the texture for store glazing. No added triangles or runtime textures.
 
-Six region batches share one opaque StandardMaterial and one original 1024² atlas
-(~5.33 MiB extra estimated colour-texture memory including mips). Three pavilions:
-1,596 triangles each. Background architecture does not cast or sample shadows;
-pavilions retain selective casting/receiving. Opaque faces are culled normally.
-Scene disposal owns resources; no shared replay cache, dependencies or postprocess.
-Source/provenance/rebuild: assets-source/g4/README.md; all G4 artwork is original.
+Existing G3 CC0 paving now continues across the original square floor; interior
+and gameplay zones remain above it. Six visible SRAP/cover shells have local
+cladding and lower-wall values; their geometry is made unique before UV/colour
+edits so hidden proxies retain original buffers. Scene disposal owns resources.
+No new shadow passes, transparency, postprocessing, dependencies or lighting.
+Source/provenance: assets-source/g5/README.md. Existing G3 court GLB unchanged.
 
-## Verified baseline
+## Verified baseline and acceptance
 
-- Build/TypeScript PASS; 34/34 unit/asset checks PASS. Production Chrome suite
-  19/19 PASS, followed by final 3/3 affected architecture/actor/full-mission checks.
-- Captured G3/G4 definitions equal. Gameplay/navigation/camera/input/actor sources
-  and existing public assets unchanged from 650aef9. Three cutaway owners,
-  persistent solid LOS, doorway/input, pause, mission and replay verified.
-- Replay retains 240 meshes, 126 materials, two skeletons, six animation groups,
-  one navmesh/input adapter/scene. Capture page errors: none. Normal/wide/closer,
-  greyscale/proxy, 1366x768, cutaway and gameplay motion evidence retained.
-- Final alternating G3/G4 comparison: Chrome 153 / Intel UHD ANGLE, headless,
-  1920x1080 DPR1 span64, 4 s warm-up, 12 s idle/walk/sprint/court, two repeats.
-  G3 medians 10.0–10.4 ms; G4 10.4–11.0 ms (about 2–6% higher). p95 changes
-  about -7% to +4%. All 16 segments: zero >100 ms stalls and zero dropped steps.
-- Three replay travel medians: 10.2/10.3/10.3 ms; stable resources and no stalls,
-  dropped steps or progressive degradation. Startup G3 1.209/1.524 s vs G4
-  1.743/1.621 s; small warm-machine sample, not a cold-load certification.
-- Reproduce: scripts/g4-review.mjs, g4-motion.mjs, g4-performance.mjs; saved G3
-  build is evidence/g4/g3-dist. Do not run captures/tests/builds during timing.
+- Production build/typecheck PASS (existing bundle-size warning).
+- 34/34 unit/asset tests; 8/8 focused production Chrome regressions PASS.
+- Full alternate mission, doorway controls, LOS, SRAP/pavilion cutaways,
+  actor pause, ordinary launch and replay exercised.
+- Captured G4/G5 definitions equal; no capture page errors. Gameplay, navigation,
+  camera, actor sources and all public asset bytes unchanged from b465c29.
+- Replays retain 240 meshes, 127 materials, two skeletons, six animation groups,
+  one navmesh/input adapter/scene. No progressive resource growth observed.
+- Reproduce with scripts/g5-review.mjs, g5-motion.mjs, g5-verify.mjs and separately
+  g5-performance.mjs. Saved G4 build: evidence/g5/g4-dist. Do not run browser
+  captures/tests or builds while measuring performance.
 
-## Limitation and continuation boundary
+## Remaining boundary
 
-Single dominant visual limitation: generic architectural surface authoring.
-Repeated clean atlas panels and uniform materials still lack the local surface,
-recess and reflected-light information of site-specific baked/painted assets.
-Further geometry-only detailing is not the next strategy. G4 stops here; a new
-art strategy must be established before template approval or any map rollout.
+Surface coherence is improved; target still not achieved. Architecture remains
+repetitive, western vegetation primitive, interior plain and pavilion fronts dark.
+Further site-specific art has high expected value; additional blanket noise does
+not. BIF/background, richer interior, foliage silhouettes and furniture remain
+untouched at this checkpoint. New ambience/gameplay systems remain deferred.
 
-Historical headed/G1 parity remains an unresolved measurement limitation, not
-permission for a new broad profiling campaign. Final G4 figures establish only
-this bounded G3 comparison, not exact parity or all-hardware/headed-60-FPS claims.
+The next bounded visual task needs authoring beyond repeating this surface pass;
+no extra work is authorised by this state file. Headless timings do not certify
+all hardware or resolve historical headed/G1 parity.
