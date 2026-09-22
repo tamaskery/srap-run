@@ -89,16 +89,6 @@ export class WorldArt {
     p('machine-display', [26.4, 1.65, -20.24], [.21, .16, .03], '#9bb58a');
     p('machine-tray', [26, .52, -20.14], [1.2, .15, .34], '#586d66');
     this.sign('RETURN / 05', 25.9, 2.4, -21.6, 2.4, .6).rotation.y = 0;
-    // Rounded kiosks: glazing and ribs track the exact solid ellipse footprint.
-    for (const w of definition.walls.filter(w => w.id.includes('pavilion'))) {
-      p('kiosk-glazing', [w.x, 1.9, w.z], [w.width + .04, 1.5, w.depth + .04], '#49625e', w.cutaway, 'cylinder');
-      for (let i = 0; i < 12; i++) {
-        const a = i * Math.PI / 6;
-        p('kiosk-rib', [w.x + Math.cos(a) * w.width / 2, 1.9, w.z + Math.sin(a) * w.depth / 2], [.13, 2.1, .13], '#b9ad8c', w.cutaway);
-      }
-      p('kiosk-roof-cap', [w.x, 3.62, w.z], [w.width - 1, .35, w.depth - 1], '#68796b', w.cutaway, 'cylinder');
-      p('kiosk-finial', [w.x, 3.91, w.z], [1.1, .3, 1.1], '#405950', w.cutaway, 'cylinder');
-    }
     // Water and bronze seals; no transparency or water simulation.
     p('fountain-water', [-5, .57, 4], [5.4, .055, 5.4], '#648f8c', undefined, 'cylinder');
     for (const [x, y, z, scale] of [[-5.3, 1.65, 4, 1], [-4.6, 1.43, 4.1, .8]]) {
@@ -137,7 +127,7 @@ export class WorldArt {
       p('lamp-cap', [x, 4.83, z], [.58, .12, .58], '#485b50');
     }
     // Background facades are a single merged batch per material, not window draws.
-    for (const b of definition.details?.filter(d => /housing|tower|posta-shell|lidl-background/.test(d.id)) ?? []) {
+    for (const b of definition.details?.filter(d => /tower|posta-shell/.test(d.id)) ?? []) {
       p('building-cornice', [b.x, b.height - .15, b.z], [b.width + .4, .28, b.depth + .4], '#d2c5a8');
       p('building-roof', [b.x, b.height + .08, b.z], [b.width, .22, b.depth], '#697269');
       for (let x = b.x - b.width / 2 + 1.5; x < b.x + b.width / 2 - .5; x += 2.8) {

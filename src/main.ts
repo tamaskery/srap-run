@@ -1,3 +1,4 @@
+import {addSliceArchitecture} from './architecture';
 import {Color3,Color4} from '@babylonjs/core/Maths/math.color';
 import {Vector3,Matrix} from '@babylonjs/core/Maths/math.vector';
 import {Engine} from '@babylonjs/core/Engines/engine';
@@ -110,6 +111,7 @@ class SceneRuntime {
   }
   for(const d of this.definition.details??[]){const m=shape(d.id,d);m.position.set(d.x,(d.elevation??0)+d.height/2,d.z);m.material=colored(d.color,wallMat);m.isPickable=false;}
   this.art.dress(this.definition);
+  addSliceArchitecture(this.scene,this.definition,this.renderGroups,shadows);
   if(this.definition.id==='square'){await loadCourt(this.scene,this.renderGroups,shadows);addGroundContact(this.scene,this.definition);}
   for(const mesh of this.scene.meshes)if(mesh.name.startsWith('dressing:'))mesh.receiveShadows=true;
   for(const zone of this.definition.zones){
