@@ -4,12 +4,12 @@ Repository: https://github.com/tamaskery/srap-run
 
 ## Current milestone
 
-G5 surface pass, baseline b465c29, branch codex/g3-production-art.
-Three substantial visual iterations complete; stopped at the authorised budget
-checkpoint. TECHNICAL PASS; VISUAL WEAK against the semi-realistic target.
-PERFORMANCE PASS in the bounded G4 comparison. One initial stall sample did not
-reproduce in court-only confirmation; retained/disclosed in docs/G5_SURFACE_PASS.md.
-Committed matched images: docs/art/g5. Raw capture/timing/video: evidence/g5.
+G6 environment-density pass from baseline 0e12136, branch
+codex/g3-production-art. Two substantial visual iterations complete.
+TECHNICAL PASS; VISUAL WEAK against the semi-realistic target, despite a clear
+span-64 density/composition improvement. PERFORMANCE PASS in an alternating
+matched G5/G6 comparison. Committed matched
+images and metrics: docs/art/g6. Raw capture/timing: evidence/g6.
 
 Pre-existing AGENTS.md edits and supplied untracked design-guide/reference files
 remain untouched and outside the checkpoint. No push, deployment or purchase.
@@ -39,28 +39,31 @@ edits so hidden proxies retain original buffers. Scene disposal owns resources.
 No new shadow passes, transparency, postprocessing, dependencies or lighting.
 Source/provenance: assets-source/g5/README.md. Existing G3 court GLB unchanged.
 
+G6 adds only presentation geometry: three opaque clustered foliage families
+inside existing planting proxies; batched bench/bin, bicycle-rack, bollard and
+information-board props; differentiated façade bay rhythms; and shallow SRAP
+back-wall shelving/product blocks. Pavilion footprints, triangle guardrail and
+cutaway ownership remain exact. Source/provenance: assets-source/g6/README.md.
+
 ## Verified baseline and acceptance
 
 - Production build/typecheck PASS (existing bundle-size warning).
-- 34/34 unit/asset tests; 8/8 focused production Chrome regressions PASS.
+- G6 focused unit/asset checks 6/6; focused production Chrome regressions 8/8 PASS.
 - Full alternate mission, doorway controls, LOS, SRAP/pavilion cutaways,
   actor pause, ordinary launch and replay exercised.
 - Captured G4/G5 definitions equal; no capture page errors. Gameplay, navigation,
   camera, actor sources and all public asset bytes unchanged from b465c29.
-- Replays retain 240 meshes, 127 materials, two skeletons, six animation groups,
+- G6 replays retain 259 meshes, 146 materials, two skeletons, six animation groups,
   one navmesh/input adapter/scene. No progressive resource growth observed.
-- Reproduce with scripts/g5-review.mjs, g5-motion.mjs, g5-verify.mjs and separately
-  g5-performance.mjs. Saved G4 build: evidence/g5/g4-dist. Do not run browser
-  captures/tests or builds while measuring performance.
+- Matched G5/G6 medians are identical at 9.5-9.8 ms across idle/walk/sprint/court;
+  p95 differs by -0.3 to +0.2 ms. All 16 segments have zero stalls/dropped steps.
+- Reproduce captures and timing with scripts/g6-review.mjs and
+  scripts/g6-performance.mjs. Do not run captures/tests/builds while measuring.
 
 ## Remaining boundary
 
-Surface coherence is improved; target still not achieved. Architecture remains
-repetitive, western vegetation primitive, interior plain and pavilion fronts dark.
-Further site-specific art has high expected value; additional blanket noise does
-not. BIF/background, richer interior, foliage silhouettes and furniture remain
-untouched at this checkpoint. New ambience/gameplay systems remain deferred.
-
-The next bounded visual task needs authoring beyond repeating this surface pass;
-no extra work is authorised by this state file. Headless timings do not certify
-all hardware or resolve historical headed/G1 parity.
+The span-64 composition is materially richer, but close vegetation silhouettes
+remain stylised low-poly clusters without natural branch structure. Background
+district depth and SRAP stock detail remain intentionally bounded. New ambience,
+traffic, weather, actors and gameplay systems remain deferred. Headless timings
+do not certify all hardware or resolve historical headed/G1 parity.

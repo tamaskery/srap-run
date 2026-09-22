@@ -1,0 +1,6728 @@
+{
+  "browser": "153.0.8010.48",
+  "headless": true,
+  "startup": [
+    {
+      "label": "g5-1",
+      "ms": 2378.8238
+    },
+    {
+      "label": "g6-1",
+      "ms": 832.5425000000032
+    },
+    {
+      "label": "g5-2",
+      "ms": 824.0522999999957
+    },
+    {
+      "label": "g6-2",
+      "ms": 1201.4902000000002
+    }
+  ],
+  "results": [
+    {
+      "label": "g5-1",
+      "state": "idle",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 39.53013547732729,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.050413711096609935,
+                0.003238906227254978,
+                -0.02134705104845995,
+                0.9984950061321838
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6074880880048985,
+                -0.4383274024645093,
+                -0.4865811905593571,
+                0.44951757522514335
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7077068958155309,
+                -0.004068092457049676,
+                0.7059974804853025,
+                0.026494963674823804
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 44.99999523162799,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.04457749190981418,
+                -0.0002737464382819854,
+                0.0001250854984258254,
+                0.9990058540684004
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6803376376445556,
+                -0.07554141846972273,
+                -0.7249451875223372,
+                0.07673849928684026
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.9099884033203125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -4.29001522064209
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.4166666666666594,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.15001916885376,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.6000000238418579,
+          "samples": 325,
+          "median": 9.899999976158142,
+          "p95": 12.700000047683716,
+          "p99": 21.700000047683716,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.2790769206560575,
+          "dropped": 36
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1219,
+        "median": 9.800000071525574,
+        "p95": 12.199999928474426,
+        "p99": 12.799999952316284,
+        "worst": 28.399999976158142,
+        "minRolling5sFPS": 101.18952578684586,
+        "simulationMean": 0.21870385466099176,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 59.85827518994154,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.027111711808136638,
+                0.0017495761882077156,
+                0.012802837668685275,
+                0.999548914785183
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7670901079037536,
+                -0.15309761194111945,
+                -0.2359485558969505,
+                0.5765953604895251
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6610786187114632,
+                -0.2098612844319415,
+                -0.6868581811329845,
+                0.21716242883876719
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 47.99997377397722,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.043494265068182485,
+                -0.0002737456235481423,
+                0.00012515441541893912,
+                0.9990535969805528
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6803493498696015,
+                -0.07527471573240754,
+                -0.724974095562843,
+                0.07662404431387516
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": 5.345060348510742
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 6.554984092712402
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 15.466666666667015,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 1.3089027404785156,
+          "y": 0.04999997839331627,
+          "z": -3.956054210662842
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.5,
+          "samples": 1546,
+          "median": 9.800000071525574,
+          "p95": 12.200000047683716,
+          "p99": 13.600000023841858,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": 84.69836196564123,
+          "simulationMean": 0.23143596251291568,
+          "dropped": 36
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-1",
+      "state": "walk",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 39.53013547732729,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.050413711096609935,
+                0.003238906227254978,
+                -0.02134705104845995,
+                0.9984950061321838
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6074880880048985,
+                -0.4383274024645093,
+                -0.4865811905593571,
+                0.44951757522514335
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7077068958155309,
+                -0.004068092457049676,
+                0.7059974804853025,
+                0.026494963674823804
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 44.99999523162799,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.04457749190981418,
+                -0.0002737464382819854,
+                0.0001250854984258254,
+                0.9990058540684004
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6803376376445556,
+                -0.07554141846972273,
+                -0.7249451875223372,
+                0.07673849928684026
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.9099884033203125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -4.29001522064209
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.4166666666666594,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.15001916885376,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.6000000238418579,
+          "samples": 325,
+          "median": 9.899999976158142,
+          "p95": 12.700000047683716,
+          "p99": 21.700000047683716,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.2790769206560575,
+          "dropped": 36
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1226,
+        "median": 9.700000047683716,
+        "p95": 12.100000023841858,
+        "p99": 12.700000047683716,
+        "worst": 17.700000047683716,
+        "minRolling5sFPS": 101.79437536370689,
+        "simulationMean": 0.2287112564869456,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 12.42349539293761,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03313537327026874,
+                -0.0014287448537487132,
+                0.009258545357976595,
+                0.9994069634557133
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6980492207145951,
+                -0.3252524514497569,
+                -0.36028544486298925,
+                0.5264337887881679
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6773879185824851,
+                -0.17682421035142193,
+                -0.6968996020288785,
+                0.15559514142426079
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 44.546009905334586,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03268751695130976,
+                0.000818882058866526,
+                -0.008904464953052155,
+                0.9994256320062924
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6586911310757432,
+                -0.3745186949915721,
+                -0.431839008888432,
+                0.4892614926892241
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7016337730011927,
+                -0.08986211146899459,
+                -0.7006691461917998,
+                0.09326068389312529
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -34.074989318847656,
+              "y": 0.04999997839331627,
+              "z": 15
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 27.516666666666385,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.20000076293945,
+          "y": 0.04999997839331627,
+          "z": 1.8686985969543457
+        },
+        "threat": {
+          "x": 4.4312214851379395,
+          "y": 0.04999997839331627,
+          "z": 9.921558380126953
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 2,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.5,
+          "samples": 2775,
+          "median": 9.799999952316284,
+          "p95": 12.200000047683716,
+          "p99": 12.899999976158142,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": 84.69836196564123,
+          "simulationMean": 0.23037837784569543,
+          "dropped": 36
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-1",
+      "state": "sprint",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 39.53013547732729,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.050413711096609935,
+                0.003238906227254978,
+                -0.02134705104845995,
+                0.9984950061321838
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6074880880048985,
+                -0.4383274024645093,
+                -0.4865811905593571,
+                0.44951757522514335
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7077068958155309,
+                -0.004068092457049676,
+                0.7059974804853025,
+                0.026494963674823804
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 44.99999523162799,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.04457749190981418,
+                -0.0002737464382819854,
+                0.0001250854984258254,
+                0.9990058540684004
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6803376376445556,
+                -0.07554141846972273,
+                -0.7249451875223372,
+                0.07673849928684026
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.9099884033203125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -4.29001522064209
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.4166666666666594,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.15001916885376,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.6000000238418579,
+          "samples": 325,
+          "median": 9.899999976158142,
+          "p95": 12.700000047683716,
+          "p99": 21.700000047683716,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.2790769206560575,
+          "dropped": 36
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1225,
+        "median": 9.700000047683716,
+        "p95": 12.199999928474426,
+        "p99": 12.800000071525574,
+        "worst": 13.100000023841858,
+        "minRolling5sFPS": 101.6,
+        "simulationMean": 0.23983673319524648,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 26.728327217093607,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.026724836237619988,
+                -0.0021886674347791585,
+                -0.011163115411732474,
+                0.999578104857919
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5981834093940344,
+                -0.45632091841277755,
+                -0.4914362127950045,
+                0.4386778851279629
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7050576231072032,
+                -0.05697177456050885,
+                0.7002728773607921,
+                0.09625769412609031
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 33.88230371443771,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03478702660791824,
+                0.002899339774956714,
+                -0.022998972457256194,
+                0.9991258836979303
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5764577224848138,
+                -0.4715225751748953,
+                -0.5142814576508832,
+                0.42529708250324694
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7070145186220224,
+                -0.030869783283399236,
+                0.7031289688925748,
+                0.06918943637055533
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": 7.538291931152344
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 24.160400390625,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 27.999999999999996,
+        "time": 39.53333333333237,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.06352233886719,
+          "y": 0.04999997839331627,
+          "z": 0.037695448845624924
+        },
+        "threat": {
+          "x": 3.888484477996826,
+          "y": 0.04999997839331627,
+          "z": -3.8928720951080322
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 3,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.5,
+          "samples": 4002,
+          "median": 9.799999952316284,
+          "p95": 12.200000047683716,
+          "p99": 12.800000071525574,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": 84.69836196564123,
+          "simulationMean": 0.23340829502398344,
+          "dropped": 36
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-1",
+      "state": "court",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 39.53013547732729,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.050413711096609935,
+                0.003238906227254978,
+                -0.02134705104845995,
+                0.9984950061321838
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6074880880048985,
+                -0.4383274024645093,
+                -0.4865811905593571,
+                0.44951757522514335
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7077068958155309,
+                -0.004068092457049676,
+                0.7059974804853025,
+                0.026494963674823804
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 44.99999523162799,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.04457749190981418,
+                -0.0002737464382819854,
+                0.0001250854984258254,
+                0.9990058540684004
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6803376376445556,
+                -0.07554141846972273,
+                -0.7249451875223372,
+                0.07673849928684026
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.9099884033203125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -4.29001522064209
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.4166666666666594,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.15001916885376,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.6000000238418579,
+          "samples": 325,
+          "median": 9.899999976158142,
+          "p95": 12.700000047683716,
+          "p99": 21.700000047683716,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.2790769206560575,
+          "dropped": 36
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5999999046325684,
+        "samples": 1248,
+        "median": 9.5,
+        "p95": 12.199999928474426,
+        "p99": 12.700000047683716,
+        "worst": 13.899999976158142,
+        "minRolling5sFPS": 103.45103051753463,
+        "simulationMean": 0.2329326945428665,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 43.2941466378896,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03778106704611549,
+                0.0015052988864733899,
+                -0.012713951354237318,
+                0.9992040350767011
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6449926485693906,
+                -0.39316920099722963,
+                -0.4477867993636059,
+                0.47842391280953434
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7047113009629808,
+                -0.06432343799686858,
+                -0.7039074901093337,
+                0.06130798747832875
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 44.548327805909594,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03267914019593704,
+                0.000817758566965035,
+                -0.00889742062702056,
+                0.9994259695959702
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.658717283078992,
+                -0.3744817198956079,
+                -0.4318074880667142,
+                0.4892824057857793
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7016276338879879,
+                -0.08990686809117779,
+                -0.7006621132253446,
+                0.09331655766994937
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": -5.716756820678711
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 28.61067771911621,
+              "y": 0.04999997839331627,
+              "z": 9.132214546203613
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 51.58333333333169,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": 32,
+          "y": 0.04999997839331627,
+          "z": 9.041657447814941
+        },
+        "threat": {
+          "x": 1.8518476486206055,
+          "y": 0.04999997839331627,
+          "z": 9.865226745605469
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 1,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 1,
+          "simulationP95": 0.5,
+          "samples": 5251,
+          "median": 9.700000047683716,
+          "p95": 12.200000047683716,
+          "p99": 12.799999952316284,
+          "worst": 691.3000000715256,
+          "minRolling5sFPS": 84.69836196564123,
+          "simulationMean": 0.23336507322401848,
+          "dropped": 36
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-1",
+      "state": "idle",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.6000000238418579,
+          "samples": 402,
+          "median": 9.800000071525574,
+          "p95": 12.400000095367432,
+          "p99": 13.700000047683716,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.24676616956938557,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1218,
+        "median": 9.800000071525574,
+        "p95": 12.399999976158142,
+        "p99": 12.899999976158142,
+        "worst": 13.699999928474426,
+        "minRolling5sFPS": 101.21376667077365,
+        "simulationMean": 0.22947454804857376,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 33.1288671983462,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.032382531325167024,
+                0.002598365171267023,
+                -0.023017153512499295,
+                0.9992071080397869
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5755529963485453,
+                -0.4726057408798382,
+                -0.5150116012726568,
+                0.4244356776648618
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7068013846445136,
+                -0.03488068343859122,
+                0.7026802286713225,
+                0.07386234450664542
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 0.9999713897927904,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.0245753145000972,
+                -0.000275251239372139,
+                0.00012041454513535075,
+                0.9996979237064054
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809592551686757,
+                -0.066602264550467,
+                -0.7259732485654626,
+                0.06943766671886399
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": 5.950063705444336
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 7.0499796867370605
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 16.01666666666704,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 0.3190818727016449,
+          "y": 0.04999997839331627,
+          "z": -3.974893569946289
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 1622,
+          "median": 9.800000071525574,
+          "p95": 12.399999976158142,
+          "p99": 13,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": 100.46136331909868,
+          "simulationMean": 0.23434032038607522,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-1",
+      "state": "walk",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.6000000238418579,
+          "samples": 402,
+          "median": 9.800000071525574,
+          "p95": 12.400000095367432,
+          "p99": 13.700000047683716,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.24676616956938557,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5999999046325684,
+        "samples": 1227,
+        "median": 9.700000047683716,
+        "p95": 12.199999928474426,
+        "p99": 12.699999928474426,
+        "worst": 13.600000023841858,
+        "minRolling5sFPS": 101.86757215619694,
+        "simulationMean": 0.24914425558060674,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 49.69386083631437,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024582835347069284,
+                -0.00016880965720912866,
+                0.0025995949855107964,
+                0.9996944291895302
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7128096723117805,
+                -0.28631351986220804,
+                -0.35533494750286987,
+                0.5326011652579976
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6869830617154629,
+                -0.15952953771487063,
+                -0.6853567986415845,
+                0.18135896406770366
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 44.546009905334586,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03268751695130976,
+                0.000818882058866526,
+                -0.008904464953052155,
+                0.9994256320062924
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6586911310757432,
+                -0.3745186949915721,
+                -0.431839008888432,
+                0.4892614926892241
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7016337730011927,
+                -0.08986211146899459,
+                -0.7006691461917998,
+                0.09326068389312529
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -33.46998596191406,
+              "y": 0.04999997839331627,
+              "z": 15
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 28.066666666666354,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.20000076293945,
+          "y": 0.04999997839331627,
+          "z": 1.8686985969543457
+        },
+        "threat": {
+          "x": 5.420976638793945,
+          "y": 0.04999997839331627,
+          "z": 9.943305015563965
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 2,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 2851,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.800000071525574,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": 100.46136331909868,
+          "simulationMean": 0.24089793099390336,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-1",
+      "state": "sprint",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.6000000238418579,
+          "samples": 402,
+          "median": 9.800000071525574,
+          "p95": 12.400000095367432,
+          "p99": 13.700000047683716,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.24676616956938557,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1228,
+        "median": 9.700000047683716,
+        "p95": 12.299999952316284,
+        "p99": 12.799999952316284,
+        "worst": 13.300000071525574,
+        "minRolling5sFPS": 101.83096060636457,
+        "simulationMean": 0.2372964152684041,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 1.1283525726108508,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.031772961876771436,
+                -0.0028609964695594054,
+                0.023002633292325332,
+                0.9992262946553705
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7700234509478836,
+                -0.14345435135686074,
+                -0.2263539031485576,
+                0.5790066018371429
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6555460489719359,
+                -0.21932860501186943,
+                -0.68825556671238,
+                0.22013362577729362
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 35.45092007291237,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.042436529478110524,
+                0.003222832951652236,
+                -0.022891581894121358,
+                0.9988316839858338
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5819172344583331,
+                -0.4661431576196702,
+                -0.5096391591626331,
+                0.42936102985182206
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7072629905658689,
+                -0.025414410496956436,
+                0.7038183815320302,
+                0.06142376000127337
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": 6.914955139160156
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 24,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 28.33333333333333,
+        "time": 40.09999999999901,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.07003402709961,
+          "y": 0.04999997839331627,
+          "z": 0.07884984463453293
+        },
+        "threat": {
+          "x": 2.8687286376953125,
+          "y": 0.04999997839331627,
+          "z": -3.9152209758758545
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 3,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 4081,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.800000071525574,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": 100.46136331909868,
+          "simulationMean": 0.2398921830839341,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-1",
+      "state": "court",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.6000000238418579,
+          "samples": 402,
+          "median": 9.800000071525574,
+          "p95": 12.400000095367432,
+          "p99": 13.700000047683716,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.24676616956938557,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.6000000238418579,
+        "samples": 1248,
+        "median": 9.5,
+        "p95": 12.100000023841858,
+        "p99": 12.600000023841858,
+        "worst": 13.100000023841858,
+        "minRolling5sFPS": 103.6321159716318,
+        "simulationMean": 0.25232371888481653,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 16.564752896018234,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024534337874159304,
+                -0.00031083341487481137,
+                -0.0009604417299929114,
+                0.9996984841897727
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6695913721978823,
+                -0.3723712967661025,
+                -0.403318346250103,
+                0.5003212697908026
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6968225300602029,
+                -0.0977936371855129,
+                -0.7074688991703949,
+                0.06604938501482431
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 15.999243433755964,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02451186168873745,
+                -0.00027546981601060287,
+                -0.00013206196578364332,
+                0.9996995060142998
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6726422223745842,
+                -0.3677769149383378,
+                -0.39853414042084134,
+                0.5034512992295175
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6945572575393307,
+                -0.11087846852979424,
+                -0.7062919307078511,
+                0.08029868264282959
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": -6.321760177612305
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 28.793365478515625,
+              "y": 0.04999997839331627,
+              "z": 8.672167778015137
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 52.133333333331656,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": 32,
+          "y": 0.04999997839331627,
+          "z": 9.041657447814941
+        },
+        "threat": {
+          "x": 2.8416106700897217,
+          "y": 0.04999997839331627,
+          "z": 9.886910438537598
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 1,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5999999046325684,
+          "samples": 5331,
+          "median": 9.700000047683716,
+          "p95": 12.299999952316284,
+          "p99": 12.799999952316284,
+          "worst": 47.90000009536743,
+          "minRolling5sFPS": 100.46136331909868,
+          "simulationMean": 0.24276871138722783,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-2",
+      "state": "idle",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 403,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.899999976158142,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.20719602977667495,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1221,
+        "median": 9.799999952316284,
+        "p95": 12.299999952316284,
+        "p99": 12.799999952316284,
+        "worst": 13.199999928474426,
+        "minRolling5sFPS": 101.34324777979359,
+        "simulationMean": 0.19680589705974133,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 33.1288671983462,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.032382531325167024,
+                0.002598365171267023,
+                -0.023017153512499295,
+                0.9992071080397869
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5755529963485453,
+                -0.4726057408798382,
+                -0.5150116012726568,
+                0.4244356776648618
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7068013846445136,
+                -0.03488068343859122,
+                0.7026802286713225,
+                0.07386234450664542
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 0.9999713897927904,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.0245753145000972,
+                -0.000275251239372139,
+                0.00012041454513535075,
+                0.9996979237064054
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809592551686757,
+                -0.066602264550467,
+                -0.7259732485654626,
+                0.06943766671886399
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": 5.950063705444336
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 7.0499796867370605
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 16.01666666666704,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 0.3190818727016449,
+          "y": 0.04999997839331627,
+          "z": -3.974893569946289
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 1625,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.800000071525574,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": 100.8688704683911,
+          "simulationMean": 0.1994461540075449,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-2",
+      "state": "walk",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 403,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.899999976158142,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.20719602977667495,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1232,
+        "median": 9.700000047683716,
+        "p95": 12.200000047683716,
+        "p99": 12.799999952316284,
+        "worst": 13.100000023841858,
+        "minRolling5sFPS": 102.17956408718257,
+        "simulationMean": 0.21745129868194654,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 50.823265849750015,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024697465539972256,
+                -0.000013581986560350765,
+                0.003905286349411418,
+                0.9996873570167606
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7227300128288349,
+                -0.2668350877414396,
+                -0.3380752762367585,
+                0.5405233428470497
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6846472723451514,
+                -0.16550704290747847,
+                -0.6843045632996769,
+                0.1886612830146374
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 44.546009905334586,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03268751695130976,
+                0.000818882058866526,
+                -0.008904464953052155,
+                0.9994256320062924
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6586911310757432,
+                -0.3745186949915721,
+                -0.431839008888432,
+                0.4892614926892241
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7016337730011927,
+                -0.08986211146899459,
+                -0.7006691461917998,
+                0.09326068389312529
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -33.45165252685547,
+              "y": 0.04999997839331627,
+              "z": 15
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 28.08333333333302,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.20000076293945,
+          "y": 0.04999997839331627,
+          "z": 1.8270320892333984
+        },
+        "threat": {
+          "x": 5.450969219207764,
+          "y": 0.04999997839331627,
+          "z": 9.943964004516602
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 2,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 2860,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.799999952316284,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": 100.8688704683911,
+          "simulationMean": 0.20723776229611643,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-2",
+      "state": "sprint",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 403,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.899999976158142,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.20719602977667495,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1232,
+        "median": 9.700000047683716,
+        "p95": 12.100000023841858,
+        "p99": 12.700000047683716,
+        "worst": 13,
+        "minRolling5sFPS": 102.16526381176548,
+        "simulationMean": 0.19034091005851697,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 3.387177789868332,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.041318312803735095,
+                -0.003384818789252315,
+                0.022874859425628336,
+                0.9988784165401234
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7652263869823163,
+                -0.1607939217950447,
+                -0.23854672059479803,
+                0.5759074081891309
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6610209737914013,
+                -0.2021585860598965,
+                -0.6948310721717301,
+                0.1984770959560444
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 35.45092007291237,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.042436529478110524,
+                0.003222832951652236,
+                -0.022891581894121358,
+                0.9988316839858338
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5819172344583331,
+                -0.4661431576196702,
+                -0.5096391591626331,
+                0.42936102985182206
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7072629905658689,
+                -0.025414410496956436,
+                0.7038183815320302,
+                0.06142376000127337
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": 6.878288269042969
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 24,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 28.33333333333333,
+        "time": 40.13333333333234,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.07003402709961,
+          "y": 0.04999997839331627,
+          "z": 0.07884984463453293
+        },
+        "threat": {
+          "x": 2.8087430000305176,
+          "y": 0.04999997839331627,
+          "z": -3.9165356159210205
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 3,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 4094,
+          "median": 9.700000047683716,
+          "p95": 12.299999952316284,
+          "p99": 12.799999952316284,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": 100.8688704683911,
+          "simulationMean": 0.2021250614143897,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g5-2",
+      "state": "court",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 11.999999999999957,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.028638128080952695,
+                -0.0002748102124387171,
+                0.00012145191428150126,
+                0.9995898604423914
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807708144257418,
+                -0.06851844483518474,
+                -0.7257862091106926,
+                0.07134989643871868
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 78.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02457531663910422,
+                -0.00027530344951132526,
+                0.00012033752515420521,
+                0.9996979236529882
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809703111097749,
+                -0.06662779729347562,
+                -0.7259710430866733,
+                0.06932800660834662
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.286651611328125
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7800161838531494
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.983333333333324,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 403,
+          "median": 9.799999952316284,
+          "p95": 12.299999952316284,
+          "p99": 12.899999976158142,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.20719602977667495,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1253,
+        "median": 9.5,
+        "p95": 12.100000023841858,
+        "p99": 12.600000023841858,
+        "worst": 13,
+        "minRolling5sFPS": 104.07718891757354,
+        "simulationMean": 0.19784517061776954,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 18.823577720017568,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024695356128683246,
+                -0.0005371055198482931,
+                -0.003919212183213486,
+                0.9996871955273959
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6566454025118924,
+                -0.39080611182145286,
+                -0.4224273401928589,
+                0.487485947576191
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7041446401088785,
+                -0.04426401430905348,
+                -0.7086249816780426,
+                0.008467062554898498
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 15.999243433755964,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02451186168873745,
+                -0.00027546981601060287,
+                -0.00013206196578364332,
+                0.9996995060142998
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6726422223745842,
+                -0.3677769149383378,
+                -0.39853414042084134,
+                0.5034512992295175
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6945572575393307,
+                -0.11087846852979424,
+                -0.7062919307078511,
+                0.08029868264282959
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": -6.358427047729492
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 28.8044376373291,
+              "y": 0.04999997839331627,
+              "z": 8.644286155700684
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 52.16666666666499,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": 32,
+          "y": 0.04999997839331627,
+          "z": 9.041657447814941
+        },
+        "threat": {
+          "x": 2.9015963077545166,
+          "y": 0.04999997839331627,
+          "z": 9.888224601745605
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 1,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 240,
+          "materials": 127,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 5351,
+          "median": 9.699999928474426,
+          "p95": 12.200000047683716,
+          "p99": 12.700000047683716,
+          "worst": 47.300000071525574,
+          "minRolling5sFPS": 100.8688704683911,
+          "simulationMean": 0.20110259769431144,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-2",
+      "state": "idle",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 12.999999999999954,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.029339249162242252,
+                -0.0002747186517917735,
+                0.00012164094002875938,
+                0.9995692372346667
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807438135179282,
+                -0.06884493302387137,
+                -0.7257500588936985,
+                0.07165930416471865
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 79.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.0245108739425614,
+                -0.00027532261433341925,
+                0.00012030443054779116,
+                0.9996995329741765
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809824704254199,
+                -0.06650547025676046,
+                -0.7259761690726806,
+                0.06927251110431319
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.268318176269531
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7650160789489746
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.9999999999999907,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.3999999761581421,
+          "samples": 405,
+          "median": 9.799999952316284,
+          "p95": 12.200000047683716,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.1985185166935862,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.3999999761581421,
+        "samples": 1226,
+        "median": 9.799999952316284,
+        "p95": 12,
+        "p99": 12.600000023841858,
+        "worst": 13.199999928474426,
+        "minRolling5sFPS": 101.84519530265433,
+        "simulationMean": 0.1793637838682576,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 34.25827947048492,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03645760335436279,
+                0.0029955823184024256,
+                -0.022977600308811574,
+                0.9990665258741546
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5775494713788756,
+                -0.4704289159080046,
+                -0.5133646207387683,
+                0.42613386644978546
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.707087902438981,
+                -0.029383709576045233,
+                0.7033110893809064,
+                0.06720718933312655
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 1.9999713897927904,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024639757362286758,
+                -0.0002751798622316665,
+                0.00012052466311011951,
+                0.9996963143810803
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809360391607466,
+                -0.06669906248853383,
+                -0.725970327938021,
+                0.0696028274556325
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": 5.96839714050293
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 7.064979553222656
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 16.033333333333704,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 0.28908729553222656,
+          "y": 0.04999997839331627,
+          "z": -3.9754645824432373
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.3999999761581421,
+          "samples": 1632,
+          "median": 9.799999952316284,
+          "p95": 12.100000023841858,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": 101.1595361855258,
+          "simulationMean": 0.1844975479385432,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-2",
+      "state": "walk",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 12.999999999999954,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.029339249162242252,
+                -0.0002747186517917735,
+                0.00012164094002875938,
+                0.9995692372346667
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807438135179282,
+                -0.06884493302387137,
+                -0.7257500588936985,
+                0.07165930416471865
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 79.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.0245108739425614,
+                -0.00027532261433341925,
+                0.00012030443054779116,
+                0.9996995329741765
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809824704254199,
+                -0.06650547025676046,
+                -0.7259761690726806,
+                0.06927251110431319
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.268318176269531
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7650160789489746
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.9999999999999907,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.3999999761581421,
+          "samples": 405,
+          "median": 9.799999952316284,
+          "p95": 12.200000047683716,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.1985185166935862,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1229,
+        "median": 9.700000047683716,
+        "p95": 12.099999904632568,
+        "p99": 12.700000047683716,
+        "worst": 14,
+        "minRolling5sFPS": 102.08158536195366,
+        "simulationMean": 0.20187144040867408,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 48.5644558228787,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.02453487160725456,
+                -0.0002398294612503375,
+                0.000946494108899341,
+                0.9996985084697387
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7018058940730807,
+                -0.3063209246780599,
+                -0.37303309470661405,
+                0.5239105716315953
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6897046695007822,
+                -0.1504293415250317,
+                -0.6876676426310414,
+                0.16968195740036845
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 42.977388356383244,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.03918120613083968,
+                0.0016945642275604596,
+                -0.013678788888418322,
+                0.9991370654505807
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6415831683064652,
+                -0.3976130783566575,
+                -0.45159216566189464,
+                0.4757513966280572
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.7053556587092713,
+                -0.057586893204540315,
+                -0.704529618095461,
+                0.05286889736161905
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -33.488319396972656,
+              "y": 0.04999997839331627,
+              "z": 15
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 28.049999999999688,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.20000076293945,
+          "y": 0.04999997839331627,
+          "z": 1.8686985969543457
+        },
+        "threat": {
+          "x": 5.390984058380127,
+          "y": 0.04999997839331627,
+          "z": 9.942646026611328
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 2,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.40000009536743164,
+          "samples": 2862,
+          "median": 9.700000047683716,
+          "p95": 12.100000023841858,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": 101.1595361855258,
+          "simulationMean": 0.1918937800482051,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-2",
+      "state": "sprint",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 12.999999999999954,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.029339249162242252,
+                -0.0002747186517917735,
+                0.00012164094002875938,
+                0.9995692372346667
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807438135179282,
+                -0.06884493302387137,
+                -0.7257500588936985,
+                0.07165930416471865
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 79.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.0245108739425614,
+                -0.00027532261433341925,
+                0.00012030443054779116,
+                0.9996995329741765
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809824704254199,
+                -0.06650547025676046,
+                -0.7259761690726806,
+                0.06927251110431319
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.268318176269531
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7650160789489746
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.9999999999999907,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.3999999761581421,
+          "samples": 405,
+          "median": 9.799999952316284,
+          "p95": 12.200000047683716,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.1985185166935862,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1230,
+        "median": 9.700000047683716,
+        "p95": 12.299999952316284,
+        "p99": 12.799999952316284,
+        "worst": 14.100000023841858,
+        "minRolling5sFPS": 102.13871676993804,
+        "simulationMean": 0.19512195025033097,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 1.1283525726108508,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.031772961876771436,
+                -0.0028609964695594054,
+                0.023002633292325332,
+                0.9992262946553705
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.7700234509478836,
+                -0.14345435135686074,
+                -0.2263539031485576,
+                0.5790066018371429
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6555460489719359,
+                -0.21932860501186943,
+                -0.68825556671238,
+                0.22013362577729362
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 35.45092007291237,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.042436529478110524,
+                0.003222832951652236,
+                -0.022891581894121358,
+                0.9988316839858338
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5819172344583331,
+                -0.4661431576196702,
+                -0.5096391591626331,
+                0.42936102985182206
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                -0.7072629905658689,
+                -0.025414410496956436,
+                0.7038183815320302,
+                0.06142376000127337
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": 6.914955139160156
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 24,
+              "y": 0.04999997839331627,
+              "z": 17
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 28.33333333333333,
+        "time": 40.09999999999901,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -34.07003402709961,
+          "y": 0.04999997839331627,
+          "z": 0.07884984463453293
+        },
+        "threat": {
+          "x": 2.8687286376953125,
+          "y": 0.04999997839331627,
+          "z": -3.9152209758758545
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 3,
+        "pending": null,
+        "cutaways": [
+          "pavilions"
+        ],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              false
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.40000009536743164,
+          "samples": 4095,
+          "median": 9.700000047683716,
+          "p95": 12.100000023841858,
+          "p99": 12.700000047683716,
+          "worst": 30,
+          "minRolling5sFPS": 101.1595361855258,
+          "simulationMean": 0.19282051215678345,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    },
+    {
+      "label": "g6-2",
+      "state": "court",
+      "environment": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+        "visibility": "visible",
+        "hostile": {
+          "clip": "hostile_idle",
+          "frame": 12.999999999999954,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.029339249162242252,
+                -0.0002747186517917735,
+                0.00012164094002875938,
+                0.9995692372346667
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6807438135179282,
+                -0.06884493302387137,
+                -0.7257500588936985,
+                0.07165930416471865
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_idle",
+          "frame": 79.99999523162785,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.0245108739425614,
+                -0.00027532261433341925,
+                0.00012030443054779116,
+                0.9996995329741765
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.5566136240959167,
+                -0.23358352482318878,
+                -0.5493985414505005,
+                0.5777379870414734
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6809824704254199,
+                -0.06650547025676046,
+                -0.7259761690726806,
+                0.06927251110431319
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -36,
+              "y": 0.04999997839331627,
+              "z": -7.268318176269531
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 34,
+              "y": 0.04999997839331627,
+              "z": -3.7650160789489746
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 3.9999999999999907,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": -32,
+          "y": 0.04999997839331627,
+          "z": -13
+        },
+        "threat": {
+          "x": 7.810023784637451,
+          "y": 0.04999997839331627,
+          "z": 10
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 0,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.3999999761581421,
+          "samples": 405,
+          "median": 9.799999952316284,
+          "p95": 12.200000047683716,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": null,
+          "simulationMean": 0.1985185166935862,
+          "dropped": 0
+        }
+      },
+      "metrics": {
+        "stallsOver100ms": 0,
+        "simulationP95": 0.5,
+        "samples": 1252,
+        "median": 9.5,
+        "p95": 11.899999976158142,
+        "p99": 12.599999904632568,
+        "worst": 12.900000095367432,
+        "minRolling5sFPS": 103.86912490361202,
+        "simulationMean": 0.2019169350592092,
+        "dropped": 0
+      },
+      "snapshot": {
+        "hostile": {
+          "clip": "hostile_walk",
+          "frame": 16.564752896018234,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024534337874159304,
+                -0.00031083341487481137,
+                -0.0009604417299929114,
+                0.9996984841897727
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6695913721978823,
+                -0.3723712967661025,
+                -0.403318346250103,
+                0.5003212697908026
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.6968225300602029,
+                -0.0977936371855129,
+                -0.7074688991703949,
+                0.06604938501482431
+              ]
+            }
+          ]
+        },
+        "hero": {
+          "clip": "hero_walk",
+          "frame": 15.999243433755737,
+          "pose": [
+            {
+              "name": "Head",
+              "rotation": [
+                -0.024511861688737778,
+                -0.00027546981601064716,
+                -0.00013206196578311987,
+                0.9996995060142998
+              ]
+            },
+            {
+              "name": "UpperArm.R",
+              "rotation": [
+                -0.6726422223745856,
+                -0.3677769149383356,
+                -0.3985341404208393,
+                0.5034512992295189
+              ]
+            },
+            {
+              "name": "UpperLeg.L",
+              "rotation": [
+                0.69455725753933,
+                -0.11087846852979885,
+                -0.7062919307078507,
+                0.08029868264283485
+              ]
+            }
+          ]
+        },
+        "ambient": [
+          {
+            "id": "west-walker",
+            "position": {
+              "x": -30,
+              "y": 0.04999997839331627,
+              "z": -6.321760177612305
+            }
+          },
+          {
+            "id": "east-walker",
+            "position": {
+              "x": 28.793365478515625,
+              "y": 0.04999997839331627,
+              "z": 8.672167778015137
+            }
+          }
+        ],
+        "scene": "square",
+        "phase": "collecting",
+        "health": 100,
+        "stamina": 100,
+        "time": 52.133333333331656,
+        "bag": 0,
+        "recycled": 0,
+        "player": {
+          "x": 32,
+          "y": 0.04999997839331627,
+          "z": 8.999990463256836
+        },
+        "threat": {
+          "x": 2.8416106700897217,
+          "y": 0.04999997839331627,
+          "z": 9.886910438537598
+        },
+        "state": "patrol",
+        "suspicion": 0,
+        "lastSeen": null,
+        "hidden": false,
+        "paused": false,
+        "path": 1,
+        "pending": null,
+        "cutaways": [],
+        "renderGroups": [
+          {
+            "id": "srap",
+            "visible": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "id": "pavilions",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "north-pavilion",
+            "visible": [
+              true
+            ]
+          },
+          {
+            "id": "south-pavilion",
+            "visible": [
+              true
+            ]
+          }
+        ],
+        "resources": {
+          "skeletons": 2,
+          "animationGroups": 6,
+          "meshes": 259,
+          "materials": 146,
+          "navmeshes": 1,
+          "inputAdapters": 1,
+          "scenes": 1
+        },
+        "camera": {
+          "span": 64,
+          "alpha": -2.356194490192345,
+          "beta": 0.7853981633974483,
+          "target": [
+            0,
+            0,
+            2
+          ]
+        },
+        "drawingBuffer": [
+          1920,
+          1080
+        ],
+        "dpr": 1,
+        "renderer": {
+          "vendor": "Google Inc. (Intel)",
+          "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A78B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+        },
+        "diagnostics": {
+          "stallsOver100ms": 0,
+          "simulationP95": 0.5,
+          "samples": 5351,
+          "median": 9.699999928474426,
+          "p95": 12.100000023841858,
+          "p99": 12.699999928474426,
+          "worst": 30,
+          "minRolling5sFPS": 101.1595361855258,
+          "simulationMean": 0.1949168379519325,
+          "dropped": 0
+        }
+      },
+      "visibility": "visible",
+      "focused": true
+    }
+  ]
+}

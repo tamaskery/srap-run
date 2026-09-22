@@ -74,12 +74,13 @@ export function pavilionGeometry(w:Wall,roof:Wall){
  a.ellipse(w,[[1,.79],[1,1.02]],'#56605d');
 
  // Opaque curved glass panels meet the existing solid; every fourth bay is a
- // bronze service panel. Unequal wall axes retain the three pavilion proportions.
+ // bronze service panel. Two camera-readable bays form a recessed entrance.
+ // Unequal wall axes retain the three pavilion proportions.
  for(let i=0;i<32;i++){
   const t0=i*Math.PI/16,t1=(i+1)*Math.PI/16;
   const point=(t:number,y:number):Point=>[w.x+Math.cos(t)*(w.width/2+.012),y,w.z+Math.sin(t)*(w.depth/2+.012)];
-  const solid=i===6||i===7||i===22||i===23;
-  a.quad([point(t0,1.02),point(t1,1.02),point(t1,3.13),point(t0,3.13)],solid?'#887a63':i%3?'#dae0da':'#a7b8b6',solid?PLASTER:GLASS);
+  const solid=i===6||i===7||i===22||i===23,entrance=i===11||i===12;
+  a.quad([point(t0,1.02),point(t1,1.02),point(t1,3.13),point(t0,3.13)],solid?'#887a63':entrance?'#899a96':i%3?'#dae0da':'#a7b8b6',solid?PLASTER:GLASS);
   if(i%2===0){
    const [x,,z]=point(t0,0);a.box(x,1.94,z,.12,2.42,.12,'#a7a997');
   }
@@ -97,8 +98,10 @@ export function pavilionGeometry(w:Wall,roof:Wall){
 
 function facadeGeometry(b:Wall){
  const a=new ArchitectureBatch(),front=b.z-b.depth/2,commercial=b.height<6;
+ const south=b.id==='south-housing',north=b.id==='north-housing';
+ const cadence=south?4:north?5:3;
  // Only the housing and unbranded commercial shells visible in the slice.
- a.box(b.x,b.height/2,b.z,b.width+.035,b.height,b.depth+.035,b.id==='north-housing'?'#fff3d9':'#e7e8da',PLASTER);
+ a.box(b.x,b.height/2,b.z,b.width+.035,b.height,b.depth+.035,north?'#fff3d9':south?'#e8dfd1':'#d8ddd7',PLASTER);
  a.box(b.x,.43,b.z,b.width+.09,.86,b.depth+.09,'#777e78');
  a.box(b.x,b.height+.10,b.z,b.width,.18,b.depth,'#e1dfd2',FELT);
  for(let x=b.x-b.width/2+6;x<b.x+b.width/2;x+=6)
@@ -108,18 +111,20 @@ function facadeGeometry(b:Wall){
   a.box(b.x,b.height-.27,z,b.width+.12,.16,.18,'#9faaa2');
  }
  for(const x of [b.x-b.width/2,b.x+b.width/2])a.box(x,b.height+.26,b.z,.20,.34,b.depth,'#c9c8b8');
- const bays=Math.floor(b.width/3.2),step=b.width/bays;
+ const target=south?3.7:north?3.2:3.45,bays=Math.floor(b.width/target),step=b.width/bays;
  for(let bay=0;bay<bays;bay++){
-  const x=b.x-b.width/2+step*(bay+.5),balcony=!commercial&&(bay%5===1||bay%5===2);
-  if(bay%5===4)a.box(x,b.height/2,front-.07,step-.06,b.height-.6,.10,bay%2?'#c8c1ac':'#bbc3b9',PLASTER);
+  const x=b.x-b.width/2+step*(bay+.5),balcony=!commercial&&(bay%cadence===1||(north&&bay%cadence===2));
+  if(bay%cadence===cadence-1)a.box(x,b.height/2,front-.07,step-.06,b.height-.6,.10,south?'#c7b9a4':bay%2?'#c8c1ac':'#bbc3b9',PLASTER);
   for(let floor=0;floor<(commercial?1:3);floor++){
    const y=(commercial?1.7:1.45)+floor*2.55;
    if(y+1>b.height-.35)continue;
-   a.box(x,y,front-.11,1.86,1.88,.12,'#636e6a');
+   const windowWidth=south?1.56:commercial?1.98:1.86;
+   a.box(x,y,front-.11,windowWidth,1.88,.12,'#636e6a');
    const tone=['#d1d4c7','#ffffff','#e6ded0','#b9c8c5'][(bay+floor*3)%4];
    const window:Region=(bay+floor)%3===0?[WINDOW[2],WINDOW[1],WINDOW[0],WINDOW[3]]:WINDOW;
-   a.quad([[x-.84,y-.82,front-.18],[x+.84,y-.82,front-.18],[x+.84,y+.82,front-.18],[x-.84,y+.82,front-.18]],tone,commercial?GLASS:window);
-   a.box(x,y-.94,front-.22,2.02,.12,.38,'#d4d3c3');
+   const half=windowWidth/2-.09;
+   a.quad([[x-half,y-.82,front-.18],[x+half,y-.82,front-.18],[x+half,y+.82,front-.18],[x-half,y+.82,front-.18]],tone,commercial?GLASS:window);
+   a.box(x,y-.94,front-.22,windowWidth+.16,.12,.38,'#d4d3c3');
    if(balcony&&floor>0){
     a.box(x,y-.99,front-.52,2.38,.17,1.03,'#cdcbbb');
     a.box(x,y-.60,front-.99,2.25,.67,.10,'#7c8a86');
@@ -127,7 +132,7 @@ function facadeGeometry(b:Wall){
     for(const side of [-1,1])a.box(x+side*1.11,y-.61,front-.55,.08,.7,.85,'#89958c');
    }
   }
-  if(bay%5===4||(commercial&&bay===1)){
+  if(bay%cadence===cadence-1||(commercial&&bay===1)){
    a.box(x,1.22,front-.24,1.75,2.44,.10,'#344747',GLASS);
    a.box(x,2.58,front-.61,2.5,.13,1.15,'#abb6aa');
    a.box(x,.12,front-.42,2.4,.24,.68,'#929c92');
@@ -139,10 +144,12 @@ function facadeGeometry(b:Wall){
   if(y+.72>b.height-.5)continue;
   a.quad([[end,y-.72,z+.65],[end,y-.72,z-.65],[end,y+.72,z-.65],[end,y+.72,z+.65]],'#eef0e3',WINDOW);
  }
- for(const offset of [-.28,.22]){
+ const roofOffsets=south?[-.34,.27]:north?[-.28,.18]:[-.22,.24];
+ for(const [index,offset] of roofOffsets.entries()){
   const x=b.x+b.width*offset;
-  a.box(x,b.height+.44,b.z+.8,2.5,.72,1.5,'#8a9186');
-  a.box(x,b.height+.85,b.z+.8,2.72,.14,1.7,'#bac0b4');
+  const height=(index? .48:.62)+(commercial?-.12:0);
+  a.box(x,b.height+height/2+.08,b.z+.8,2.3+index*.35,height,1.35,'#8a9186');
+  a.box(x,b.height+height+.13,b.z+.8,2.5+index*.35,.12,1.55,'#bac0b4');
  }
  return a;
 }

@@ -89,6 +89,18 @@ export class WorldArt {
     p('machine-display', [26.4, 1.65, -20.24], [.21, .16, .03], '#9bb58a');
     p('machine-tray', [26, .52, -20.14], [1.2, .15, .34], '#586d66');
     this.sign('RETURN / 05', 25.9, 2.4, -21.6, 2.4, .6).rotation.y = 0;
+    // Shallow back-wall shelving adds aisle rhythm and product colour without
+    // creating a supermarket simulation or occupying the protected routes.
+    for(const [x,width] of [[4.2,6.2],[11.2,6.4],[17.9,5.8]] as const){
+      p('shelf-shadow',[x,1.35,-21.46],[width,2.45,.18],'#273432');
+      for(const y of [.46,1.12,1.78,2.42])p('shelf-edge',[x,y,-21.20],[width,.10,.52],'#59645e');
+      for(let i=0;i<Math.floor(width/.72);i++){
+        const tones=['#b46d4c','#d0b75f','#6c8d75','#c8c0a3'];
+        p('product-block',[x-width/2+.48+i*.72,.77+(i%3)*.64,-21.12],[.48,.38,.18],tones[(i+Math.round(x))%tones.length]);
+      }
+    }
+    p('recycling-stripe',[22.72,1.48,-14.5],[.06,1.85,4.45],'#398b79');
+    p('recycling-header',[22.64,2.18,-14.5],[.12,.34,3.5],'#d5cfb8');
     // Water and bronze seals; no transparency or water simulation.
     p('fountain-water', [-5, .57, 4], [5.4, .055, 5.4], '#648f8c', undefined, 'cylinder');
     for (const [x, y, z, scale] of [[-5.3, 1.65, 4, 1], [-4.6, 1.43, 4.1, .8]]) {
@@ -100,26 +112,61 @@ export class WorldArt {
       const ring = MeshBuilder.CreateTorus('water-ripple', { diameter: 2.8 + i * .8, thickness: .026, tessellation: 40 }, this.scene);
       ring.position.set(-5, .61, 4); ring.material = this.material('#a3bbb0'); ring.isPickable = false;
     }
-    // All foliage sits inside existing solid garden/hedge footprints.
-    for (const w of definition.walls.filter(w => /garden|grove|hedge|planter/.test(w.id) && !w.id.includes('wall') && w.x < 0)) {
-      const count = Math.max(2, Math.floor(w.width / 2));
-      for (let i = 0; i < count; i++) {
-        const x = w.x + (i / Math.max(1, count - 1) - .5) * Math.max(0, w.width - 2);
-        p('hedge-crown', [x, w.height, w.z], [Math.min(2.5, w.width), .9, Math.min(w.depth, 2.6)], i % 2 ? '#71804b' : '#556b43', undefined, 'ball');
+    // Three low-poly foliage families use clustered opaque crowns. Every cluster
+    // remains inside an existing solid planter/hedge footprint, so the richer
+    // silhouette never advertises new cover or changes navigation/LOS.
+    const crown = (name:string, x:number, y:number, z:number, sx:number, sy:number, sz:number, tone:number) =>
+      p(name, [x, y, z], [sx, sy, sz], ['#4e633f', '#657949', '#7f8d52'][tone % 3], undefined, 'ball');
+    const tree = (family:'broad'|'narrow', x:number, z:number, scale:number, phase:number) => {
+      p(`${family}-tree-trunk`, [x, 2.05 * scale, z], [.28 * scale, 4.1 * scale, .28 * scale], '#665741', undefined, 'cylinder');
+      if (family === 'narrow') {
+        for (let i = 0; i < 4; i++) crown('narrow-tree-crown', x + Math.sin(phase + i * 2.1) * .32, 3.25 + i * .72, z + Math.cos(phase + i * 1.7) * .22, 1.45 * scale, 1.7 * scale, 1.25 * scale, i + phase);
+      } else {
+        const clusters = [[0, 0, 0, 2.2, 1.65, 1.9], [-1.15, .18, .15, 1.55, 1.25, 1.45], [.95, .42, -.25, 1.65, 1.38, 1.5], [-.2, 1.05, .2, 1.65, 1.25, 1.55]];
+        for (let i = 0; i < clusters.length; i++) { const [dx,dy,dz,sx,sy,sz]=clusters[i]; crown('broad-tree-crown',x+dx*scale,4.45*scale+dy*scale,z+dz*scale,sx*scale,sy*scale,sz*scale,i+phase); }
       }
-      if (w.shape === 'ellipse') {
-        for (const side of [-1, 1]) {
-          for (let i = 0; i < 3; i++) {
-            p('garden-shrub', [w.x + (i - 1) * w.width * .23, w.height - .2, w.z + side * w.depth * .2], [w.width * .42, 1.35, w.depth * .57], (i + side) % 2 ? '#6c814d' : '#576e44', undefined, 'ball');
-          }
-        }
-      }
+    };
+    const shrubPatch = (x:number, z:number, radius:number, phase:number) => {
+      for(let i=0;i<3;i++){const a=phase+i*2.15,r=radius*(i===2?.28:.52);crown('layered-shrub',x+Math.cos(a)*r,.72+(i%2)*.18,z+Math.sin(a)*r,radius*.72,.72+(i%2)*.16,radius*.62,i+phase);}
+    };
+    // West planter: a broad park-tree composition with visible lower trunk and
+    // layered planting. East authored gardens receive only infill within their
+    // existing solids, complementing rather than replacing the imported trees.
+    tree('broad', -33, 4, .78, 0);
+    shrubPatch(-33, 2.55, .72, 1); shrubPatch(-33, 5.55, .68, 2);
+    tree('narrow', 26.2, 6.1, .72, 1);
+    for(const [x,z,r,phase] of [[11.8,4.5,.72,0],[14.1,6.2,.68,1],[16.2,4.6,.7,2],[24.4,3.6,.72,1],[27.7,8.2,.7,2]] as const) shrubPatch(x,z,r,phase);
+    // Broken top rhythm on the long north hedge; individual crowns stay within
+    // its 1.2 m depth and preserve the existing continuous gameplay proxy.
+    for(let i=0;i<15;i++)crown('hedge-crown',6.7+i*1.32,1.72+(i%4===0?.18:0),14+(i%2?.08:-.08),.82+(i%3)*.08,.72+(i%4)*.06,.52,i);
+    // A compact shared streetscape set punctuates long paving runs. Placement
+    // hugs walls, planting or the perimeter and stays clear of bottles, entries,
+    // patrol crossings and the pavilion cutaway footprints.
+    const oriented = (name:string,x:number,y:number,z:number,w:number,h:number,d:number,color:string,angle=0) => {
+      const m=p(name,[x,y,z],[w,h,d],color);m.rotation.y=angle;return m;
+    };
+    const bench=(x:number,z:number,angle=0)=>{
+      oriented('bench-seat',x,.48,z,2.35,.14,.58,'#80684d',angle);
+      oriented('bench-back',x,.91,z+.34*Math.cos(angle),2.35,.68,.12,'#80684d',angle);
+      for(const side of [-.82,.82])oriented('bench-leg',x+side*Math.cos(angle),.24,z-side*Math.sin(angle),.11,.46,.48,'#414b48',angle);
+    };
+    const bin=(x:number,z:number)=>{p('street-bin',[x,.47,z],[.48,.82,.48],'#465652');p('street-bin-cap',[x,.92,z],[.56,.12,.56],'#9b927b');p('street-bin-slot',[x,.71,z-.25],[.28,.15,.035],'#202c2b');};
+    bench(7.4,12.1);bin(9,12.2);
+    bench(-16.2,16.8);bin(-14.6,16.8);
+    bench(29.7,10.9,Math.PI/2);bin(29.7,9.3);
+    // SRAP bicycle stands and threshold bollards are deliberately off-axis from
+    // the door opening. Coarse geometry remains readable without subpixel bars.
+    for(let i=0;i<3;i++){
+      const x=27.7+i*.72;
+      p('cycle-rack-leg',[x,.27,-10.72],[.08,.54,.08],'#697673');
+      p('cycle-rack-rail',[x,.57,-10.72],[.08,.08,.72],'#89938c');
     }
-    for (const [x, z, scale] of [[-33, 4, .7]]) {
-      p('tree-trunk', [x, 2, z], [.33, 4, .33], '#76634b', undefined, 'cylinder');
-      p('tree-crown', [x, 4.7, z], [3.9 * scale, 3.3 * scale, 3.5 * scale], '#5b7046', undefined, 'ball');
-      p('tree-crown-light', [x - .6, 5.65, z - .3], [2.9 * scale, 2 * scale, 2.7 * scale], '#7c8c50', undefined, 'ball');
-    }
+    for(const x of [16.2,21.8]){p('entry-bollard',[x,.48,-10.78],[.22,.86,.22],'#4b5753','srap','cylinder');p('entry-bollard-cap',[x,.94,-10.78],[.28,.10,.28],'#b6ae96','srap','cylinder');}
+    // One civic information board anchors the northern edge without implying an
+    // interaction. Its back faces the road and its feet sit outside main travel.
+    for(const x of [-1.05,1.05])p('info-board-post',[2+x,1.05,17.7],[.10,2.1,.10],'#44524f');
+    p('info-board',[2,1.55,17.68],[2.45,1.25,.14],'#64716a');
+    p('info-board-face',[2,1.58,17.58],[2.15,.92,.025],'#c8c2a9');
     for (const [x, z] of [[-38, -16], [-38, 17], [38, 17], [38, -15]]) {
       p('lamp-post', [x, 2.2, z], [.12, 4.4, .12], '#485b50');
       p('lamp-collar', [x, .22, z], [.32, .44, .32], '#485b50');
