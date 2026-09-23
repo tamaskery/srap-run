@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-M6 ambient-life pass on branch `codex/m6-ambient-life`, based on accepted M5 (`d603f8c`). G6 (`63a0ff0`) is the frozen production visual baseline. G7-G10 were rejected visual investigations; their evidence is not roadmap work.
+V1 release candidate verified on branch `codex/m6-ambient-life` at game commit `5d680c8`. See `docs/releases/V1_RELEASE.md` for gate evidence and the `dist/` production distributable. G6 (`63a0ff0`) is the frozen production visual baseline. G7-G10 were rejected visual investigations; their evidence is not roadmap work.
 
 Do not reopen the visual architecture, replace G6 art, change camera projection or scale, or repeat those experiments unless explicitly requested.
 
