@@ -1,5 +1,30 @@
 import { expect, test } from '@playwright/test';
 
+test('WASD and arrows move in their on-screen directions', async ({ page }) => {
+  await page.goto('/?debug&scene=square&deterministic');
+  await page.waitForFunction(() => !!(window as any).__m0);
+  const directions = [
+    ['KeyW', 0, -1], ['KeyA', -1, 0], ['KeyS', 0, 1], ['KeyD', 1, 0],
+    ['ArrowUp', 0, -1], ['ArrowLeft', -1, 0], ['ArrowDown', 0, 1], ['ArrowRight', 1, 0],
+  ] as const;
+  for (const [key, dx, dy] of directions) {
+    const before = await page.evaluate(() => {
+      const m = (window as any).__m0;
+      m.pause(false);
+      m.place('threat', { x: 36, y: 0, z: -22 });
+      m.place('player', { x: -5, y: 0, z: 14 });
+      const p = m.snapshot().player;
+      return m.screen({ ...p, y: 0 });
+    });
+    await page.keyboard.down(key);
+    const player = await page.evaluate(() => (window as any).__m0.advance(30).player);
+    await page.keyboard.up(key);
+    const after = await page.evaluate(p => (window as any).__m0.screen({ ...p, y: 0 }), player);
+    if (dx) expect((after.x - before.x) * dx, key).toBeGreaterThan(5);
+    if (dy) expect((after.y - before.y) * dy, key).toBeGreaterThan(5);
+  }
+});
+
 test('M4 square: doorway keys, obstacle routes, stop/cancel, recenter and smaller viewport', async ({ page }) => {
   await page.setViewportSize({ width: 1366, height: 768 });
   const errors: string[] = [];
@@ -28,16 +53,16 @@ test('M4 square: doorway keys, obstacle routes, stop/cancel, recenter and smalle
   // Pavilions, fountain contour, crossing cover and the road-side walk.
   for (const [x,z] of [[-30,4],[-31,14],[-15,2],[-10,4],[-5,9],[0,4],[-5,-1],[3,-1.5],[7,1],[8,18],[32,18],[32,11],[31,-5],[19,-10]]) await travel(x,z);
   // Camera-relative diagonals produce world -Z through the actual SRAP doorway.
-  await page.keyboard.down('KeyS'); await page.keyboard.down('KeyD');
-  await advance(120); await page.keyboard.up('KeyS'); await page.keyboard.up('KeyD');
+  await page.keyboard.down('KeyS'); await page.keyboard.down('KeyA');
+  await advance(120); await page.keyboard.up('KeyS'); await page.keyboard.up('KeyA');
   expect(Math.abs((await snap()).player.z + 15)).toBeLessThan(.3);
   expect(Math.abs((await snap()).player.x - 19)).toBeLessThan(.3);
-  await page.keyboard.down('ArrowUp'); await page.keyboard.down('ArrowLeft');
-  await advance(120); await page.keyboard.up('ArrowUp'); await page.keyboard.up('ArrowLeft');
+  await page.keyboard.down('ArrowUp'); await page.keyboard.down('ArrowRight');
+  await advance(120); await page.keyboard.up('ArrowUp'); await page.keyboard.up('ArrowRight');
   expect(Math.abs((await snap()).player.z + 10)).toBeLessThan(.3);
   await travel(19,-15); await travel(19,-19); await travel(2,-16.5);
-  await page.keyboard.down('KeyA'); await page.keyboard.down('KeyS');
-  await advance(120); await page.keyboard.up('KeyA'); await page.keyboard.up('KeyS');
+  await page.keyboard.down('KeyD'); await page.keyboard.down('KeyS');
+  await advance(120); await page.keyboard.up('KeyD'); await page.keyboard.up('KeyS');
   expect(Math.abs((await snap()).player.x + 3)).toBeLessThan(.3);
   await travel(2,-16.5); await travel(19,-19);
   await page.screenshot({ path: 'test-results/m4-small-interior.png' });

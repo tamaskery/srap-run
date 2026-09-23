@@ -42,16 +42,16 @@ test('M2 alternate five: cover, keyboard doorway, interior interaction, ambient 
   expect((await advance(1)).phase).toBe('collecting');
   expect((await snapshot()).bag).toBe(2);
   await travel(19, -15);
-  // W+A follows world +z with this fixed camera: walk out the front doorway.
-  await page.keyboard.down('KeyW'); await page.keyboard.down('KeyA');
+  // W+D follows world +z with this fixed camera: walk out the front doorway.
+  await page.keyboard.down('KeyW'); await page.keyboard.down('KeyD');
   await advance(120);
-  await page.keyboard.up('KeyW'); await page.keyboard.up('KeyA');
+  await page.keyboard.up('KeyW'); await page.keyboard.up('KeyD');
   let s = await snapshot();
   expect(Math.abs(s.player.x - 19)).toBeLessThan(.3); expect(s.player.z).toBeGreaterThan(-11);
   // Return across the same opening using keyboard before leaving with a click.
-  await page.keyboard.down('KeyS'); await page.keyboard.down('KeyD');
+  await page.keyboard.down('KeyS'); await page.keyboard.down('KeyA');
   await advance(120);
-  await page.keyboard.up('KeyS'); await page.keyboard.up('KeyD');
+  await page.keyboard.up('KeyS'); await page.keyboard.up('KeyA');
   expect((await snapshot()).player.z).toBeLessThan(-14);
   await travel(19, -10);
   await travel(31, -5, true);

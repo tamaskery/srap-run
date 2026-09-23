@@ -130,15 +130,13 @@ export class WorldArt {
       for(let i=0;i<3;i++){const a=phase+i*2.15,r=radius*(i===2?.28:.52);crown('layered-shrub',x+Math.cos(a)*r,.72+(i%2)*.18,z+Math.sin(a)*r,radius*.72,.72+(i%2)*.16,radius*.62,i+phase);}
     };
     // West planter: a broad park-tree composition with visible lower trunk and
-    // layered planting. East authored gardens receive only infill within their
-    // existing solids, complementing rather than replacing the imported trees.
+    // layered planting. The relocated gardens receive infill inside their solids.
     tree('broad', -33, 4, .78, 0);
     shrubPatch(-33, 2.55, .72, 1); shrubPatch(-33, 5.55, .68, 2);
-    tree('narrow', 26.2, 6.1, .72, 1);
-    for(const [x,z,r,phase] of [[11.8,4.5,.72,0],[14.1,6.2,.68,1],[16.2,4.6,.7,2],[24.4,3.6,.72,1],[27.7,8.2,.7,2]] as const) shrubPatch(x,z,r,phase);
-    // Broken top rhythm on the long north hedge; individual crowns stay within
-    // its 1.2 m depth and preserve the existing continuous gameplay proxy.
-    for(let i=0;i<15;i++)crown('hedge-crown',6.7+i*1.32,1.72+(i%4===0?.18:0),14+(i%2?.08:-.08),.82+(i%3)*.08,.72+(i%4)*.06,.52,i);
+    tree('narrow', -22.8, 9.1, .72, 1);
+    for(const [x,z,r,phase] of [[-24.2,-3.5,.72,0],[-21.9,-1.8,.68,1],[-19.8,-3.4,.7,2],[-24.6,6.6,.72,1],[-21.3,11.2,.7,2]] as const) shrubPatch(x,z,r,phase);
+    // Broken top rhythm on the relocated hedge stays within its solid proxy.
+    for(let i=0;i<15;i++)crown('hedge-crown',-18.3+i*1.32,1.72+(i%4===0?.18:0),-9+(i%2?.08:-.08),.82+(i%3)*.08,.72+(i%4)*.06,.52,i);
     // A compact shared streetscape set punctuates long paving runs. Placement
     // hugs walls, planting or the perimeter and stays clear of bottles, entries,
     // patrol crossings and the pavilion cutaway footprints.

@@ -72,12 +72,11 @@ test('production mission: escape, recycling, success, failure and fresh replay',
   await page.mouse.down({button:'middle'}); await page.mouse.move(900, 500); await page.mouse.up({button:'middle'}); await advance(0);
   await travel(-30, 4);
   expect((await advance(1)).hidden).toBe(true);
-  expect((await snapshot()).cutaways).toContain('pavilions');
   // Render cutaways must retain solid navigation and LOS blockers.
   const solid = await page.evaluate(() => {
     const m = (window as any).__m0;
-    return { rejected: !m.command({ x: -22, y: 0, z: -3 }),
-      blocked: !m.los({ x: -29, y: 0, z: -3 }, { x: -15, y: 0, z: -3 }) };
+    return { rejected: !m.command({ x: 14, y: 0, z: 5 }),
+      blocked: !m.los({ x: 7, y: 0, z: 5 }, { x: 21, y: 0, z: 5 }) };
   });
   expect(solid).toEqual({ rejected: true, blocked: true });
   await travel(-31, 11, true);
@@ -85,12 +84,12 @@ test('production mission: escape, recycling, success, failure and fresh replay',
   expect((await snapshot()).phase).toBe('collecting');
   await travel(-15, 2, true);
   await travel(-5, 9, true);
-  // Expose the player on the patrol crossing, then use the eastern shelter.
+  // Expose the player on the patrol crossing, then use the relocated hedge shelter.
   await travel(2, 9);
   for (let i = 0; i < 100 && !states.has('chase'); i++) await advance(15);
   expect(states.has('chase')).toBe(true);
   await page.keyboard.down('ShiftLeft');
-  await travel(19, 11);
+  await travel(-9, -6.5);
   await page.keyboard.up('ShiftLeft');
   for (let i = 0; i < 100 && (await snapshot()).state !== 'patrol'; i++) await advance(30);
   expect(states.has('search')).toBe(true);

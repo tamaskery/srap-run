@@ -31,7 +31,7 @@ export class PresentationCamera {
  }
  axes(x:number,z:number):Vec{
   const f=this.camera.getForwardRay().direction;const n=Math.hypot(f.x,f.z);
-  return {x:(f.z*x+f.x*z)/n,y:0,z:(-f.x*x+f.z*z)/n};
+  return {x:(-f.z*x+f.x*z)/n,y:0,z:(f.x*x+f.z*z)/n};
  }
  pan(dx:number,dy:number){const d=this.axes(-dx,dy/Math.cos(Math.PI/4));const scale=this.span/this.engine.getRenderHeight();this.target.addInPlace(new Vector3(d.x*scale,0,d.z*scale));this.update();}
  zoom(delta:number){this.span=Math.max(15,Math.min(this.config?.maxSpan??35,this.span+delta*.02));this.update();}

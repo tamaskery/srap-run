@@ -126,7 +126,7 @@ for x in (4,28):
     for j in range(6):box('fixed:drain slots',(x-.45+j*.18,.087,-23.2),(.055,.008,.24),soil,0)
 
 # Two planted footprints, matched to authoritative ellipses; irregular crowns remain inside them.
-for index,(cx,cz,w,d,h) in enumerate([(14,5,8,5,1.8),(26,6,6,8,2)]):
+for index,(cx,cz,w,d,h) in enumerate([(-22,-3,8,5,1.8),(-23,9,6,8,2)]):
     for i in range(40):
         a=i*math.tau/40;b=(i+1)*math.tau/40
         o=mesh('fixed:planter coping',[(cx+math.cos(t)*(w/2+off),y,cz+math.sin(t)*(d/2+off)) for y,off in [(h+.03,-.20),(h+.03,0),(h-.15,0)] for t in (a,b)],[(0,1,3,2),(2,3,5,4)],trim)
@@ -135,7 +135,7 @@ for index,(cx,cz,w,d,h) in enumerate([(14,5,8,5,1.8),(26,6,6,8,2)]):
         crown('fixed:shrub',(cx+math.cos(a)*radius*(w/2-.7),h+.1,cz+math.sin(a)*radius*(d/2-.7)),(.65,.45,.6),i+index*30)
 
 # One deciduous family, two asymmetric compositions at the existing tree anchors.
-for ti,(cx,cz,sc) in enumerate([(13,5,1),(26,6,1.1)]):
+for ti,(cx,cz,sc) in enumerate([(-23,-3,1),(-23,9,1.1)]):
     rod('fixed:trunk',(cx,0,cz),(cx+.18,6.4*sc,cz-.12),.22,.10,bark)
     for i in range(7):
         a=i*2.399+ti;length=1.15 if i<5 else .65;y=5.8+(i%3)*.87
@@ -143,8 +143,8 @@ for ti,(cx,cz,sc) in enumerate([(13,5,1),(26,6,1.1)]):
         rod('fixed:branch',(cx+.1,2.7,cz),end,.09,.025,bark)
         crown('fixed:tree',end,(1.18*sc,1.65*sc,1.10*sc),100+ti*10+i)
 
-# North hedge is the same hiding mass, with an authored broken top edge.
-for i in range(24):crown('fixed:hedge',(6.45+i*.82,1.8,14),(.52,.38,.53),230+i)
+# Relocated hedge keeps the same hiding mass and broken top edge.
+for i in range(24):crown('fixed:hedge',(-18.55+i*.82,1.8,-9),(.52,.38,.53),230+i)
 
 # Existing benches remain on their solid ledges; no furnishing blocks new routes.
 for x,z in [(11,-7),(3,0)]:

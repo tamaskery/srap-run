@@ -32,11 +32,13 @@ The script is deterministic and has no network access. Source textures and
 Blender masters stay outside the public bundle.
 
 Final export: 22,710 triangles, 20 meshes / 22 primitives, 15 material families,
-four embedded images (one 1024-square JPEG, three 512-square PNGs), 2,633,216 bytes.
+four embedded images (one 1024-square JPEG, three 512-square PNGs), 2,632,748 bytes.
 Approximate colour texture storage with mipmaps: 9.33 MiB RGBA8. Court material
 wrappers are converted to the existing StandardMaterial path; textures are loaded
 without PBR's GPU sRGB decode. Unused imported PBR wrappers are disposed.
 
-SHA-256 court.glb: `f5e4501e26678dbd91878dfda569481431366fb2f246d4fe4a40972e59765e42`.
+SHA-256 court.glb: `58da37a9b71dde7c7c36b3a5fb4b3fc61888d125b167eae391d8165cf6acc939`.
+The planting geometry was relocated with the pavilion/garden layout correction;
+the texture source and license remain unchanged.
 The G2 runtime court remains available as a historical asset; the normal game
 loads only G3 court, the unchanged G1 hero, and the unchanged G2 watcher.

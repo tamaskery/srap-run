@@ -13,6 +13,11 @@ Do not reopen the visual architecture, replace G6 art, change camera projection 
 - Preserve map and playable geometry, bottle positions, entrances, navigation, LOS/hiding, hostile chase/damage, fixed orthographic camera and G6 art.
 - Square gameplay data belongs in `square.ts`; presentation belongs in `art.ts`, `slice.ts`, `architecture.ts` and `presentation.ts`.
 
+## Current layout and controls correction
+
+The user identified the pavilion/garden location mixup in G6 and requested regular screen-relative WASD. Three pavilion solids, roofs, and cutaway zones are now in the former northeast planting area; two planted islands and the hedge occupy the former pavilion area. G3 source geometry and G6 foliage follow the new planting positions. W/A/S/D and arrow keys now project up/left/down/right on screen. This is the explicit, bounded exception to the frozen G6 layout. Bottle positions, SRAP entrances, mission rules, and camera projection stay as before.
+Verified with production build/typecheck, 14 focused unit tests, eight-direction browser movement check, pavilion cutaways, both doorway/navigation scenarios, and the full mission/replay browser scenario in Chrome. The existing bundle-size warning remains.
+
 ## Verified baseline
 
 G6 build/typecheck, focused unit/asset checks, full mission and replay, cutaways, navigation and performance comparisons passed at `63a0ff0`. Matched G5/G6 frame times were essentially unchanged, with no stalls or dropped steps in the documented segments. See `docs/art/g6` and `scripts/g6-performance.mjs` for reproducible evidence.
