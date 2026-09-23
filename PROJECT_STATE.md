@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-M5 game-feel pass on branch `codex/m5-game-feel`. G6 (`63a0ff0`) is the accepted production visual baseline. G7-G10 were experimental visual investigations and are rejected for production. They tested additional procedural/detail passes, surface and material authoring, hybrid/2.5D work, generated-image assets, and authored Blender 3D assets. None improved the whole frame enough at the existing span-64 gameplay scale to justify rollout. Their evidence may remain documented, but is not roadmap work.
+M6 ambient-life pass on branch `codex/m6-ambient-life`, based on accepted M5 (`d603f8c`). G6 (`63a0ff0`) is the frozen production visual baseline. G7-G10 were rejected visual investigations; their evidence is not roadmap work.
 
 Do not reopen the visual architecture, replace G6 art, change camera projection or scale, or repeat those experiments unless explicitly requested.
 
@@ -20,3 +20,10 @@ G6 build/typecheck, focused unit/asset checks, full mission and replay, cutaways
 ## M5 checkpoint
 
 Original synthesized traffic, transport and bird cues share one low-volume city bed and per-run audio ownership. Pickup and recycling confirmations, suspicion cue and objective status improve mission feedback. No art assets, gameplay rules, actor counts or external audio changed. Production build/typecheck, 17 focused unit tests, M5 browser check and complete mission browser test passed in Chrome, including pause/mute, replay cleanup and zero page errors. A bounded four-second Intel UHD browser check with audio unlocked recorded 259 meshes, two civilians, 11.9 ms median frame time, zero >100 ms stalls and zero dropped steps. Existing build-size warning remains.
+
+## M6 checkpoint
+
+Three civilian silhouettes now use ordinary clothing and accessories on authored safe routes; the single rigged threat and hero are unchanged. Four small decorative pigeons peck, drift and scatter from the player, with no nav, LOS, interaction or damage authority. All new geometry is original code in `src/art.ts` and `src/ambient-life.ts`; no external assets or dependencies. Scooter and visual traffic were deferred as lower-return additions.
+
+A sequential 1280x720 Intel UHD Chrome sanity pair, audio unlocked, measured M5/M6 medians 6.2/6.5 ms and p95 7.6/7.8 ms over four seconds each. M6 has 282 meshes versus M5's 259, with zero >100 ms stalls and dropped steps in both samples. See `docs/art/m6/README.md` for provenance and scope.
+Production build/typecheck, 24 focused unit tests, full square mission, M5 audio/mute and M6 pause/replay browser checks passed with zero page errors. The existing Vite bundle-size warning remains.

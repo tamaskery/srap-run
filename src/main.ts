@@ -24,6 +24,7 @@ import {InputAdapter,type InputAction} from './input';
 import {PresentationCamera} from './camera';
 import {FixedClock,Diagnostics} from './timing';
 import {MissionHUD} from './presentation';
+import {PigeonFlock} from './ambient-life';
 import './style.css';
 const canvas=document.querySelector<HTMLCanvasElement>('#world')!;
 const hud=document.querySelector<HTMLDivElement>('#hud')!;
@@ -50,6 +51,7 @@ class SceneRuntime {
  hero!:Hero;
  hostile?:Hostile;
  readonly ambient:{walker:AmbientWalker;mesh:Mesh;previous:Vec}[]=[];
+ pigeons?:PigeonFlock;
  readonly itemMeshes=new Map<string,Mesh>();
  readonly owned=new AbortController();
  nav!:NavigationService;
@@ -134,9 +136,11 @@ class SceneRuntime {
   shadows.addShadowCaster(this.playerMesh,true);shadows.addShadowCaster(this.threatMesh,true);
   for(const actor of this.definition.ambient??[]){
    const walker=new AmbientWalker(this.nav,actor.path,actor.speed);
-   const mesh=this.art.character(actor.id,'civilian',actor.color);shadows.addShadowCaster(mesh,true);
+   const mesh=this.art.character(actor.id,'civilian',actor.color,actor.appearance);
+   if(this.ambient.length<2)shadows.addShadowCaster(mesh,true);
    this.ambient.push({walker,mesh,previous:{...walker.position}});
   }
+  if(this.definition.pigeons?.length)this.pigeons=new PigeonFlock(this.scene,this.art,this.definition.pigeons);
   const conePoints=[Vector3.Zero(),...Array.from({length:17},(_,i)=>{const a=-Math.PI/4+i*Math.PI/32;return new Vector3(Math.sin(a)*8,0,Math.cos(a)*8);}),Vector3.Zero()];
   this.cone=MeshBuilder.CreateLines('detection cone',{points:conePoints},this.scene);(this.cone as any).color=Color3.FromHexString('#efb564');this.cone.isPickable=false;
   this.previousPlayer={...this.player.position};this.previousThreat={...this.threat.position};
@@ -182,6 +186,7 @@ class SceneRuntime {
   this.previousPlayer={...this.player.position};this.previousThreat={...this.threat.position};
   this.run.tick(dt);this.player.step(dt);
   for(const actor of this.ambient){actor.previous={...actor.walker.position};actor.walker.step(dt);}
+  this.pigeons?.step(dt,this.player.position);
   this.hidden=!this.player.moving&&!this.player.sprinting&&this.definition.zones.some(z=>z.kind==='hiding'&&inside(this.player.position,z));
   this.threat.step(dt,this.player.position,this.hidden,this.los);
   const pending=this.player.pendingInteraction;
@@ -249,7 +254,7 @@ class SceneRuntime {
   const objective=this.run.phase==='collecting'?(this.run.bagCount<this.run.requiredBottles?`Collect bottles: ${this.run.bagCount}/${this.run.requiredBottles} · ${this.definition.items.length} bottles in the square`:(mission?.recycleObjective??'Recycle your bottles')):this.run.phase==='exiting'?(mission?.exitObjective??'Reach the exit'):(this.run.phase==='success'?'MISSION COMPLETE':'CAUGHT · RUN FAILED');
   this.presentation?.update({run:this.run,threat:this.threat.state,suspicion:this.threat.suspicion,paused:this.paused,hidden:this.hidden,objective,message:this.message,near:near?.id,moving:this.player.moving,interior:this.hiddenGroups.has('srap')});
  }
- snapshot(){return {hostile:this.hostile?.snapshot(),hero:this.hero.snapshot(),ambient:this.ambient.map(a=>({id:a.mesh.name,position:{...a.walker.position}})),scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{skeletons:this.scene.skeletons.length,animationGroups:this.scene.animationGroups.length,meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
+ snapshot(){return {hostile:this.hostile?.snapshot(),hero:this.hero.snapshot(),ambient:this.ambient.map(a=>({id:a.mesh.name,appearance:a.mesh.metadata.appearance,position:{...a.walker.position}})),pigeons:this.pigeons?.snapshot()??[],scene:this.definition.id,phase:this.run.phase,health:this.run.health,stamina:this.run.stamina,time:this.run.activeTime,bag:this.run.bagCount,recycled:this.run.recycledCount,player:{...this.player.position},threat:{...this.threat.position},state:this.threat.state,suspicion:this.threat.suspicion,lastSeen:this.threat.lastSeen,hidden:this.hidden,paused:this.paused,path:this.player.path.length,pending:this.player.pendingInteraction,cutaways:[...this.hiddenGroups],renderGroups:[...this.renderGroups].map(([id,meshes])=>({id,visible:meshes.map(m=>m.isVisible)})),resources:{skeletons:this.scene.skeletons.length,animationGroups:this.scene.animationGroups.length,meshes:this.scene.meshes.length,materials:this.scene.materials.length,navmeshes:NavigationService.activeInstances,inputAdapters:InputAdapter.activeAdapters,scenes:engine.scenes.length},camera:{span:this.camera.span,alpha:this.camera.camera.alpha,beta:this.camera.camera.beta,target:this.camera.camera.target.asArray()},drawingBuffer:[engine.getRenderWidth(),engine.getRenderHeight()],dpr:devicePixelRatio,renderer:engine.getGlInfo(),diagnostics:this.diagnostics.report(this.clock.dropped)};}
  dispose(){this.disposed=true;this.presentation?.dispose();this.owned.abort();this.input?.dispose();this.nav?.dispose();this.scene.dispose();}
 }
 // Keep the historical debug fixture available; ordinary launch opens the mission.

@@ -20,7 +20,8 @@ export interface SceneDefinition {
   readonly camera?: { readonly span: number; readonly maxSpan: number; readonly target: Vec; readonly alpha?: number };
   readonly mission?: { readonly requiredBottles: number; readonly briefing: string; readonly recycleObjective: string; readonly exitObjective: string };
   readonly details?: readonly Detail[];
-  readonly ambient?: readonly { readonly id: string; readonly color: string; readonly speed: number; readonly path: readonly Vec[] }[];
+  readonly ambient?: readonly { readonly id: string; readonly color: string; readonly appearance?: 'commuter' | 'shopper' | 'visitor'; readonly speed: number; readonly path: readonly Vec[] }[];
+  readonly pigeons?: readonly Vec[];
   readonly labels?: readonly { readonly text: string; readonly point: Vec }[];
 }
 
@@ -100,6 +101,7 @@ export function validateDefinition(scene: SceneDefinition): void {
   if (!scene.floors.length || !scene.patrol.length || !scene.items.length) fail('floor, patrol and item are required');
   point(scene.playerStart, 'player start'); point(scene.threatStart, 'threat start');
   scene.patrol.forEach((p, i) => point(p, `patrol ${i}`));
+  scene.pigeons?.forEach((p, i) => point(p, `pigeon ${i}`));
   const bounds = scene.cameraBounds;
   if (!Object.values(bounds).every(finite) || bounds.minX >= bounds.maxX || bounds.minZ >= bounds.maxZ) fail('invalid camera bounds');
   if (scene.mission && (!Number.isInteger(scene.mission.requiredBottles) || scene.mission.requiredBottles < 1 || scene.mission.requiredBottles > scene.items.length)) fail('invalid required bottle count');

@@ -110,7 +110,7 @@ export class AmbientWalker {
       this.path = this.nav.path(this.agent, this.points[this.leg]).map(copy);
     }
     follow(this.nav, this.agent, this.path, this.speed * dt);
-    if (!this.path.length) this.waiting = 1.5;
+    if (!this.path.length) this.waiting = .8 + ((this.leg * 7 + Math.abs(this.points[0].x)) % 4) * .25;
   }
 }
 

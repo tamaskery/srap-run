@@ -25,6 +25,18 @@ test('every bottle component keeps the same interaction target and hides with it
   bottle.setEnabled(false);
   expect(bottle.getChildMeshes().every(m => !m.isEnabled())).toBe(true);
 });
+test('civilian appearances use distinct accessories without pickable meshes', () => {
+  scene = new Scene(engine);
+  const art = new WorldArt(scene, new Map());
+  const variants = ['commuter', 'shopper', 'visitor'] as const;
+  const cues = ['backpack', 'bag', 'scarf'];
+  variants.forEach((appearance, index) => {
+    const actor = art.character(`civilian-${appearance}`, 'civilian', '#788285', appearance);
+    const children = actor.getChildMeshes();
+    expect(children.some(mesh => mesh.name.endsWith(`:${cues[index]}`))).toBe(true);
+    expect(children.every(mesh => !mesh.isPickable)).toBe(true);
+  });
+});
 test('the eight stable pickup IDs reuse exactly three shapes without moving targets',()=>{
   scene=new Scene(engine);const art=new WorldArt(scene,new Map());
   const ids=['arrival-bottle','pavilion-back-bottle','pavilion-shortcut-bottle','fountain-bottle','crossing-bottle','east-walk-bottle','garden-corner-bottle','south-walk-bottle'];

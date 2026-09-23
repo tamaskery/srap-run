@@ -92,9 +92,11 @@ export const SQUARE_SCENE: SceneDefinition = {
     { id: 'seal-two', x: -4.6, z: 4.1, width: .55, depth: 1.2, height: .8, elevation: 1, shape: 'ellipse', color: '#566b65' },
   ],
   ambient: [
-    { id: 'west-walker', color: '#747ab0', speed: 1.1, path: [{ x: -36, y: 0, z: -10 }, { x: -36, y: 0, z: 15 }, { x: -30, y: 0, z: 15 }, { x: -30, y: 0, z: -10 }] },
-    { id: 'east-walker', color: '#b58e55', speed: .9, path: [{ x: 34, y: 0, z: -6 }, { x: 34, y: 0, z: 17 }, { x: 24, y: 0, z: 17 }] },
+    { id: 'west-walker', appearance: 'commuter', color: '#687d91', speed: 1.1, path: [{ x: -36, y: 0, z: -10 }, { x: -36, y: 0, z: 15 }, { x: -30, y: 0, z: 15 }, { x: -30, y: 0, z: -10 }] },
+    { id: 'east-walker', appearance: 'shopper', color: '#a07852', speed: .9, path: [{ x: 34, y: 0, z: -6 }, { x: 34, y: 0, z: 17 }, { x: 24, y: 0, z: 17 }] },
+    { id: 'north-walker', appearance: 'visitor', color: '#7b856e', speed: 1, path: [{ x: -9, y: 0, z: 18 }, { x: 8, y: 0, z: 18 }, { x: 8, y: 0, z: 16 }, { x: -9, y: 0, z: 16 }] },
   ],
+  pigeons: [{ x: -13, y: 0, z: 13 }, { x: -12.2, y: 0, z: 13.6 }, { x: 5, y: 0, z: 13 }, { x: 5.8, y: 0, z: 13.7 }],
   labels: [
     { text: 'SRAP · ENTRANCE', point: { x: 19, y: 0, z: -11 } },
     { text: 'SIDE EXIT', point: { x: -1, y: 0, z: -16.5 } },

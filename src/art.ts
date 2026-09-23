@@ -192,34 +192,41 @@ export class WorldArt {
     }
     this.batches.clear();
   }
-  character(name: string, role: 'player' | 'hostile' | 'civilian', color?: string) {
+  character(name: string, role: 'player' | 'hostile' | 'civilian', color?: string, appearance: 'commuter' | 'shopper' | 'visitor' = 'commuter') {
     const root = new Mesh(name, this.scene); root.isPickable = false;
     const piece = (label: string, pos: number[], size: number[], tint: string, round = false) => {
       const m = (round ? this.ballTemplate : this.boxTemplate).clone(`${name}:${label}`)!;
       m.isVisible = true; m.isPickable = false; m.parent = root; m.position.set(...pos as [number, number, number]); m.scaling.set(...size as [number, number, number]); m.material = this.material(tint); return m;
     };
     const jacket = role === 'player' ? '#d8b66b' : role === 'hostile' ? '#594e48' : color ?? '#788285';
-    piece('coat', [0, .15, 0], [.64, .72, .38], jacket);
-    piece('head', [0, .77, .015], [.4, .45, .4], '#d1ad85', true);
+    const civilian = role === 'civilian';
+    const torso = civilian && appearance === 'shopper' ? [.72, .66, .43] : civilian && appearance === 'visitor' ? [.53, .91, .35] : [.64, .72, .38];
+    piece('coat', [0, .15, 0], torso, jacket);
+    const head = piece('head', [0, .77, .015], [.4, .45, .4], '#d1ad85', true);
     piece('hair', [0, .94, -.05], [.42, .14, .36], '#584a3d');
-    const legs = [-1, 1].map(side => piece('leg', [side * .17, -.49, 0], [.24, .62, .28], '#3e4c49'));
+    const trousers = civilian && appearance === 'shopper' ? '#4d5961' : civilian && appearance === 'visitor' ? '#514d46' : '#3e4c49';
+    const legs = [-1, 1].map(side => piece('leg', [side * .17, -.49, 0], [.24, .62, .28], trousers));
     const arms = [-1, 1].map(side => piece('arm', [side * .43, .08, 0], [.2, .66, .24], jacket));
     for (const side of [-1, 1]) piece('boot', [side * .17, -.82, .07], [.26, .18, .43], '#343d38');
     if (role === 'player') { piece('rucksack', [0, .25, -.3], [.5, .58, .22], '#667b70'); piece('scarf', [0, .48, .23], [.52, .15, .1], '#eee0b5'); }
     if (role === 'hostile') { piece('cap', [0, 1, .04], [.53, .16, .55], '#383f3a'); piece('armband', [-.44, .15, .01], [.22, .17, .27], '#ba6046'); piece('belt', [0, -.11, .04], [.67, .11, .4], '#282f2c'); }
+    if (civilian && appearance === 'commuter') { piece('backpack', [0, .2, -.3], [.54, .68, .24], '#394b57'); piece('cap', [0, 1.01, .03], [.47, .14, .48], '#384b58'); }
+    if (civilian && appearance === 'shopper') { piece('vest', [0, .23, .24], [.57, .52, .07], '#765943'); piece('bag', [.57, -.17, .04], [.29, .43, .3], '#c5b99a'); piece('bag-handle', [.57, .11, .04], [.07, .22, .07], '#93876b'); }
+    if (civilian && appearance === 'visitor') { piece('scarf', [0, .52, .2], [.52, .14, .1], '#c1c3ae'); piece('shoulder-bag', [-.43, -.16, -.1], [.29, .38, .24], '#626c53'); }
     const marker = MeshBuilder.CreateTorus(`${name}:foot-ring`, { diameter: role === 'player' ? 1.3 : 1.05, thickness: .055, tessellation: 24 }, this.scene);
     marker.parent = root; marker.position.y = -.86; marker.isPickable = false; marker.material = this.material(role === 'player' ? '#f3df98' : role === 'hostile' ? '#ba6046' : '#899380');
-    root.metadata = { legs, arms, phase: 0, moving: false };
+    root.metadata = { legs, arms, head, appearance, phase: [...name].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 11, moving: false };
     return root;
   }
   animate(mesh: Mesh, before: Vec, after: Vec, time: number, active: boolean) {
     const dx = after.x - before.x, dz = after.z - before.z;
     const moving = active && Math.hypot(dx, dz) > .0001;
     if (moving) mesh.rotation.y = Math.atan2(dx, dz);
-    const { legs, arms } = mesh.metadata as { legs: Mesh[]; arms: Mesh[] };
-    const stride = moving ? Math.sin(time * 11) * .55 : 0;
+    const { legs, arms, head, phase } = mesh.metadata as { legs: Mesh[]; arms: Mesh[]; head: Mesh; phase: number };
+    const stride = moving ? Math.sin(time * 11 + phase) * .55 : 0;
     legs.forEach((leg, i) => leg.rotation.x = stride * (i ? 1 : -1));
     arms.forEach((arm, i) => arm.rotation.x = stride * (i ? -1 : 1));
+    if (active) head.rotation.y = moving ? 0 : Math.sin(time * .8 + phase) * .17;
   }
   bottle(id: string, point: Vec) {
     const variants:Record<string,number>={'arrival-bottle':0,'pavilion-back-bottle':1,'pavilion-shortcut-bottle':2,'fountain-bottle':0,'crossing-bottle':1,'east-walk-bottle':2,'garden-corner-bottle':0,'south-walk-bottle':2};

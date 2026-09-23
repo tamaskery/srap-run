@@ -37,6 +37,6 @@ test('M5 feedback follows the five-bottle mission and audio is owned by each rep
   expect(await page.evaluate(()=>(window as any).__audioSources.stopped)).toBe(1);
   await page.keyboard.press('KeyQ');
   await expect.poll(()=>page.evaluate(()=>(window as any).__audioSources.started)).toBe(2);
-  expect(await page.evaluate(()=>(window as any).__m0.snapshot().ambient.length)).toBe(2);
+  expect(await page.evaluate(()=>(window as any).__m0.snapshot().ambient.length)).toBe(3);
   expect(errors).toEqual([]);
 });
